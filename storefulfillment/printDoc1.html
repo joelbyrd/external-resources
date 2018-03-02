@@ -622,7 +622,7 @@
             }
         </script>
 
-        <div class='pagewrap' style='overflow:visible;'>
+        <div class='pagewrap' style='overflow:hidden;'>
             <div class="txtfamily" style='width:7in; margin: 0 auto;  height:1in;'>
                 <div style="width:1.6in; height:.7in; border:none; float:left;">
                     <!-- logo -->
@@ -631,7 +631,7 @@
                 <div style="width:1.5in; height:.7in; float:left; margin-left:.1in;">
                     <b>KOP</b><br />
                     935 1st Ave<br />
-                    King of Prussia, PA 19406 1111111111111111
+                    King of Prussia, PA 19406 22222222222222
                 </div>
                 <div style="width:2.5in; height:.7in; float:left; margin-left:1.2in;">
                     <span>Shipping Order ID: MBAS1-03</span> <span style="padding-left:40px;"> Pg.1 of 1</span><br />
@@ -707,139 +707,455 @@
 
                 </div>
             </div>
-            <!-- height:4in; width:6in; margin: 0 auto;  margin-top:1in; overflow:hidden; border: 1pt solid red; -->
-            <!-- <div class="label-container" style ="height:4.1in; width:7in; margin-left: -.0625in; bottom:0;"> -->
             <div class="label" style="height:4in; width:6in; margin-top:1.589in; overflow:hidden; border:1pt solid white; margin-left: -.05in;">
                 <script type="text/javascript">
                     if ("1" == "1")
                         thisLabel.selectLabelType();
                 </script>
             </div>
-            <!-- </div> -->
         </div> <!-- pagewrap -->
         <!-- Page two:  Newgistics -->
-		<div class='pagewrap' style='overflow:visible;page-break-before: always;'>
+		<div class='pagewrap' style='overflow:hidden;page-break-before: always;'>
 			<div class="rotate90">
-            		<!-- * NEWGISTICS LABEL* -->
-					<script type="text/javascript">
-						// psCompanyCode - Default to UO. 1 = AN. For CoDivDept, 01 = AN/52, 02 = UO/51.
+        		<!-- * NEWGISTICS LABEL* -->
+				<script type="text/javascript">
+					// psCompanyCode - Default to UO. 1 = AN. For CoDivDept, 01 = AN/52, 02 = UO/51.
 
-						var codiv_dept = "«CoDivDept»";
-						codiv_dept = "02";
-						var returnBarcode = "«ReturnBarcode»";
-						var sortCode = "«SortCode»";
-						var ordernumber = "";
-						var codiv_dept = "02";
-						var returnBarcode = "\\42056901\\9202390101923408060805";
-						var sortCode = "V51";
-						var ordernumber = "Y108093434";
+					var codiv_dept = "«CoDivDept»";
+					codiv_dept = "02";
+					var returnBarcode = "«ReturnBarcode»";
+					var sortCode = "«SortCode»";
+					var ordernumber = "";
+					var codiv_dept = "02";
+					var returnBarcode = "\\42056901\\9202390101923408060805";
+					var sortCode = "V51";
+					var ordernumber = "Y108093434";
 
+					
+					var smartLabelFactory = new SmartLabel(ordernumber, codiv_dept, shortzip);
+					var smartLabel = smartLabelFactory.GetSmartLabel();
+
+					var hideLabel = false;
+					if ("«SortCode»".indexOf('HIDE') > -1)
+						hideLabel = true;
+
+					function printHuman(stringin) {
+						stringin = stringin.replace(/\\/g, "");
+						var sp = " ";
+						return stringin.substring(8, 12) + sp + stringin.substring(12, 16) + sp + stringin.substring(16, 20) +
+							sp + stringin.substring(20, 24) + sp + stringin.substring(24, 28) + sp + stringin.substring(28);
+					}
+
+					var coDivDept_ = "«CoDivDept»";
+					
+					// If on the first page, print label. Otherwise, do nothing.
+					
+					if (("1" == "1" || debug) && !smartLabel.HideNewgisticsSection())
+						document.write('<div class="newgisticswrapper">');
+					else 
+					{
+						//JOEL - commented out line
+						//document.write('<div class="newgisticswrapper hide">');
+					}
+				</script>
+				<div style="float:right;height:6.5in;width:0.75in;margin:0;padding:0;" >
+					<!-- top row wrapper -->
+					<div style="width:0.75in;height:5.4in;float:right;" class="ierot">
+						<!-- top row, left side -->
+						<div style="height:1.25in;width:0.55in;overflow:hidden;font-size:6pt;float:left;white-space:nowrap;">
+							<script>addressFormat(["«ShipToFName»&nbsp;«ShipToLName»","«ShipToName»","«ShipToStreet»","«ShipToRef1» «ShipToRef2»","Leakesville&nbsp;MS&nbsp;90001"]);</script>
+						</div>
+						<script>						
+							if (smartLabel.ShowLabelImage()){
+								document.write('<img src="/images/barcode.ashx?Code=' + smartLabel.LabelData + '&Type=128Auto&X=3&Y=0.5&rotate=true&round=1" style="width:0.5in;height:3in;float:left;margin:0;margin-top:0.05in;" alt="Invalid: missing SL barcode - ' + smartLabel.LabelData + '" />');
+							}
 						
-						var smartLabelFactory = new SmartLabel(ordernumber, codiv_dept, shortzip);
-						var smartLabel = smartLabelFactory.GetSmartLabel();
-
-						var hideLabel = false;
-						if ("«SortCode»".indexOf('HIDE') > -1)
-							hideLabel = true;
-
-						function printHuman(stringin) {
-							stringin = stringin.replace(/\\/g, "");
-							var sp = " ";
-							return stringin.substring(8, 12) + sp + stringin.substring(12, 16) + sp + stringin.substring(16, 20) +
-								sp + stringin.substring(20, 24) + sp + stringin.substring(24, 28) + sp + stringin.substring(28);
-						}
-
-						var coDivDept_ = "«CoDivDept»";
-						
-						// If on the first page, print label. Otherwise, do nothing.
-						
-						if (("1" == "1" || debug) && !smartLabel.HideNewgisticsSection())
-							document.write('<div class="newgisticswrapper">');
-						else 
-						{
-							
-							document.write('<div class="newgisticswrapper hide">');
-						}
-					</script>
-					<!--<div class="newgisticswrapper">--> <!-- width:2.18in;height:4.625in; -->
-					<div style="float:right;height:6.5in;width:0.75in;margin:0;padding:0;" >
-						<!-- top row wrapper -->
-						<div style="width:0.75in;height:5.4in;float:right;" class="ierot">
-							<!-- top row, left side -->
-							<div style="height:1.25in;width:0.55in;overflow:hidden;font-size:6pt;float:left;white-space:nowrap;">
-								<script>addressFormat(["«ShipToFName»&nbsp;«ShipToLName»","«ShipToName»","«ShipToStreet»","«ShipToRef1» «ShipToRef2»","Leakesville&nbsp;MS&nbsp;90001"]);</script>
-							</div>
-							<script>						
-								if (smartLabel.ShowLabelImage()){
-									document.write('<img src="/images/barcode.ashx?Code=' + smartLabel.LabelData + '&Type=128Auto&X=3&Y=0.5&rotate=true&round=1" style="width:0.5in;height:3in;float:left;margin:0;margin-top:0.05in;" alt="Invalid: missing SL barcode - ' + smartLabel.LabelData + '" />');
-								}
-							
-							</script>
-							<!-- <img src="packing/newgistlogo-rot.gif" style="width:0.2in;clear:both;float:left;" /> --> <!-- not required -->
-							<div style="float:left;margin-top:0.5in;font-size:8pt;">
-							<script>if (smartLabel.ShowLabelText()) { document.write(smartLabel.LabelData.toUpperCase()); }</script></div>
+						</script>
+						<div style="float:left;margin-top:0.5in;font-size:8pt;">
+						<script>if (smartLabel.ShowLabelText()) { document.write(smartLabel.LabelData.toUpperCase()); }</script></div>
+					</div>
+					<div style='width:0.8in;height:1in;float:right;text-align:center;margin:0px;overflow:hidden;' class='ierot'>
+						<!-- top row, right side -->
+						<div style='height:0.90in;border:solid black 3px;padding:.02in;line-height:1;font-size:6pt;'>
+							NO POSTAGE<br />
+							NECESSARY IF <br />
+							MAILED IN THE <br />
+							UNITED STATES
 						</div>
-						<div style='width:0.8in;height:1in;float:right;text-align:center;margin:0px;overflow:hidden;' class='ierot'>
-							<!-- top row, right side -->
-							<div style='height:0.90in;border:solid black 3px;padding:.02in;line-height:1;font-size:6pt;'>
-								NO POSTAGE<br />
-								NECESSARY IF <br />
-								MAILED IN THE <br />
-								UNITED STATES
-							</div>
-							<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
-							<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
-							<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
+						<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
+						<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
+						<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
+					</div>
+				</div><!-- end top row -->
+				<div style="float:right;height:6.5in;width:1.35in;margin-right:0.0in;">
+					<!-- bottom row wrapper -->
+					<div style="width:1.32in;height:4.5in;float:right;border-left:6px solid black;border-right:6px solid black;margin-right:-0.1in;" class="ierot">
+						<!-- bottom row, left side -->
+						<div style="float:left;margin-top:0.1in;font-size:12pt;height:4.26in;text-align:center;">USPS PARCEL RTN SVC</div>
+						<script>document.write('<img src="/images/barcode.ashx?Code=' + returnBarcode + '&Type=128C&X=4.25&Y=0.8&rotate=true&rounding=2" style="width:0.75in;height:4.25in;float:left;margin:0.1in;margin-top:0.05in;" alt="Invalid: missing RET barcode - ' + returnBarcode + '" />');</script>
+						<div style="float:left;margin-top:0.1in;font-size:10pt;height:4.25in;text-align:center;">
+						<script>document.write(printHuman(returnBarcode));</script></div>
+					</div>
+					<div style='width:1.35in;height:1.75in;float:right;text-align:center;margin:0px;overflow:hidden;margin-top:0.05in;' class='ierot'>
+						<!-- bottom row, right side -->
+						<div style='height:1.65in;border:solid black 3px;padding:.02in;line-height:1;font-size:9pt;font-weight:bold;'>
+							PARCEL SELECT RTN SVC<br /><!-- too close and font size too small -->
+							<span style="font-weight:normal;font-size:6pt;white-space:nowrap;font-family:Arial,sans-serif;">NEWGISTICS, INC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERMIT NO. 77000</span>
 						</div>
-					</div><!-- end top row -->
-					<div style="float:right;height:6.5in;width:1.35in;margin-right:0.0in;">
-						<!-- bottom row wrapper -->
-						<div style="width:1.32in;height:4.5in;float:right;border-left:6px solid black;border-right:6px solid black;margin-right:-0.1in;" class="ierot">
-							<!-- bottom row, left side -->
-							<div style="float:left;margin-top:0.1in;font-size:12pt;height:4.26in;text-align:center;">USPS PARCEL RTN SVC</div>
-							<script>document.write('<img src="/images/barcode.ashx?Code=' + returnBarcode + '&Type=128C&X=4.25&Y=0.8&rotate=true&rounding=2" style="width:0.75in;height:4.25in;float:left;margin:0.1in;margin-top:0.05in;" alt="Invalid: missing RET barcode - ' + returnBarcode + '" />');</script>
-							<div style="float:left;margin-top:0.1in;font-size:10pt;height:4.25in;text-align:center;">
-							<script>document.write(printHuman(returnBarcode));</script></div>
+						<div style='height:1.45in;padding:.02in;line-height:1;font-size:9pt;font-weight:bold;text-align:left;margin-top:0.1in;margin-right:0.05in;'>
+							SMARTLABEL RTN<br />
+							PARCEL RTN SVC<br /><!-- too small -->
 						</div>
-						<div style='width:1.35in;height:1.75in;float:right;text-align:center;margin:0px;overflow:hidden;margin-top:0.05in;' class='ierot'>
-							<!-- bottom row, right side -->
-							<div style='height:1.65in;border:solid black 3px;padding:.02in;line-height:1;font-size:9pt;font-weight:bold;'>
-								PARCEL SELECT RTN SVC<br /><!-- too close and font size too small -->
-								<span style="font-weight:normal;font-size:6pt;white-space:nowrap;font-family:Arial,sans-serif;">NEWGISTICS, INC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERMIT NO. 77000</span>
-							</div>
-							<div style='height:1.45in;padding:.02in;line-height:1;font-size:9pt;font-weight:bold;text-align:left;margin-top:0.1in;margin-right:0.05in;'>
-								SMARTLABEL RTN<br />
-								PARCEL RTN SVC<br /><!-- too small -->
-							</div>
-							<div style='height:1.45in;padding:.02in;line-height:.2;font-size:0.16in;font-weight:bold;text-align:left;margin-top:0.1in;margin-right:0.05in;'>
-								56901
-							</div>
-							<div style='font-size:17pt;border:solid black 4pt;height:0.48in;margin-top:0.5in;margin-right:0.05in;text-align:center;padding:.02in;;'>
-								<div style=''>
-								<script>document.write(sortCode);</script></div><!-- too small 2/16in -->
-							</div>
+						<div style='height:1.45in;padding:.02in;line-height:.2;font-size:0.16in;font-weight:bold;text-align:left;margin-top:0.1in;margin-right:0.05in;'>
+							56901
 						</div>
-					</div><!-- end bottom row -->
+						<div style='font-size:17pt;border:solid black 4pt;height:0.48in;margin-top:0.5in;margin-right:0.05in;text-align:center;padding:.02in;;'>
+							<div style=''>
+							<script>document.write(sortCode);</script></div><!-- too small 2/16in -->
+						</div>
+					</div>
+				</div><!-- end bottom row -->
 
-				</div><!-- end smart label -->
-			</div>
-			<!--<div>           
-                <div style="font-size:6pt;height:1in;float:left;">
-                    <br /><br />     
-                    <div style="width:100%;">Testing Engineer</div>
-                    <div style="width:100%; height:.11in;">555 epip phase</div>
-                    <div style="width:100%; height:.11in;">BLR area&nbsp;</div>
-                    <div style="width:100%;">Meens street</div>                 
-                </div>  
-                <div style="vertical-align:top;">
-                    <img src="/Printing/Packing/TEMP_NEWGISTICS_TOPRIGHT.png" />
-                </div> 
+			</div><!-- end smart label -->
+		</div>
+
+    
+
+        <script>
+			var shortzip = ""
+			// "«STZip»"; //5 digit zip.
+			if ("«ThisCarrier»".trim() == "USPS") {
+				shortzip = "«STZip»";
+			}
+			else {
+				shortzip = "90001";
+			}
+			shortzip = shortzip.trim();
+			shortzip = shortzip.substring(0, 5);
+            //pageBreak("1" != "1");
+            if (pageCounter != 1) {
+                pageBreak(true);
+            }
+			
+			
+			
+            pageCounter++;
+            //pageBreak("1" != "1");
+
+            console.log("host:" + location.protocol);
+
+            /*
+            UPS test : WCGB test: order G65154660001
+            fedex: A&F:  JAG00002
+            USPS: A&F 6074500
+            */
+            //Start of shipping label logic
+
+            var obj = { //non packslip-map data and static data first,
+                orientation: "R", //"P" for Portrait, "R" for right landscape, "L" for left landscape
+                carrier: "UPSN", //-
+                //carrier: 			"UPSN",
+                csPhone: "1-800-SHOPPRIO", //unique per client, must be in format of xxx-xxx-xxxx or xxx-xxxx
+                imgLocaton: location.protocol + "//" + document.domain.toString(), //hardcoded to /shared/assets?
+                barcodeLocation: location.protocol + "//" + document.domain.toString() + "/images",
+                orderNo: "MBAS1-03",
+                retailerPhone: "1-800-SHOPPRIO", //set per client, formatted via JS
+                returnToAddress: ["<b>PRIO.COM</b>", "935 1st Ave", "Pillar 216", "King of Prussia, PA 19406"], //or define your own
+                shipAlias: "", //for use on packslip/newgistics, not used in carrier
+                shipMethod: "UPS OVERNIGHT",
+                shipMethodDesc: "UPS OVERNIGHT",
+                shipTo: ["«ShipToFName» «ShipToLName»", "«ShipToName»", "«ShipToStreet»", "«ShipToRef1»", "«ShipToRef2»", "Leakesville MS 90001", ""],
+                trackingNumber: "1ZABCUPS0100001782",
+                weight: "2",
+                webOrderNo: " <br/> Phone: " + formatPhoneNumber("987-456-1230"),
+                fedexData: {
+                    //missing: CustomerName, shipDate, Hindicator,
+                    barcode1D: "«1DBarcode»", //-
+                    barcode96: "«128Barcode»", //-
+                    customerName: "«CustomerName»",
+                    readable96: "«96Readable»", //-
+                    addrBarcode: "«AddrBarcode»", //-
+                    carrierSM: "01", //-
+                    CLS: "«CLS»", //
+                    deliveryDate: "«DeliveryDate»", //-
+                    deliveryDay: "«DeliveryDay»", //-
+                    dryIce: "«DryIce»", //-
+                    endorsement: "«Endorsement»", //smartpost //-
+                    FHDSvcCode: "«FHDSvcCode»", //-
+                    formID: "«FormID»", //-
+                    fxrsVersion: "«FXRSVersion»", // -
+                    handleCode: "«HandleCode»", //-
+                    IMPB: "«IMPB»", //smartpost, require on all* //-
+                    locID: "«LocID»", //-
+                    meterNo: "«MeterNo»", //-
+                    originID: "«OriginID»", //-
+                    payType: "«PayType»", //-
+                    pdf417: "«PDF417»", //required //-
+                    productName: "«ProductName»", //-
+                    rampID: "«RampID»", //-
+                    serviceCode: "«ServiceCode»", //-
+                    shipDate: "02/12/2018", //-
+                    shipToPhone: "987-456-1230", //-
+                    shipToPhone2: "«ShipToPhone2»", //-
+                    shipToPhone3: "«ShipToPhone3»", //-
+                    shipToCountry: "US",
+                    shipToZip: "90001",
+                    stateUS: "«StateUS»", //-
+                    ursa30: "«Ursa»", //-
+                    VersionCode: "«VersionCode»", //smartpost //-
+                    weightUOM: "LBS" //default to lbs?
+                    //now in JS:  TrackingFormatted
+                },//fedexObject
+                uspsData: {
+                    companyName: "Prio",
+                    shipToZip: "90001",
+                    carrierSM: "01",
+                    construct: "«Construct»",
+                    shipDate: "02/12/2018",
+                    shipFromZip: "«VendorZip»"
+                },//uspsData
+                upsData: {
+                    bullDomain: document.domain.toString(), //to check local vs site merges
+                    //bullseye: "«BullsEye»", //done via JS
+                    carrierSM: "01",
+                    orderSMDesc: "UPS OVERNIGHT",
+                    urc: " CA 901 9-13",
+                    urcVersion: "90.5A",
+                    urcDate: "2017-07-01",
+                    shipDate: "02/12/2018",
+                    shipToCity: "Leakesville",
+                    shipToState: "MS",
+                    shipToZip: "90001",
+                    shipToCountry: "840",
+                    //serviceIcon: "«ServiceIcon»", //set via JS
+                    isThirdParty: true //set per client
+                    //adultSignature: "«AdultSignatureText»" // set via JS
+                    //trackformatting in js
+                },//ups data
+                purlData: {
+
+                }, //purolator data
+                newgisticsData: {
+
+                }//newgistics data if needed
+            }//carrier info object
+
+            var thisLabel = new CarrierLabel(obj);
+            //End of shipping label logic
+
+            function removeBreaks(str) {
+                str = str.replace(/(&lt;BR&gt;)/g, "<br/>");
+                document.write(str);
+                console.log(str);
+            }
+
+            function formatPhoneNumber(number) {
+
+                if (number.length == 10)
+                    return number = "(" + number.substring(0, 3) + ") " + number.substring(3, 6) + "-" + number.substring(6, 10);
+                else if (number.length == 11)
+                    return number = number.charAt(0) + " (" + number.substring(1, 4) + ") " + number.substring(4, 7) + "-" + number.substring(7, 11);
+                else
+                    return number;
+            }
+        </script>
+
+        <div class='pagewrap' style='overflow:hidden;'>
+            <div class="txtfamily" style='width:7in; margin: 0 auto;  height:1in;'>
+                <div style="width:1.6in; height:.7in; border:none; float:left;">
+                    <!-- logo -->
+                    <img src="/printing/packing/Prio-logo.png" style="height:.5in;" />
+                </div>
+                <div style="width:1.5in; height:.7in; float:left; margin-left:.1in;">
+                    <b>KOP</b><br />
+                    935 1st Ave<br />
+                    King of Prussia, PA 19406
+                </div>
+                <div style="width:2.5in; height:.7in; float:left; margin-left:1.2in;">
+                    <span>Shipping Order ID: MBAS1-03</span> <span style="padding-left:40px;"> Pg.1 of 1</span><br />
+                    <b>For Consumer Service:</b><br />
+                    prio.com<br />
+                    1-800-SHOPPRIO
+                </div>
             </div>
-            <div style="float:left;clear:both;">
-                <img src="/Printing/Packing/TEMP_NEWGISTICS_BOTTOM.png" />
-            </div> -->
-	<!-- $$$$$$$$$$$$$$$ </div> -->
 
+
+            <div style='width:7in; margin: 0 auto; padding 9%; height:1.1in; margin-top:.1in; overflow:hidden;'>
+                <div class="txtfamily" style="width:49%; height:1in; float:left;">
+                    <div style="width:35%; height:1in; float:left;">
+                        Consumer Name:<br />
+                        Company Name:<br />
+                        Ship To Address:<br /><br /><br />
+                        <script>if ("«ShipToRef1»" != "" || "«ShipToRef2»" != "") document.write("<br/>");</script>
+                        Consumer Phone:<br />
+                    </div>
+                    <div style="width:50%; height:1in;float:left;">
+                        <div style="width:100%;">«ShipToFName»&nbsp;«ShipToLName»</div>
+                        <div style="width:100%; height:.11in;">«ShipToName»</div>
+                        <div style="width:100%; height:.11in;">«ShipToStreet»&nbsp;</div>
+                        <div style="width:100%;">«ShipToRef1» «ShipToRef2»</div>                        
+                        <div style="width:100%;">Leakesville&nbsp;MS&nbsp;90001<br/>&nbsp;<br/></div>                        
+                        <div style="width:100%; height:.11in;">
+                            <script>document.write(formatPhoneNumber('987-456-1230'));</script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="txtfamily" style="width:30%; height:1in; float:left; margin-left:.8in;">
+                    <div style="width:35%; height:1in; float:left;">
+                        Order No:<br />
+                        Ship Method:<br />
+                        Order Date:<br />
+                    </div>
+
+                    <div style="width:60%; height:1in;float:left;">
+                        <div style="width:100%; height:.11in; white-space:nowrap;"></div>
+                        <div style="width:100%; height:.11in; white-space:nowrap;">UPS OVERNIGHT</div>
+                        <div style="width:100%; height:.11in; white-space:nowrap;">01/14/2018</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:2.6in; width:7in;  margin: 0 auto;">
+                <table class="hmkitems txtfamily" style="">
+                    <tr style="border-bottom:none; font-size:10pt!important;">
+                        <th style="width:16%;">Order Line #</th>
+                        <th style="width:20%;">Item #</th>
+                        <th style="width:50%;">Description</th>
+                        <th style="width:14%;">Shipped Qty</th>
+                    </tr>
+
+                    <tr><td class="align-center">3</td><td class="align-left">9E9D2256</td><td class="align-left">3 - YM DOLL SHOES ASSORTED</td><td class="align-center">1</td></tr>
+                    <tr><td class="align-center">4</td><td class="align-left">A346932E</td><td class="align-left">5 - YM DOLL SHOES ASSORTED</td><td class="align-center">3</td></tr>
+                    <tr><td class="align-center">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-center">&nbsp;</td></tr>
+                    <tr><td class="align-center">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-center">&nbsp;</td></tr>
+                    <tr><td class="align-center">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-center">&nbsp;</td></tr>
+                    <tr><td class="align-center">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-center">&nbsp;</td></tr>
+                    <tr><td class="align-center">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-center">&nbsp;</td></tr>
+                    <tr><td class="align-center">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-center">&nbsp;</td></tr>
+                    <tr><td class="align-center">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-center">&nbsp;</td></tr>
+                    <tr><td class="align-center">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-left">&nbsp;</td><td class="align-center">&nbsp;</td></tr>
+                </table>
+
+                <div name="comment" style="width:5in; float:left;height:1in; margin-top:.05in; overflow:hidden; font-size: 8pt;">
+
+                    <script>
+                        removeBreaks("");
+                    </script>
+
+                </div>
+            </div>
+            <div class="label" style="height:4in; width:6in; margin-top:1.589in; overflow:hidden; border:1pt solid white; margin-left: -.05in;">
+                <script type="text/javascript">
+                    if ("1" == "1")
+                        thisLabel.selectLabelType();
+                </script>
+            </div>
+        </div> <!-- pagewrap -->
+        <!-- Page two:  Newgistics -->
+		<div class='pagewrap' style='overflow:hidden;page-break-before: always;'>
+			<div class="rotate90">
+        		<!-- * NEWGISTICS LABEL* -->
+				<script type="text/javascript">
+					// psCompanyCode - Default to UO. 1 = AN. For CoDivDept, 01 = AN/52, 02 = UO/51.
+
+					var codiv_dept = "«CoDivDept»";
+					codiv_dept = "02";
+					var returnBarcode = "«ReturnBarcode»";
+					var sortCode = "«SortCode»";
+					var ordernumber = "";
+					var codiv_dept = "02";
+					var returnBarcode = "\\42056901\\9202390101923408060805";
+					var sortCode = "V51";
+					var ordernumber = "Y108093434";
+
+					
+					var smartLabelFactory = new SmartLabel(ordernumber, codiv_dept, shortzip);
+					var smartLabel = smartLabelFactory.GetSmartLabel();
+
+					var hideLabel = false;
+					if ("«SortCode»".indexOf('HIDE') > -1)
+						hideLabel = true;
+
+					function printHuman(stringin) {
+						stringin = stringin.replace(/\\/g, "");
+						var sp = " ";
+						return stringin.substring(8, 12) + sp + stringin.substring(12, 16) + sp + stringin.substring(16, 20) +
+							sp + stringin.substring(20, 24) + sp + stringin.substring(24, 28) + sp + stringin.substring(28);
+					}
+
+					var coDivDept_ = "«CoDivDept»";
+					
+					// If on the first page, print label. Otherwise, do nothing.
+					
+					if (("1" == "1" || debug) && !smartLabel.HideNewgisticsSection())
+						document.write('<div class="newgisticswrapper">');
+					else 
+					{
+						//JOEL - comment out line
+						//document.write('<div class="newgisticswrapper hide">');
+					}
+				</script>
+				<div style="float:right;height:6.5in;width:0.75in;margin:0;padding:0;" >
+					<!-- top row wrapper -->
+					<div style="width:0.75in;height:5.4in;float:right;" class="ierot">
+						<!-- top row, left side -->
+						<div style="height:1.25in;width:0.55in;overflow:hidden;font-size:6pt;float:left;white-space:nowrap;">
+							<script>addressFormat(["«ShipToFName»&nbsp;«ShipToLName»","«ShipToName»","«ShipToStreet»","«ShipToRef1» «ShipToRef2»","Leakesville&nbsp;MS&nbsp;90001"]);</script>
+						</div>
+						<script>						
+							if (smartLabel.ShowLabelImage()){
+								document.write('<img src="/images/barcode.ashx?Code=' + smartLabel.LabelData + '&Type=128Auto&X=3&Y=0.5&rotate=true&round=1" style="width:0.5in;height:3in;float:left;margin:0;margin-top:0.05in;" alt="Invalid: missing SL barcode - ' + smartLabel.LabelData + '" />');
+							}
+						
+						</script>
+						<div style="float:left;margin-top:0.5in;font-size:8pt;">
+						<script>if (smartLabel.ShowLabelText()) { document.write(smartLabel.LabelData.toUpperCase()); }</script></div>
+					</div>
+					<div style='width:0.8in;height:1in;float:right;text-align:center;margin:0px;overflow:hidden;' class='ierot'>
+						<!-- top row, right side -->
+						<div style='height:0.90in;border:solid black 3px;padding:.02in;line-height:1;font-size:6pt;'>
+							NO POSTAGE<br />
+							NECESSARY IF <br />
+							MAILED IN THE <br />
+							UNITED STATES
+						</div>
+						<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
+						<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
+						<div style='height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;'>&nbsp;</div>
+					</div>
+				</div><!-- end top row -->
+				<div style="float:right;height:6.5in;width:1.35in;margin-right:0.0in;">
+					<!-- bottom row wrapper -->
+					<div style="width:1.32in;height:4.5in;float:right;border-left:6px solid black;border-right:6px solid black;margin-right:-0.1in;" class="ierot">
+						<!-- bottom row, left side -->
+						<div style="float:left;margin-top:0.1in;font-size:12pt;height:4.26in;text-align:center;">USPS PARCEL RTN SVC</div>
+						<script>document.write('<img src="/images/barcode.ashx?Code=' + returnBarcode + '&Type=128C&X=4.25&Y=0.8&rotate=true&rounding=2" style="width:0.75in;height:4.25in;float:left;margin:0.1in;margin-top:0.05in;" alt="Invalid: missing RET barcode - ' + returnBarcode + '" />');</script>
+						<div style="float:left;margin-top:0.1in;font-size:10pt;height:4.25in;text-align:center;">
+						<script>document.write(printHuman(returnBarcode));</script></div>
+					</div>
+					<div style='width:1.35in;height:1.75in;float:right;text-align:center;margin:0px;overflow:hidden;margin-top:0.05in;' class='ierot'>
+						<!-- bottom row, right side -->
+						<div style='height:1.65in;border:solid black 3px;padding:.02in;line-height:1;font-size:9pt;font-weight:bold;'>
+							PARCEL SELECT RTN SVC<br /><!-- too close and font size too small -->
+							<span style="font-weight:normal;font-size:6pt;white-space:nowrap;font-family:Arial,sans-serif;">NEWGISTICS, INC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERMIT NO. 77000</span>
+						</div>
+						<div style='height:1.45in;padding:.02in;line-height:1;font-size:9pt;font-weight:bold;text-align:left;margin-top:0.1in;margin-right:0.05in;'>
+							SMARTLABEL RTN<br />
+							PARCEL RTN SVC<br /><!-- too small -->
+						</div>
+						<div style='height:1.45in;padding:.02in;line-height:.2;font-size:0.16in;font-weight:bold;text-align:left;margin-top:0.1in;margin-right:0.05in;'>
+							56901
+						</div>
+						<div style='font-size:17pt;border:solid black 4pt;height:0.48in;margin-top:0.5in;margin-right:0.05in;text-align:center;padding:.02in;;'>
+							<div style=''>
+							<script>document.write(sortCode);</script></div><!-- too small 2/16in -->
+						</div>
+					</div>
+				</div><!-- end bottom row -->
+
+			</div><!-- end smart label -->
+		</div>
     
 </body>
 </html>
