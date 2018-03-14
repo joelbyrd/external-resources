@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="x-ua-compatible" content="IE=Edge" />
+    <!-- DEVELOPER NOTE: Do not change anything above this line. These lines, -as they are- force the
+    IE10 mode that is needed to render this document properly. Works the same for DXL, Gamestop, etc
+    It forces the pages into  Standards Mode instead of quirks but still enforces IE10 compatibility as needed. The above line
+    MUST come before any other item within the head; Furthermore the Doctype and html tags
+    need to be left unchanged. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>GNC Hold/Pickup Summary</title>
+    <script>
+        var dbg = false;
+        // this is to support debugging locally. the first base tag to get written out is the one that gets used
+        var base = '';
+        var protocol = document.location.protocol;
+        if (protocol.toLowerCase() === "file:") {
+            base = document.location.href.replace(/[^\/]*$/, "");
+            dbg = true;
+        }
+        if (base && base !== '') document.write("<base href='" + base + "' />");
+    </script>
+	<base href="/printing/packing/" />
+    <!-- reset.css should come before everything, reset..resets all HTML elements to a common setting. Different browsers
+    have different default user-agent styles for each element of a page; this standardizes everything up front
+    do not use both std.css and reset.css -- They are about the same, though experience tells me reset.css is better -->
+    <link rel="stylesheet" type="text/css" href="shared/css/Standard-Reset_v1.0.0.css" charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="shared/css/Standard-Style_v1.0.0.css" charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/GNC-HoldPUP.css" charset="utf-8" />
+    <!-- polyfill io should come before ALL javascript-->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default-3.6&flags=gated"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=modernizr:es6array,Element,Element.prototype.classList,Element.prototype.cloneNode,Element.prototype.replaceWith,Array.prototype.map,Array.prototype.reduce&flags=always,gated"></script>
+    <script src="shared/js/Standard-Utils_v1.0.0.js" charset="utf-8"></script>
+    <script src="js/GNC-HoldPUP.js" charset="utf-8"></script>
+    <script src="shared/js/modernizr.min.js" charset="utf-8"></script>
+</head>
+<vendornetconfig>
+    <code original="«Description»" replace="«Description»"><function name="HtmlAllQuotes" /></code>
+    <code original="«VendorSKU»" replace="«VendorSKU»"><function name="HtmlAllQuotes" /></code>
+    <code original="«VendorDesc»" replace="«VendorDesc»"><function name="HtmlAllQuotes" /></code>
+    <code original="«VendorName»" replace="«VendorName»"><function name="HtmlAllQuotes" /></code>
+	<code original="«Vendor»" replace="«Vendor»"><function name="HtmlAllQuotes" /></code>
+    <code original="«BillTo»" replace="«BillTo»"><function name="HtmlAllQuotes" /></code>
+    <code original="«ShipTo»" replace="«ShipTo»"><function name="HtmlAllQuotes" /></code>
+    <code original="«ItemId»" replace="«Size»">
+        <function name="SkuXref" parameter1="SZE"  />
+        <function name="HtmlAllQuotes" />
+    </code>
+</vendornetconfig>
+<body>
+<vendornet>
+<div class="wrapper hold-ticket">
+    <div class="top">
+        <div class="top-left">
+            <div class="flexrow logo">
+                <img src="images/eng-vert-livewell-blk.png" alt="GNC Logo"/>
+            </div>
+            <div class="address store-address">
+                {StoreAddress}
+            </div>
+            <div class="flexrow"></div>
+            <div class="flexrow address">
+                <span class="header">Bill To:</span>
+            </div>
+            <div class="address billto-address">
+                {BillToAddress}
+            </div>
+        </div>
+        <div class="top-right">
+            <div class="flexrow">
+                <span class="title">HOLD TICKET</span>
+            </div>
+            <div class="pageno flexrow">
+                Page «PageNo» of «MaxPage»
+            </div>
+            <div class="flexrow"></div>
+            <div class="flexcol date-order">
+                <div>
+                    <span class="header">Date:</span>
+                    <span class="header">Order Number:</span>
+                </div>
+                <div class="half">
+                    <span class="header header-data">«OrderDate»</span>
+                    <span class="header header-data">«OrderNo»</span>
+                </div>
+            </div>
+            <div class="flexrow barcode">
+                <div class="flexrow">
+                    <img class="barcode" src="/images/Barcode.ashx?Code=«OrderNo»&Type=128A&X=1.1&Y=0.4&round=1" />
+                    <span class="orderno">«OrderNo»</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="middle grid">
+        <div class="flexrow"></div>
+        <div class="row table-header">
+            <div class="col p-10">Qty</div>
+            <div class="col p-20">Item #</div>
+            <div class="col p-40">Description/Size</div>
+            <div class="col p-15 price">Unit Price</div>
+            <div class="col p-15 price">Total</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity1»</div>
+            <div class="col p-20">«SKU1»</div>
+            <div class="col  p-40">«VendorDesc1»<span class="size">«Size1»</span></div>
+            <div class="col p-15 price">«UnitPrice1»</div>
+            <div class="col p-15 price">«ExtPrice1»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity2»</div>
+            <div class="col p-20">«SKU2»</div>
+            <div class="col wrap p-40">«VendorDesc2»<span class="size">«Size2»</span></div>
+            <div class="col p-15 price">«UnitPrice2»</div>
+            <div class="col p-15 price">«ExtPrice2»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity3»</div>
+            <div class="col p-20">«SKU3»</div>
+            <div class="col wrap p-40">«VendorDesc3»<span class="size">«Size3»</span></div>
+            <div class="col p-15 price">«UnitPrice3»</div>
+            <div class="col p-15 price">«ExtPrice3»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity4»</div>
+            <div class="col p-20">«SKU4»</div>
+            <div class="col wrap p-40">«VendorDesc4»<span class="size">«Size4»</span></div>
+            <div class="col p-15 price">«UnitPrice4»</div>
+            <div class="col p-15 price">«ExtPrice4»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity5»</div>
+            <div class="col p-20">«SKU5»</div>
+            <div class="col wrap p-40">«VendorDesc5»<span class="size">«Size5»</span></div>
+            <div class="col p-15 price">«UnitPrice5»</div>
+            <div class="col p-15 price">«ExtPrice5»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity6»</div>
+            <div class="col p-20">«SKU6»</div>
+            <div class="col wrap p-40">«VendorDesc6»<span class="size">«Size6»</span></div>
+            <div class="col p-15 price">«UnitPrice6»</div>
+            <div class="col p-15 price">«ExtPrice6»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity7»</div>
+            <div class="col p-20">«SKU7»</div>
+            <div class="col wrap p-40">«VendorDesc7»<span class="size">«Size7»</span></div>
+            <div class="col p-15 price">«UnitPrice7»</div>
+            <div class="col p-15 price">«ExtPrice7»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity8»</div>
+            <div class="col p-20">«SKU8»</div>
+            <div class="col wrap p-40">«VendorDesc8»<span class="size">«Size8»</span></div>
+            <div class="col p-15 price">«UnitPrice8»</div>
+            <div class="col p-15 price">«ExtPrice8»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity9»</div>
+            <div class="col p-20">«SKU9»</div>
+            <div class="col wrap p-40">«VendorDesc9»<span class="size">«Size9»</span></div>
+            <div class="col p-15 price">«UnitPrice9»</div>
+            <div class="col p-15 price">«ExtPrice9»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity10»</div>
+            <div class="col p-20">«SKU10»</div>
+            <div class="col wrap p-40">«VendorDesc10»<span class="size">«Size10»</span></div>
+            <div class="col p-15 price">«UnitPrice10»</div>
+            <div class="col p-15 price">«ExtPrice10»</div>
+        </div>
+    </div>
+    <div class="bottom-notice">
+        We want you to be completely satisfied with your purchase. With exception of GNC Gift Cards which are non-refundable, we will glady accept returns by mail or returns/exchanges at any GNC
+        store within the United States within 30 days from the date of purchase with a valid packing slip. Returns will be refunded in the form of your original payment method. Shipping fees are nonrefundable.
+        Purchases paid for with a Bill Me Later or PayPal account will not be accepted for returns IN-STORE. For any questions regarding your order, please call 1-877-462-4700.
+    </div>
+    <div class="bottom">
+        <div class="shaded"><span class="ispu-header">In Store Pickup</span><br/>
+            «ShipToFName» «ShipToLName»<br/>
+            «OrderNo»
+        </div>
+
+        <div class="form">
+            <div class="line-1">
+                <div class="sec-1">
+                    <span class="header">Picked Up By:</span>
+                </div>
+                <div class="sec-2">
+                    <div class="flexrow header">&nbsp;</div>
+                    <div class="flexrow title">Print Name</div>
+                </div>
+            </div>
+            <div class="line-2">
+                <div class="sec-1">
+                    <div class="flexrow header">&nbsp;</div>
+                    <div class="flexrow title">Signature</div>
+                </div>
+                <div class="sec-2">
+                    <span class="header">Date:</span>
+                </div>
+                <div class="sec-3">
+                    <div class="flexrow header">&nbsp;</div>
+                    <div class="flexrow title"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="bottom-text">
+        Store Copy
+    </div>
+</div>
+<div class="wrapper pickup-summary">
+    <div class="top">
+        <div class="top-left">
+            <div class="flexrow logo">
+                <img src="images/eng-vert-livewell-blk.png" alt="GNC Logo"/>
+            </div>
+            <div class="address store-address">
+                {StoreAddress}
+            </div>
+            <div class="flexrow"></div>
+            <div class="flexrow address">
+                <span class="header">Bill To:</span>
+            </div>
+            <div class="address billto-address">
+                {BillToAddress}
+            </div>
+        </div>
+        <div class="top-right">
+            <div class="flexrow">
+                <span class="title">Pickup Summary</span>
+            </div>
+            <div class="flexrow pageno">
+                Page «PageNo» of «MaxPage»
+            </div>
+            <div class="flexrow"></div>
+            <div class="flexcol date-order">
+                <div>
+                    <span class="header">Date:</span>
+                    <span class="header">Order Number:</span>
+                </div>
+                <div class="half">
+                    <span class="header header-data">«OrderDate»</span>
+                    <span class="header header-data">«OrderNo»</span>
+                </div>
+            </div>
+            <div class="flexrow barcode">
+                <div class="flexrow">
+                    <img class="barcode" src="/images/Barcode.ashx?Code=«OrderNo»&Type=128A&X=1.1&Y=0.4&round=1" />
+                    <span class="orderno">«OrderNo»</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="middle grid">
+        <div class="flexrow"></div>
+        <div class="row table-header">
+            <div class="col p-10">Qty</div>
+            <div class="col p-20">Item #</div>
+            <div class="col p-40">Description/Size</div>
+            <div class="col p-15">Unit Price</div>
+            <div class="col p-15">Total</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity1»</div>
+            <div class="col p-20">«SKU1»</div>
+            <div class="col  p-40">«VendorDesc1»<span class="size">«Size1»</span></div>
+            <div class="col p-15 price">«UnitPrice1»</div>
+            <div class="col p-15 price">«ExtPrice1»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity2»</div>
+            <div class="col p-20">«SKU2»</div>
+            <div class="col wrap p-40">«VendorDesc2»<span class="size">«Size2»</span></div>
+            <div class="col p-15 price">«UnitPrice2»</div>
+            <div class="col p-15 price">«ExtPrice2»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity3»</div>
+            <div class="col p-20">«SKU3»</div>
+            <div class="col wrap p-40">«VendorDesc3»<span class="size">«Size3»</span></div>
+            <div class="col p-15 price">«UnitPrice3»</div>
+            <div class="col p-15 price">«ExtPrice3»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity4»</div>
+            <div class="col p-20">«SKU4»</div>
+            <div class="col wrap p-40">«VendorDesc4»<span class="size">«Size4»</span></div>
+            <div class="col p-15 price">«UnitPrice4»</div>
+            <div class="col p-15 price">«ExtPrice4»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity5»</div>
+            <div class="col p-20">«SKU5»</div>
+            <div class="col wrap p-40">«VendorDesc5»<span class="size">«Size5»</span></div>
+            <div class="col p-15 price">«UnitPrice5»</div>
+            <div class="col p-15 price">«ExtPrice5»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity6»</div>
+            <div class="col p-20">«SKU6»</div>
+            <div class="col wrap p-40">«VendorDesc6»<span class="size">«Size6»</span></div>
+            <div class="col p-15 price">«UnitPrice6»</div>
+            <div class="col p-15 price">«ExtPrice6»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity7»</div>
+            <div class="col p-20">«SKU7»</div>
+            <div class="col wrap p-40">«VendorDesc7»<span class="size">«Size7»</span></div>
+            <div class="col p-15 price">«UnitPrice7»</div>
+            <div class="col p-15 price">«ExtPrice7»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity8»</div>
+            <div class="col p-20">«SKU8»</div>
+            <div class="col wrap p-40">«VendorDesc8»<span class="size">«Size8»</span></div>
+            <div class="col p-15 price">«UnitPrice8»</div>
+            <div class="col p-15 price">«ExtPrice8»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity9»</div>
+            <div class="col p-20">«SKU9»</div>
+            <div class="col wrap p-40">«VendorDesc9»<span class="size">«Size9»</span></div>
+            <div class="col p-15 price">«UnitPrice9»</div>
+            <div class="col p-15 price">«ExtPrice9»</div>
+        </div>
+        <div class="row table-row">
+            <div class="col p-10">«Quantity10»</div>
+            <div class="col p-20">«SKU10»</div>
+            <div class="col wrap p-40">«VendorDesc10»<span class="size">«Size10»</span></div>
+            <div class="col p-15 price">«UnitPrice10»</div>
+            <div class="col p-15 price">«ExtPrice10»</div>
+        </div>
+    </div>
+    <div class="bottom-notice">
+        We want you to be completely satisfied with your purchase. With exception of GNC Gift Cards which are non-refundable, we will glady accept returns by mail or returns/exchanges at any GNC
+        store within the United States within 30 days from the date of purchase with a valid packing slip. Returns will be refunded in the form of your original payment method. Shipping fees are nonrefundable.
+        Purchases paid for with a Bill Me Later or PayPal account will not be accepted for returns IN-STORE. For any questions regarding your order, please call 1-877-462-4700.
+    </div>
+    <div class="bottom-text">
+        Customer Copy
+    </div>
+</div>
+<script>
+    (function() {
+        var billTo = new Address(null /*"«BillToTitle»"*/, "«BillToFName»", "«BillToMI»", "«BillToLName»", "«BillToSuffix»", "«BillToName»", null /*"«BillToRef1»"*/, null /*"«BillToRef2»"*/, "«BillToStreet»", "«BillToStreet2»", "«BillToCity»", "«BillToState»", "«BillToZip»", "«BillToPhone»");
+        var storeAddress = new Address(null, null, null, null, null, "«VendorName»", "«VendorRef1»", "«VendorRef2»", "«VendorStreet»", "«VendorStreet2»", "«VendorCity»", "«VendorState»", "«VendorZip»", "«VendorPhone»", "«VendorCountry»");
+
+        var formattedBillTo = billTo.GetFormatted(true, false, false);
+        var formattedStore = storeAddress.GetFormatted(true, false, true);
+        [].forEach.call(document.querySelectorAll(".billto-address:not(.done)"), function(node) {
+            node.innerHTML = node.innerHTML.replaceAll("{BillToAddress}", formattedBillTo);
+            node.classList.add("done");
+        });
+        [].forEach.call(document.querySelectorAll(".store-address:not(.done)"), function(node) {
+            node.innerHTML = node.innerHTML.replaceAll("{StoreAddress}", formattedStore);
+            node.classList.add("done");
+        });
+        [].forEach.call(document.querySelectorAll("span.size:not(.done)"), function(node) {
+            node.textContent = node.textContent.trimAndStrip();
+            node.classList.add("done");
+        });
+        if ("«PageNo»" === "«MaxPage»"){
+            [].forEach.call(document.querySelectorAll(".pickup-summary:not(.done)"), function(node){
+                node.parentNode.removeChild(node);
+                document.body.appendChild(node);
+                node.classList.add("done");
+            });
+        }
+    })();
+</script>
+</vendornet>
+<script>
+    Radial.Print = !dbg;
+    Radial.Debug = dbg;
+
+    // then we register some startup functions... (chromeFix is added by default in utils.js)
+    // pass an actual funciton object
+    Radial.AddStartupMethod("AddDollarSigns", addDollarSigns, document.querySelectorAll(".price"));
+    Radial.AddStartupMethod("AddPageBreaks", function() { addPageBreaks(".wrapper", false, "pagebreakafter") });
+
+</script>
+</body>
+</html>

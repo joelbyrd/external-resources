@@ -1,0 +1,337 @@
+﻿<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <title>Pickup Summary</title>
+    <style type="text/css">
+        td.pick {
+            background-color: CCFFFF;
+        }
+    </style>
+    <script language="javascript">
+
+        var count = 0;
+
+        function PageBreakCounter() {
+            count = count + 1;
+            if (count == 1)
+                document.write("");
+            else
+                document.write("<span style=\"page-break-before:always; height:0px\"></span>");
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <vendornet>
+
+        <script>PageBreakCounter();</script>
+        <b><center>PickUp Summary Fields</center></b>
+        <table width="100%" border=1>
+            <tr><td colspan=3><b><center>PickUp Summary Header</center></b><br></td></tr>
+            <tr>
+                <td class="pick" id="PickUpHeaderList1">
+                    <label id="OrderNo">OrderNo: «OrderNo»</label><br>
+                    <label id="CustomerPO">CustomerPO: «CustomerPO»</label><br>
+                    <label id="Source">Source: «Source»</label><br>
+                    <label id="PoNo">PoNo: «PoNo»</label><br>
+                    <label id="OrderDate">OrderDate: «OrderDate»</label><br>
+                </td>
+                <td class="pick" id="PickUpHeaderList2">
+                    <label id="ShipMethodHdr">ShipMethod: «ShipMethod»</label><br>
+                    <label id="ShipMethodDescHdr">ShipMethodDesc: «ShipMethodDesc»</label><br>
+                    <label id="SalesPerson">SalesPerson: «SalesPerson»</label><br>
+                    <label id="CommentHdr">Comment: «Comment»</label><br>
+                    <label id="Special5">Special5: «Special5»</label><br>
+                </td>
+                <td class="pick" id="PickUpHeaderList3">
+                    <label id="Special6">Special6: «Special6»</label><br>
+                    <label id="Special9">Special9: «Special9»</label><br>
+                    <label id="EstDate">EstDate: «EstDate»</label><br>
+                    <label id="ShipmentAliasHdr">ShipmentAlias: «ShipmentAlias»</label><br>
+                    <label id="CoDivDept">CoDivDept: «CoDivDept»</label><br>
+                </td>
+            </tr>
+            <tr><td colspan=3><b><center>Product info</center></b><br></td></tr>
+            <tr>
+                <td class="pick" id="PickUpProductField1">
+                    <b>Product Label 1</b><br>
+                    <label id="OrderNo1">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId1">ItemId1: «ItemId1»</label><br>
+                    <label id="SKU1">SKU1: «SKU1»</label><br>
+                    <label id="VendorSKU1">VendorSKU1: «VendorSKU1»</label><br>
+                    <label id="VendorDesc1">VendorDesc1: «VendorDesc1»</label><br>
+                    <label id="Description1">Description1: «Description1»</label><br>
+                    <label id="UnitPrice1">UnitPrice1: «UnitPrice1»</label><br>
+                    <label id="Quantity1">Quantity1: «Quantity1»</label><br>
+                    <label id="ExtCost1">ExtCost1:«ExtCost1»</label><br>
+                    <label id="ExtPrice1">ExtPrice1: «ExtPrice1»</label><br>
+                    <label id="Color1">Color1:«Color1»</label><br>
+                    <label id="Size1">Size1: «Size1»</label><br>
+                    <label id="GiftFlag1">GiftFlag1:«GiftFlag1»</label><br>
+                    <label id="GiftWrapFlag1">GiftWrapFlag1: «GiftWrapFlag1»</label><br>
+                    <label id="Promotion1">Promotion1: «Promotion1»</label><br>
+                    <label id="FinalSale1">FinalSale1: «FinalSale1»</label><br>
+                    <label id="GiftComment11">GiftComment11: «GiftComment11»</label><br>
+                    <label id="GiftComment21">GiftComment21: «GiftComment21»</label><br>
+                </td>
+                <td class="pick" id="PickUpProductField2">
+                    <b>Product Label 2</b><br>
+                    <label id="OrderNo2">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId2">ItemId2: «ItemId2»</label><br>
+                    <label id="SKU2">SKU2: «SKU2»</label><br>
+                    <label id="VendorSKU2">VendorSKU2: «VendorSKU2»</label><br>
+                    <label id="VendorDesc2">VendorDesc2: «VendorDesc2»</label><br>
+                    <label id="Description2">Description2: «Description2»</label><br>
+                    <label id="UnitPrice2">UnitPrice2: «UnitPrice2»</label><br>
+                    <label id="Quantity2">Quantity2: «Quantity2»</label><br>
+                    <label id="ExtCost2">ExtCost2:«ExtCost2»</label><br>
+                    <label id="ExtPrice2">ExtPrice2: «ExtPrice2»</label><br>
+                    <label id="Color2">Color2:«Color2»</label><br>
+                    <label id="Size2">Size2: «Size2»</label><br>
+                    <label id="GiftFlag2">GiftFlag2:«GiftFlag2»</label><br>
+                    <label id="GiftWrapFlag2">GiftWrapFlag2: «GiftWrapFlag2»</label><br>
+                    <label id="Promotion2">Promotion2: «Promotion2»</label><br>
+                    <label id="FinalSale2">FinalSale2: «FinalSale2»</label><br>
+                    <label id="GiftComment12">GiftComment12: «GiftComment12»</label><br>
+                    <label id="GiftComment22">GiftComment22: «GiftComment22»</label><br>
+                </td>
+                <td class="pick" id="PickUpProductField3">
+                    <b>Product Label 3</b><br>
+                    <label id="OrderNo3">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId3">ItemId3: «ItemId3»</label><br>
+                    <label id="SKU3">SKU3: «SKU3»</label><br>
+                    <label id="VendorSKU3">VendorSKU3: «VendorSKU3»</label><br>
+                    <label id="VendorDesc3">VendorDesc3: «VendorDesc3»</label><br>
+                    <label id="Description3">Description3: «Description3»</label><br>
+                    <label id="UnitPrice3">UnitPrice3: «UnitPrice3»</label><br>
+                    <label id="Quantity3">Quantity3: «Quantity3»</label><br>
+                    <label id="ExtCost3">ExtCost3:«ExtCost3»</label><br>
+                    <label id="ExtPrice3">ExtPrice3: «ExtPrice3»</label><br>
+                    <label id="Color3">Color3:«Color3»</label><br>
+                    <label id="Size3">Size3: «Size3»</label><br>
+                    <label id="GiftFlag3">GiftFlag3:«GiftFlag3»</label><br>
+                    <label id="GiftWrapFlag3">GiftWrapFlag3: «GiftWrapFlag3»</label><br>
+                    <label id="Promotion3">Promotion3: «Promotion3»</label><br>
+                    <label id="FinalSale3">FinalSale3: «FinalSale3»</label><br>
+                    <label id="GiftComment13">GiftComment13: «GiftComment13»</label><br>
+                    <label id="GiftComment23">GiftComment23: «GiftComment23»</label><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="pick" id="PickUpProductField4">
+                    <b>Product Label 4</b><br>
+                    <label id="OrderNo4">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId4">ItemId4: «ItemId4»</label><br>
+                    <label id="SKU4">SKU4: «SKU4»</label><br>
+                    <label id="VendorSKU4">VendorSKU4: «VendorSKU4»</label><br>
+                    <label id="VendorDesc4">VendorDesc4: «VendorDesc4»</label><br>
+                    <label id="Description4">Description4: «Description4»</label><br>
+                    <label id="UnitPrice4">UnitPrice4: «UnitPrice4»</label><br>
+                    <label id="Quantity4">Quantity4: «Quantity4»</label><br>
+                    <label id="ExtCost4">ExtCost4:«ExtCost4»</label><br>
+                    <label id="ExtPrice4">ExtPrice4: «ExtPrice4»</label><br>
+                    <label id="Color4">Color4:«Color4»</label><br>
+                    <label id="Size4">Size4: «Size4»</label><br>
+                    <label id="GiftFlag4">GiftFlag4:«GiftFlag4»</label><br>
+                    <label id="GiftWrapFlag4">GiftWrapFlag4: «GiftWrapFlag4»</label><br>
+                    <label id="Promotion4">Promotion4: «Promotion4»</label><br>
+                    <label id="FinalSale4">FinalSale4: «FinalSale4»</label><br>
+                    <label id="GiftComment14">GiftComment14: «GiftComment14»</label><br>
+                    <label id="GiftComment24">GiftComment24: «GiftComment24»</label><br>
+                </td>
+                <td class="pick" id="PickUpProductField5">
+                    <b>Product Label 5</b><br>
+                    <label id="OrderNo5">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId5">ItemId5: «ItemId5»</label><br>
+                    <label id="SKU5">SKU5: «SKU5»</label><br>
+                    <label id="VendorSKU5">VendorSKU5: «VendorSKU5»</label><br>
+                    <label id="VendorDesc5">VendorDesc5: «VendorDesc5»</label><br>
+                    <label id="Description5">Description5: «Description5»</label><br>
+                    <label id="UnitPrice5">UnitPrice5: «UnitPrice5»</label><br>
+                    <label id="Quantity5">Quantity5: «Quantity5»</label><br>
+                    <label id="ExtCost5">ExtCost5:«ExtCost5»</label><br>
+                    <label id="ExtPrice5">ExtPrice5: «ExtPrice5»</label><br>
+                    <label id="Color5">Color5:«Color5»</label><br>
+                    <label id="Size5">Size5: «Size5»</label><br>
+                    <label id="GiftFlag5">GiftFlag5:«GiftFlag5»</label><br>
+                    <label id="GiftWrapFlag5">GiftWrapFlag5: «GiftWrapFlag5»</label><br>
+                    <label id="Promotion5">Promotion5: «Promotion5»</label><br>
+                    <label id="FinalSale5">FinalSale5: «FinalSale5»</label><br>
+                    <label id="GiftComment15">GiftComment15: «GiftComment15»</label><br>
+                    <label id="GiftComment25">GiftComment25: «GiftComment25»</label><br>
+                </td>
+                <td class="pick" id="PickUpProductField6">
+                    <b>Product Label 6</b><br>
+                    <label id="OrderNo6">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId6">ItemId6: «ItemId6»</label><br>
+                    <label id="SKU6">SKU6: «SKU6»</label><br>
+                    <label id="VendorSKU6">VendorSKU6: «VendorSKU6»</label><br>
+                    <label id="VendorDesc6">VendorDesc6: «VendorDesc6»</label><br>
+                    <label id="Description6">Description6: «Description6»</label><br>
+                    <label id="UnitPrice6">UnitPrice6: «UnitPrice6»</label><br>
+                    <label id="Quantity6">Quantity6: «Quantity6»</label><br>
+                    <label id="ExtCost6">ExtCost6:«ExtCost6»</label><br>
+                    <label id="ExtPrice6">ExtPrice6: «ExtPrice6»</label><br>
+                    <label id="Color6">Color6:«Color6»</label><br>
+                    <label id="Size6">Size6: «Size6»</label><br>
+                    <label id="GiftFlag6">GiftFlag6:«GiftFlag6»</label><br>
+                    <label id="GiftWrapFlag6">GiftWrapFlag6: «GiftWrapFlag6»</label><br>
+                    <label id="Promotion6">Promotion6: «Promotion6»</label><br>
+                    <label id="FinalSale6">FinalSale6: «FinalSale6»</label><br>
+                    <label id="GiftComment16">GiftComment16: «GiftComment16»</label><br>
+                    <label id="GiftComment26">GiftComment26: «GiftComment26»</label><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="pick" id="PickUpProductField7">
+                    <b>Product Label 7</b><br>
+                    <label id="OrderNo7">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId7">ItemId7: «ItemId7»</label><br>
+                    <label id="SKU7">SKU7: «SKU7»</label><br>
+                    <label id="VendorSKU7">VendorSKU7: «VendorSKU7»</label><br>
+                    <label id="VendorDesc7">VendorDesc7: «VendorDesc7»</label><br>
+                    <label id="Description7">Description7: «Description7»</label><br>
+                    <label id="UnitPrice7">UnitPrice7: «UnitPrice7»</label><br>
+                    <label id="Quantity7">Quantity7: «Quantity7»</label><br>
+                    <label id="ExtCost7">ExtCost7:«ExtCost7»</label><br>
+                    <label id="ExtPrice7">ExtPrice7: «ExtPrice7»</label><br>
+                    <label id="Color7">Color7:«Color7»</label><br>
+                    <label id="Size7">Size7: «Size7»</label><br>
+                    <label id="GiftFlag7">GiftFlag7:«GiftFlag7»</label><br>
+                    <label id="GiftWrapFlag7">GiftWrapFlag7: «GiftWrapFlag7»</label><br>
+                    <label id="Promotion7">Promotion7: «Promotion7»</label><br>
+                    <label id="FinalSale7">FinalSale7: «FinalSale7»</label><br>
+                    <label id="GiftComment17">GiftComment17: «GiftComment17»</label><br>
+                    <label id="GiftComment27">GiftComment27: «GiftComment27»</label><br>
+                </td>
+                <td class="pick" id="PickUpProductField8">
+                    <b>Product Label 8</b><br>
+                    <label id="OrderNo8">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId8">ItemId8: «ItemId8»</label><br>
+                    <label id="SKU8">SKU8: «SKU8»</label><br>
+                    <label id="VendorSKU8">VendorSKU8: «VendorSKU8»</label><br>
+                    <label id="VendorDesc8">VendorDesc8: «VendorDesc8»</label><br>
+                    <label id="Description8">Description8: «Description8»</label><br>
+                    <label id="UnitPrice8">UnitPrice8: «UnitPrice8»</label><br>
+                    <label id="Quantity8">Quantity8: «Quantity8»</label><br>
+                    <label id="ExtCost8">ExtCost8:«ExtCost8»</label><br>
+                    <label id="ExtPrice8">ExtPrice8: «ExtPrice8»</label><br>
+                    <label id="Color8">Color8:«Color8»</label><br>
+                    <label id="Size8">Size8: «Size8»</label><br>
+                    <label id="GiftFlag8">GiftFlag8:«GiftFlag8»</label><br>
+                    <label id="GiftWrapFlag8">GiftWrapFlag8: «GiftWrapFlag8»</label><br>
+                    <label id="Promotion8">Promotion8: «Promotion8»</label><br>
+                    <label id="FinalSale8">FinalSale8: «FinalSale8»</label><br>
+                    <label id="GiftComment18">GiftComment18: «GiftComment18»</label><br>
+                    <label id="GiftComment28">GiftComment28: «GiftComment28»</label><br>
+                </td>
+                <td class="pick" id="PickUpProductField9">
+                    <b>Product Label 9</b><br>
+                    <label id="OrderNo9">OrderNo: «OrderNo»</label><br>
+                    <label id="ItemId9">ItemId9: «ItemId9»</label><br>
+                    <label id="SKU9">SKU9: «SKU9»</label><br>
+                    <label id="VendorSKU9">VendorSKU9: «VendorSKU9»</label><br>
+                    <label id="VendorDesc9">VendorDesc9: «VendorDesc9»</label><br>
+                    <label id="Description9">Description9: «Description9»</label><br>
+                    <label id="UnitPrice9">UnitPrice9: «UnitPrice9»</label><br>
+                    <label id="Quantity9">Quantity9: «Quantity9»</label><br>
+                    <label id="ExtCost9">ExtCost9:«ExtCost9»</label><br>
+                    <label id="ExtPrice9">ExtPrice9: «ExtPrice9»</label><br>
+                    <label id="Color9">Color9:«Color9»</label><br>
+                    <label id="Size9">Size9: «Size9»</label><br>
+                    <label id="GiftFlag9">GiftFlag9:«GiftFlag9»</label><br>
+                    <label id="GiftWrapFlag9">GiftWrapFlag9: «GiftWrapFlag9»</label><br>
+                    <label id="Promotion9">Promotion9: «Promotion9»</label><br>
+                    <label id="FinalSale9">FinalSale9: «FinalSale9»</label><br>
+                    <label id="GiftComment19">GiftComment19: «GiftComment19»</label><br>
+                    <label id="GiftComment29">GiftComment29: «GiftComment29»</label><br>
+                </td>
+            </tr>
+            <tr><td colspan=3><b><center>Customer Info</center></b><br></td></tr>
+            <tr>
+                <td class="pick" id="PickUpCustList1">
+                    <label id="BillToCustNo">BillToCustNo: «BillToCustNo»</label><br>
+                    <label id="BillToName">BillToName: «BillToName»</label><br>
+                    <label id="BillToTitle">BillToTitle: «BillToTitle»</label><br>
+                    <label id="BillToSuffix">BillToSuffix: «BillToSuffix»</label><br>
+                    <label id="BillToFName">BillToFName: «BillToFName»</label><br>
+                    <label id="BillToMI">BillToMI: «BillToMI»</label><br>
+                    <label id="BillToLName">BillToLName: «BillToLName»</label><br>
+                    <label id="BillToRef1">BillToRef1: «BillToRef1»</label><br>
+                    <label id="BillToRef2">BillToRef2: «BillToRef2»</label><br>
+                    <label id="BillToStreet">BillToStreet: «BillToStreet»</label><br>
+                    <label id="BillToStreet2">BillToStreet2: «BillToStreet2»</label><br>
+                    <label id="BillToCity">BillToCity: «BillToCity»</label><br>
+                    <label id="BillToState">BillToState: «BillToState»</label><br>
+                    <label id="BillToZip">BillToZip: «BillToZip»</label><br>
+                    <label id="BillToPhone">BillToPhone: «BillToPhone»</label><br>
+                    <label id="BillToCountry">BillToCountry: «BillToCountry»</label><br>
+                    <label id="BillTo1">BillTo1: «BillTo1»</label><br>
+                    <label id="BillTo2">BillTo2: «BillTo2»</label><br>
+                    <label id="BillTo3">BillTo3: «BillTo3»</label><br>
+                    <label id="BillTo4">BillTo4: «BillTo4»</label><br>
+                    <label id="BillTo5">BillTo5: «BillTo5»</label><br>
+                    <label id="BillTo6">BillTo6: «BillTo6»</label><br>
+                    <label id="BillToEmail">BillToEmail: «BillToEmail»</label><br>
+                </td>
+                <td class="pick" id="PickUpCustList2">
+                    <label id="ShipToCustNo">ShipToCustNo: «ShipToCustNo»</label><br>
+                    <label id="ShipToName">ShipToName: «ShipToName»</label><br>
+                    <label id="ShipToTitle">ShipToTitle: «ShipToTitle»</label><br>
+                    <label id="ShipToSuffix">ShipToSuffix: «ShipToSuffix»</label><br>
+                    <label id="ShipToFName">ShipToFName: «ShipToFName»</label><br>
+                    <label id="ShipToMI">ShipToMI: «ShipToMI»</label><br>
+                    <label id="ShipToLName">ShipToLName: «ShipToLName»</label><br>
+                    <label id="ShipToRef1">ShipToRef1: «ShipToRef1»</label><br>
+                    <label id="ShipToRef2"> ShipToRef2: «ShipToRef2»</label><br>
+                    <label id="ShipToStreet">ShipToStreet: «ShipToStreet»</label><br>
+                    <label id="ShipToStreet2">ShipToStreet2: «ShipToStreet2»</label><br>
+                    <label id="ShipToCity">ShipToCity: «ShipToCity»</label><br>
+                    <label id="ShipToState">ShipToState: «ShipToState»</label><br>
+                    <label id="ShipToZip">ShipToZip: «ShipToZip»</label><br>
+                    <label id="ShipToPhone">ShipToPhone: «ShipToPhone»</label><br>
+                    <label id="ShipToCountry">ShipToCountry: «ShipToCountry»</label><br>
+                    <label id="ShipToAddrType">ShipToAddrType: «ShipToAddrType»</label><br>
+                    <label id="ShipTo1">ShipTo1: «ShipTo1»</label><br>
+                    <label id="ShipTo2">ShipTo2: «ShipTo2»</label><br>
+                    <label id="ShipTo3">ShipTo3: «ShipTo3»</label><br>
+                    <label id="ShipTo4">ShipTo4: «ShipTo4»</label><br>
+                    <label id="ShipTo5">ShipTo5: «ShipTo5»</label><br>
+                    <label id="ShipTo6">ShipTo6: «ShipTo6»</label><br>
+                    <label id="ShipToEmail">ShipToEmail: «ShipToEmail»</label><br>
+                </td>
+                <td class="pick" id="PickUpCustList3">
+                    <label id="BuyerCustNo">BuyerCustNo: «BuyerCustNo»</label><br>
+                    <label id="BuyerName">BuyerName: «BuyerName»</label><br>
+                    <label id="BuyerTitle">BuyerTitle: «BuyerTitle»</label><br>
+                    <label id="BuyerSuffix">BuyerSuffix: «BuyerSuffix»</label><br>
+                    <label id="BuyerFName">BuyerFName: «BuyerFName»</label><br>
+                    <label id="BuyerMI">BuyerMI: «BuyerMI»</label><br>
+                    <label id="BuyerLName">BuyerLName: «BuyerLName»</label><br>
+                    <label id="BuyerRef1">BuyerRef1: «BuyerRef1»</label><br>
+                    <label id="BuyerRef2">BuyerRef2: «BuyerRef2»</label><br>
+                    <label id="BuyerStreet">BuyerStreet: «BuyerStreet»</label><br>
+                    <label id="BuyerStreet2">BuyerStreet2: «BuyerStreet2»</label><br>
+                    <label id="BuyerCity">BuyerCity: «BuyerCity»</label><br>
+                    <label id="BuyerState">BuyerState: «BuyerState»</label><br>
+                    <label id="BuyerZip">BuyerZip: «BuyerZip»</label><br>
+                    <label id="BuyerPhone">BuyerPhone: «BuyerPhone»</label><br>
+                    <label id="BuyerCountry">BuyerCountry: «BuyerCountry»</label><br>
+                    <label id="BuyerCustNo">BuyerCustNo: «BuyerCustNo»</label><br>
+                    <label id="Buyer1">Buyer1: «Buyer1»</label><br>
+                    <label id="Buyer2">Buyer2: «Buyer2»</label><br>
+                    <label id="Buyer3">Buyer3: «Buyer3»</label><br>
+                    <label id="Buyer4">Buyer4: «Buyer4»</label><br>
+                    <label id="Buyer5">Buyer5: «Buyer5»</label><br>
+                    <label id="Buyer6">Buyer6: «Buyer6»</label><br>
+                    <label id="BuyerPhone">BuyerPhone: «BuyerPhone»</label><br>
+                    <label id="BuyerCountry">BuyerCountry: «BuyerCountry»</label><br>
+                    <label id="BuyerEmail">BuyerEmail: «BuyerEmail»</label><br>
+                </td>
+            </tr>                    
+        </table>
+    </vendornet>
+</body>
+</html>

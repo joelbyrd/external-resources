@@ -1,0 +1,2272 @@
+﻿.fill, div.portrait .inner {
+    width: 100%;
+}
+
+div.portrait {
+    width: 4in;
+    height: 6in;
+}
+
+div.landscapeLeft {
+    width: 6in;
+    height: 4in;
+    overflow: hidden;
+}
+
+    div.landscapeLeft .inner {
+        width: 4in;
+        height: 6in;
+        -webkit-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+        margin-top: 4in;
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        -ms-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -ms-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        margin-left: 0;
+    }
+
+div.landscapeRight {
+    width: 6in;
+    height: 4in;
+    overflow: hidden;
+}
+
+    div.landscapeRight .inner {
+        width: 4in;
+        height: 6in;
+        -moz-transform-origin: 0 6in;
+        -o-transform-origin: 0 6in;
+        -webkit-transform-origin: 0 6in;
+        margin-top: -6in;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        -ms-transform-origin: 0 6in;
+        transform-origin: 0 6in;
+    }
+
+/*#region surepost outer divs */
+div.landscapeRightSurepost {
+    width: 7.5in;
+    height: 4in;
+    overflow: hidden;
+}
+
+    div.landscapeRightSurepost .inner {
+        width: 4in;
+        height: 7.5in;
+        -webkit-transform-origin: 0 7.5in;
+        -moz-transform-origin: 0 7.5in;
+        -o-transform-origin: 0 7.5in;
+        /*-webkit-transform-origin: 0 7.5in;*/
+        margin-top: -7.5in;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        -ms-transform-origin: 0 7.5in;
+        transform-origin: 0 7.5in;
+    }
+
+div.landscapeLeftSurepost {
+    width: 7.5in;
+    height: 4in;
+    overflow: hidden;
+}
+
+    div.landscapeLeftSurepost .inner {
+        width: 4in;
+        height: 7.5in;
+        -webkit-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+        margin-top: 4in;
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        -ms-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -ms-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        margin-left: 0;
+    }
+
+/*#endregion*/
+
+/*#region fedex */
+
+.fedex {
+    font-family: Arial,Helvetica,sans-serif;
+    /*transform: rotate(90deg);*/
+}
+
+    .fedex .row1 {
+        height: 0.7in;
+        border-bottom: 1px solid black;
+        font-size: 8pt;
+    }
+
+    .fedex .from-address {
+        float: left;
+        width: 62.5%;
+        border-right: 1px solid black;
+        height: 100%;
+        line-height: 1.1;
+    }
+
+        .fedex .from-address .span {
+            margin-left: 12.5%;
+        }
+
+    .fedex .ship-info {
+        width: 35%;
+        float: right;
+        height: 100%;
+    }
+
+    .fedex .row2 {
+        width: 100%;
+        height: 1.2in;
+        border-bottom: 1px solid black;
+        font-size: 10pt;
+    }
+
+        .fedex .row2 .to {
+            width: 5%;
+            float: left;
+            height: 100%;
+        }
+
+        .fedex .row2 .toaddress {
+            width: 92.5%;
+            height: 100%;
+            float: right;
+            font-weight: bold;
+        }
+
+.fedexie8 .row2 .toaddress .shiptoaddress {
+    line-height: 1.1;
+}
+
+.fedex .row2 .tocountry {
+    width: 91.25%;
+    clear: both;
+    text-align: right;
+}
+
+    .fedex .row2 .tocountry .ref {
+        float: left;
+        font-weight: normal;
+        font-size: 7pt;
+        text-align: left;
+    }
+
+    .fedex .row2 .tocountry .country {
+        float: right;
+    }
+
+.fedex .row3 {
+    width: 100%;
+    height: 1.7in;
+    border-bottom: 1px solid black;
+}
+
+    .fedex .row3 .two-d-barcode {
+        width: 73%;
+        /*height: 1in / $row3height * 100%; */
+        margin-top: 10px;
+        margin-left: 5px;
+        float: left;
+    }
+
+    .fedex .row3 .deliverybarcode {
+        width: 100%;
+        height: 0.2in;
+    }
+
+.fedex.fedexnew.priority .deliverybarcode {
+    padding-top: 0.05in;
+}
+
+        .fedex .row3 .deliverybarcode img {
+            width: 62.5%;
+            height: 90.0%;
+            margin: 4px 0 0 4px;
+        }
+
+    .fedex .row3 .extras {
+        float: left;
+        width: 21.5%;
+        padding-left: 2%;
+        overflow: hidden;
+    }
+
+        .fedex .row3 .extras .logo {
+            /*height: 36px / $row3height * 100%; */
+            width: 100%;
+            /*height:.75in;
+        width:.4in;
+        transform: rotate(135deg);
+        margin-top:-.2in;*/
+            /*margin-top: 0.05in / $row3height * 100%; */
+            /*margin-right: 0.25in / 0.7in * 100%;  */
+            /*float: left; */
+        }
+
+            .fedex .row3 .extras .logo img {
+                width: 100%;
+                /*transform: rotate(-90deg);
+          margin-top:.1in;
+          margin-left:.2in;*/
+            }
+
+        .fedex .row3 .extras .cls {
+            width: 0.15in;
+            height: 0.75in;
+            font-size: 6pt;
+            float: right;
+            text-align: center;
+        }
+
+            .fedex .row3 .extras .cls .clsinner {
+                width: 0.75in;
+                height: 0.15in;
+                -webkit-transform-origin: 0 0;
+                -moz-transform-origin: 0 0;
+                -o-transform-origin: 0 0;
+                -ms-transform-origin: 0 0;
+                transform-origin: 0 0;
+                margin-top: 0.75in;
+                -webkit-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+                margin-left: 0;
+                line-height: 0.2in;
+            }
+
+        .fedex .row3 .extras .letter-box {
+            width: 0.5in;
+            height: 0.5in;
+            border: 6px solid black;
+            float: left;
+            /*margin-top:0.05in; 
+        margin-right:0.1in; */
+            padding: 2pt;
+            line-height: 45px;
+            font-weight: bold;
+        }
+
+            .fedex .row3 .extras .letter-box .letter {
+                width: 80%;
+                height: 75%;
+                font-size: 55px;
+                margin: .03in auto;
+            }
+
+    .fedex .row3 .emergency {
+        width: 25%;
+        height: 17.85714%;
+        float: right;
+        font-size: 6pt;
+    }
+
+.fedex .row4 {
+    width: 100%;
+    height: 2.4in;
+}
+
+    .fedex .row4 .leftExpress {
+        width: 47.5%;
+        height: 52.08333%;
+        float: left;
+        font-size: 8pt;
+    }
+
+        .fedex .row4 .leftExpress .label {
+            width: 26.31579%;
+            height: 40%;
+            float: left;
+            margin-top: 16%;
+            font-weight: bold;
+        }
+
+            .fedex .row4 .leftExpress .label .formID {
+                width: 70%;
+                height: 40%;
+                padding: 2px;
+                border: 1px solid black;
+                font-size: 9pt;
+            }
+
+        .fedex .row4 .leftExpress .trackingno {
+            width: 71.05263%;
+            height: 40%;
+            margin-top: 16%;
+            float: right;
+            font-size: 12pt;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .fedex .row4 .leftExpress .ursa30 {
+            font-size: 30pt;
+            width: 1.9in;
+            float: left;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+    .fedex .row4 .leftGround {
+        width: 47.5%;
+        height: .2in;
+        float: left;
+        font-size: 8pt;
+    }
+
+    .fedex .row4 .rightExpress {
+        width: 50%;
+        height: 52.08333%;
+        float: right;
+        text-align: right;
+    }
+
+	
+
+        .fedex .row4 .rightExpress .text {
+            width: 100%;
+            height: 16%;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .fedex .row4 .rightExpress .lasttext {
+            width: 100%;
+            font-family: 'Courier New', monospace;
+            text-align: right;
+            font-weight: bold;
+            font-size: 12pt;
+            height: 24%;
+        }
+
+    .fedex .row4 .rightGround {
+        width: 50%;
+        height: .2in;
+        float: right;
+        text-align: right;
+    }
+
+    .fedex .row4 .bottombarcode {
+        width: 100%;
+        height: 41.66667%;
+        text-align: center;
+    }
+
+        .fedex .row4 .bottombarcode img {
+            width: 85%;
+            /* height: 100%; */
+            margin: 5px auto;
+        }
+
+.fedex.fedexnew .row4 .bottombarcode img {
+    width: auto;
+    /* height: auto; */
+    margin: 0.0625in;
+}
+
+.fedex.fedexnew.priority .row4 .bottombarcode img {
+    width: auto;
+    /* height: auto; */
+    margin: 0;
+}
+
+
+.fedexie8 {
+    font-family: Arial,Helvetica,sans-serif;
+    width: 7in;
+    height: 3.7in;
+    border: solid white 1pt;
+    margin-bottom: 5pt;
+}
+
+    .fedexie8 .row1 {
+        -ms-writing-mode: tb-rl;
+        writing-mode: tb-rl;
+        overflow: hidden;
+        float: right;
+        height: 3.7in;
+        width: 0.7in;
+        border-left: 1px solid black;
+        font-size: 8pt;
+    }
+
+    .fedexie8 .from-address {
+        float: left;
+        height: 62.5%;
+        border-bottom: 1px solid black;
+        width: 100%;
+    }
+
+        .fedexie8 .from-address .csphone {
+            margin-bottom: 12.5%;
+            float: right;
+        }
+
+    .fedexie8 .ship-info {
+        height: 35%;
+        float: right;
+        width: 100%;
+    }
+
+    .fedexie8 .row2 {
+        -ms-writing-mode: tb-rl;
+        writing-mode: tb-rl;
+        overflow: hidden;
+        float: right;
+        width: 1.2in;
+        height: 3.7in;
+        border-left: 1px solid black;
+    }
+
+        .fedexie8 .row2 .to {
+            height: 5%;
+            float: left;
+            width: 100%;
+        }
+
+        .fedexie8 .row2 .toaddress {
+            height: 92.5%;
+            width: 100%;
+            float: right;
+            font-weight: bold;
+        }
+
+            .fedexie8 .row2 .toaddress .shiptoaddress {
+                height: 100%;
+                float: left;
+                line-height: 1.1;
+            }
+
+            .fedexie8 .row2 .toaddress .tocountry {
+                height: 100%;
+                clear: both;
+                text-align: left;
+                float: left;
+            }
+
+                .fedexie8 .row2 .toaddress .tocountry .ref {
+                    height: 2in;
+                    font-weight: normal;
+                    font-size: 7pt;
+                    float: left;
+                }
+
+                .fedexie8 .row2 .toaddress .tocountry .country {
+                    height: 1in;
+                    float: right;
+                }
+
+    .fedexie8 .row3 {
+        width: 1.7in;
+        height: 3.7in;
+        border-left: 1px solid black;
+        overflow: hidden;
+        float: right;
+        -ms-writing-mode: tb-rl;
+        writing-mode: tb-rl;
+    }
+
+        .fedexie8 .row3 .deliverybarcode {
+            height: 3.7in;
+            width: 0.2in;
+        }
+
+            .fedexie8 .row3 .deliverybarcode img {
+                width: 90%;
+                height: 80%;
+                margin-top: 4px;
+                margin-right: 4px;
+            }
+
+        .fedexie8 .row3 .two-d-barcode {
+            height: 2.7in;
+            width: 1in;
+            margin-right: 10px;
+            margin-top: 0;
+            float: left;
+        }
+
+            .fedexie8 .row3 .two-d-barcode img {
+                margin-right: -1.65in;
+                filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+            }
+
+        .fedexie8 .row3 .extras {
+            float: right;
+            /*width: 22.5%;*/
+            overflow: hidden;
+            height: 21.5%;
+            padding-top: .1in;
+            width: 100%;
+        }
+
+            .fedexie8 .row3 .extras .cls {
+                height: 0.1in;
+                width: 0.75in;
+                font-size: 6pt;
+                float: right;
+                text-align: center;
+                -ms-writing-mode: lr-tb;
+                writing-mode: lr-tb;
+            }
+
+            .fedexie8 .row3 .extras .clsinner {
+            }
+
+            .fedexie8 .row3 .extras .letter-box {
+                width: 0.5in;
+                height: 0.5in;
+                border: 6px solid black;
+                float: left;
+                /*margin-top:0.05in; 
+        margin-bottom:0.1in; */
+                padding: 2pt;
+                line-height: 45px;
+                font-weight: bold;
+            }
+
+                .fedexie8 .row3 .extras .letter-box .letter {
+                    height: 80%;
+                    width: 75%;
+                    font-size: 55px;
+                    margin: auto 0.03in;
+                }
+
+            .fedexie8 .row3 .extras .logo {
+                /*height:.75in; */
+                width: .4in;
+                margin-left: .2in;
+            }
+
+                .fedexie8 .row3 .extras .logo img {
+                    width: 100%;
+                }
+
+        .fedexie8 .row3 .emergency {
+            width: 25%;
+            height: 17.85714%;
+            float: right;
+            font-size: 6pt;
+        }
+
+    .fedexie8 .row4 {
+        height: 3.7in;
+        width: 2.4in;
+        -ms-writing-mode: tb-rl;
+        writing-mode: tb-rl;
+        overflow: hidden;
+        float: right;
+    }
+
+        .fedexie8 .row4 .leftExpress {
+            height: 1.8in;
+            width: 1.2in;
+            float: left;
+            font-size: 8pt;
+        }
+
+            .fedexie8 .row4 .leftExpress .label {
+                height: 26.31579%;
+                width: 40%;
+                float: left;
+                margin-right: 16%;
+                font-weight: bold;
+            }
+
+                .fedexie8 .row4 .leftExpress .label .formID {
+                    height: 70%;
+                    width: 40%;
+                    padding: 2px;
+                    border: 1px solid black;
+                    font-size: 9pt;
+                }
+
+            .fedexie8 .row4 .leftExpress .trackingno {
+                height: 71.05263%;
+                width: 40%;
+                margin-right: 16%;
+                float: right;
+                font-size: 12pt;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .fedexie8 .row4 .leftExpress .ursa30 {
+                font-size: 30pt;
+                width: 1.9in;
+                float: left;
+                white-space: nowrap;
+                font-weight: bold;
+                clear: both;
+            }
+
+        .fedexie8 .row4 .leftGround {
+            height: 1.8in;
+            width: .2in;
+            float: left;
+            font-size: 8pt;
+        }
+
+        .fedexie8 .row4 .rightExpress {
+            height: 1.8in;
+            width: 1.2in;
+            float: right;
+            text-align: right;
+        }
+
+            .fedexie8 .row4 .rightExpress .text, .fedexie8 .row4 .rightExpress .lasttext {
+                height: 100%;
+                width: 16%;
+                font-family: 'Courier New', monospace;
+                font-size: 10pt;
+                text-align: right;
+                font-weight: bold;
+            }
+
+            .fedexie8 .row4 .rightExpress .lasttext {
+                font-size: 14pt;
+                width: 24%;
+            }
+
+        .fedexie8 .row4 .rightGround {
+            height: 1.8in;
+            width: .2in;
+            float: right;
+            text-align: right;
+        }
+
+        .fedexie8 .row4 .bottombarcode {
+            height: 3.7in;
+            width: 41.66667%;
+            text-align: center;
+        }
+
+            .fedexie8 .row4 .bottombarcode img {
+                height: 85%;
+                width: 100%;
+                margin: auto 5px;
+            }
+
+            .fedexie8 .row4 .bottombarcode .readable96div {
+                margin: .4in 0 0 .1in;
+            }
+
+            .fedexie8 .row4 .bottombarcode .gndHomediv {
+                margin-top: .2in;
+            }
+/*#endregion */
+
+/*#region ups */
+
+.ups {
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+    .ups .row1 {
+        width: 100%;
+        height: 0.65in;
+        overflow: hidden;
+    }
+
+        .ups .row1 .left {
+            float: left;
+            width: 50%;
+            height: 100%;
+            text-align: left;
+            font-size: 8pt;
+            white-space: nowrap;
+            line-height: 9pt;
+        }
+
+        .ups .row1 .right {
+            float: right;
+            width: 49%;
+            height: 100%;
+            text-align: right;
+            font-size: 11pt;
+        }
+
+            .ups .row1 .right span.weight {
+                font-size: 12pt;
+                font-weight: bold;
+            }
+
+            .ups .row1 .right span.o1 {
+                font-size: 10pt;
+                font-weight: bold;
+            }
+
+
+    .ups .row2 {
+        height: 1.2in;
+        width: 100%;
+        overflow: hidden;
+    }
+
+        .ups .row2 .label {
+            width: 16%;
+            padding-right: 2%;
+            font-weight: bold;
+            height: 100%;
+            float: left;
+            font-size: 10pt;
+        }
+
+        .ups .row2 .address {
+            width: 81%;
+            height: 100%;
+            float: left;
+            font-size: 10pt;
+        }
+
+            .ups .row2 .address span.lastbold {
+                font-size: 12pt;
+                font-weight: bold;
+            }
+
+    .ups .row3 {
+        height: 1.1in;
+        width: 100%;
+        border-top: solid black 1pt;
+    }
+
+        .ups .row3 .bullseye {
+            width: 1.1in;
+            height: 100%;
+            float: left;
+            border-right: solid black 1pt;
+        }
+
+            .ups .row3 .bullseye img {
+                height: 1in;
+                width: 1in;
+                margin: .05in auto;
+            }
+
+        .ups .row3 .urc-wrapper {
+            height: 100%;
+            width: 2.8in;
+            float: right;
+            font-weight: bold;
+        }
+
+            .ups .row3 .urc-wrapper .urc {
+                width: 100%;
+                font-size: 24pt;
+                text-align: center;
+            }
+
+            .ups .row3 .urc-wrapper .barcode {
+                height: 0.6in;
+                text-align: center;
+                width: 100%;
+            }
+
+                .ups .row3 .urc-wrapper .barcode img {
+                    max-width: 1.55in;
+                    min-height: .5in;
+                    margin: .08in auto;
+                }
+
+    .ups .row4 {
+        height: 0.45in;
+        width: 100%;
+        border-top: solid black 9pt;
+    }
+
+        .ups .row4 .tracking-wrapper {
+            width: 80%;
+            float: left;
+            height: 100%;
+            font-size: 10pt;
+        }
+
+            .ups .row4 .tracking-wrapper span {
+                font-size: 12pt;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+
+        .ups .row4 .icon {
+            width: 15%;
+            height: 100%;
+            float: right;
+            white-space: nowrap;
+            font-size: 30pt;
+            font-weight: bold;
+            text-align: right;
+        }
+
+            .ups .row4 .icon img {
+                height: 100%;
+            }
+
+    .ups .row5 {
+        height: 1.55in;
+        width: 100%;
+        overflow: hidden;
+        border-bottom: solid black 9pt;
+        border-top: solid black 1px;
+    }
+
+        .ups .row5 .track {
+            width: 100%;
+            text-align: center;
+        }
+
+            .ups .row5 .track img {
+                height: 1in;
+                width: 3.25in;
+                margin: .25in auto;
+            }
+
+    .ups .row6 {
+        height: 0.6in;
+        width: 100%;
+    }
+
+        .ups .row6 .billing {
+            width: 50%;
+            float: left;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+
+        .ups .row6 .urc-date {
+            float: right;
+            text-align: right;
+            font-size: 8pt;
+        }
+
+        .ups .row6 .adult {
+            clear: both;
+            width: 100%;
+            text-align: left;
+            font-size: 7pt;
+        }
+
+        .ups .row6 .ref {
+            clear: both;
+            width: 100%;
+            text-align: left;
+            font-size: 7pt;
+        }
+
+.upsie8 {
+    -ms-writing-mode: tb-rl;
+    writing-mode: tb-rl;
+    font-family: Arial,Helvetica,sans-serif;
+    width: 100%;
+    height: 100%;
+    border: solid white 1pt;
+    margin-bottom: 5pt;
+}
+
+    .upsie8 .row1 {
+        width: 0.75in;
+        height: 100%;
+        overflow: hidden;
+    }
+
+        .upsie8 .row1 .left {
+            float: left;
+            width: 100%;
+            height: 50%;
+            text-align: left;
+            font-size: 8pt;
+        }
+
+        .upsie8 .row1 .right {
+            float: right;
+            width: 100%;
+            height: 49%;
+            text-align: right;
+            font-size: 11pt;
+        }
+
+    .upsie8 .row2 {
+        height: 100%;
+        width: 1in;
+        overflow: hidden;
+    }
+
+        .upsie8 .row2 .label {
+            width: 100%;
+            height: 18%;
+            float: left;
+        }
+
+        .upsie8 .row2 .address {
+            width: 100%;
+            height: 81%;
+            float: left;
+            font-size: 12pt;
+            margin-right: 5pt;
+        }
+
+    .upsie8 .row3 {
+        width: 1.1in;
+        height: 100%;
+        border-right: solid black 1pt;
+    }
+
+        .upsie8 .row3 .bullseye {
+            width: 100%;
+            height: 1.1in;
+            float: left;
+            border-bottom: solid black 1pt;
+        }
+
+            .upsie8 .row3 .bullseye img {
+                height: 1in;
+                width: 1in;
+                margin: auto .05in;
+                filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+                filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+                -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+            }
+
+        .upsie8 .row3 .urc-wrapper {
+            height: 2.8in;
+            width: 100%;
+            float: right;
+            font-weight: bold;
+        }
+
+            .upsie8 .row3 .urc-wrapper .urc {
+                height: 100%;
+                font-size: 24pt;
+                text-align: center;
+                padding-top: 8px;
+            }
+
+            .upsie8 .row3 .urc-wrapper .barcode {
+                width: 0.6in;
+                text-align: center;
+            }
+
+                .upsie8 .row3 .urc-wrapper .barcode img {
+                    width: 0.5in;
+                    height: 1.75in;
+                    margin-top: 0.19in;
+                    margin-right: 0.1in;
+                }
+
+    .upsie8 .row4 {
+        width: 0.5in;
+        height: 100%;
+        border-right: solid black 9pt;
+    }
+
+        .upsie8 .row4 .tracking-wrapper {
+            height: 80%;
+            float: left;
+            width: 100%;
+        }
+
+            .upsie8 .row4 .tracking-wrapper span {
+                font-size: 16.5pt;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+
+        .upsie8 .row4 .icon {
+            height: 20%;
+            width: 100%;
+            float: left;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 36pt;
+            font-weight: bold;
+            /*letter-spacing: -5px;*/
+        }
+
+            .upsie8 .row4 .icon img {
+                height: 100%;
+                width: 100%;
+            }
+
+    .upsie8 .row5 {
+        width: 1.55in;
+        height: 100%;
+        overflow: hidden;
+        border-left: solid black 9pt;
+        border-right: solid black 1px;
+    }
+
+        .upsie8 .row5 .track {
+            height: 90%;
+            /*margin: auto 1pt;*/
+        }
+
+            .upsie8 .row5 .track img {
+                width: 1in;
+                height: 3.25in;
+                margin-right: 0.25in;
+                margin-top: 0.4in;
+            }
+
+    .upsie8 .row6 {
+        width: 0.6in;
+        height: 100%;
+    }
+
+        .upsie8 .row6 .billing {
+            height: 50%;
+            float: left;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+
+        .upsie8 .row6 .urc-date {
+            height: 50%;
+            float: left;
+            text-align: right;
+        }
+
+        .upsie8 .row6 .adult {
+            clear: left;
+            height: 100%;
+            text-align: left;
+        }
+
+        .upsie8 .row6 .ref {
+            height: 100%;
+            text-align: left;
+        }
+
+/*#endregion */
+
+/*#region USPS */
+
+.usps {
+    font-family: Arial,sans-serif;
+}
+
+    .usps .row1 {
+        width: 100%;
+        height: 1in;
+        text-align: center;
+    }
+
+        .usps .row1 .icon {
+            border-right: 2pt solid black;
+            float: left;
+            font-size: 60pt;
+            font-weight: bold;
+            height: 100%;
+            width: 25%;
+        }
+
+        .usps .row1 .top-box {
+            border: 2pt solid black;
+            float: right;
+            /* height: 0.8in;*/
+            width: 1.25in;
+            margin-bottom: 0.1in;
+            font-size: 8pt;
+            font-weight: bold;
+            padding: 3pt 0 3pt 0;
+            line-height: 1.5;
+        }
+
+    .usps .svc-banner {
+        white-space: nowrap;
+        text-align: center;
+        border-bottom: 2pt solid black;
+        font-size: 20pt;
+        width: 100%;
+        clear: both;
+        border-top: 2pt solid black;
+    }
+
+    .usps .from {
+        height: 1.12in;
+        width: 98%;
+        margin-left: 0.05in;
+        font-size: 9pt;
+        padding-top: .1in;
+    }
+
+        .usps .from .address {
+            float: left;
+            width: 50%;
+            height: 100%;
+            line-height: 1;
+        }
+
+        .usps .from .weight {
+            float: right;
+            width: 50%;
+            font-size: 12pt;
+            text-align: right;
+        }
+
+    .usps .ref {
+        /* this is blank in html? */
+        font-size: 8pt;
+    }
+
+    .usps .ship-to {
+        height: 1in;
+        width: 100%;
+        font-size: 10pt;
+        padding-left: 0.625in;
+    }
+
+        .usps .ship-to .address {
+            /*width:3in;*/
+            height: 1in;
+        }
+
+    .usps .barcode {
+        font-size: 10pt;
+        font-weight: bold;
+        line-height: 1;
+        width: 4in;
+        padding: 0;
+        margin: 0;
+        border-top: 0.0625in solid black;
+        border-bottom: 0.0625in solid black;
+        padding: 0.05in 0 0.05in 0;
+        text-align: center;
+    }
+
+        .usps .barcode img {
+            /*width: 3.7in;*/
+            width: 3.25in;
+            height: 0.76in;
+            margin: 0.125in 0 0.125in 0;
+            /*margin-bottom: 0.125in;*/
+        }
+
+.uspsie8 {
+    -ms-writing-mode: tb-rl;
+    writing-mode: tb-rl;
+    font-family: Arial,sans-serif;
+    width: 100%;
+    height: 100%;
+    border: solid white 1pt;
+    margin-bottom: 5pt;
+}
+
+    .uspsie8 .row1 {
+        height: 100%;
+        width: 1in;
+        text-align: center;
+        float: right;
+        overflow: hidden;
+        border-left: 1px solid black;
+    }
+
+        .uspsie8 .row1 .icon {
+            border-bottom: 2pt solid black;
+            float: left;
+            font-size: 60pt;
+            font-weight: bold;
+            height: 25%;
+            width: 100%;
+            text-align: center;
+        }
+
+        .uspsie8 .row1 .top-box {
+            border: 2pt solid black;
+            float: right;
+            height: 1.25in;
+            margin-left: 0.1in;
+            font-size: 8pt;
+            font-weight: bold;
+            padding: 3pt 0 3pt 0;
+            line-height: 1.5;
+        }
+
+    .uspsie8 .svc-banner {
+        float: right;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: center;
+        border-left: 1pt solid black;
+        font-size: 20pt;
+        height: 100%;
+        clear: both;
+    }
+
+    .uspsie8 .from {
+        clear: both;
+        width: 1.12in;
+        height: 98%;
+        margin-top: 0.05in;
+        font-size: 9pt;
+        padding-right: .1in;
+    }
+
+        .uspsie8 .from .address {
+            float: left;
+            width: 100%;
+            height: 50%;
+            line-height: 1;
+        }
+
+        .uspsie8 .from .weight {
+            float: right;
+            width: 50%;
+            font-size: 12pt;
+            text-align: right;
+        }
+
+    .uspsie8 .ref {
+        /* this is blank in html? */
+        font-size: 8pt;
+    }
+
+    .uspsie8 .ship-to {
+        clear: both;
+        width: 1in;
+        height: 100%;
+        font-size: 10pt;
+        padding-top: 0.625in;
+    }
+
+        .uspsie8 .ship-to .address {
+            width: 1in;
+        }
+
+    .uspsie8 .barcode {
+        clear: both;
+        font-size: 10pt;
+        font-weight: bold;
+        line-height: 10pt;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        border-right: 0.0625in solid black;
+        border-left: 0.0625in solid black;
+        padding-left: 0.05in;
+        padding-right: 0.05in;
+        text-align: center;
+    }
+
+        .uspsie8 .barcode img {
+            height: 3.25in;
+            width: 0.76in;
+            margin-left: 0.15in;
+            margin-right: 0.15in;
+            margin-top: 0.15in;
+            text-align: center;
+        }
+
+/*#endregion */
+
+/*#region Surepost */
+
+.upsSure {
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+    .upsSure .row1 {
+        width: 100%;
+        height: 0.5in;
+        overflow: hidden;
+    }
+
+        .upsSure .row1 .left {
+            float: left;
+            width: 50%;
+            height: 65%;
+            text-align: left;
+            font-size: 8pt;
+            line-height: 9pt;
+        }
+
+        .upsSure .row1 .right {
+            float: right;
+            width: 49%;
+            height: 65%;
+            text-align: right;
+            font-size: 11pt;
+        }
+
+            .upsSure .row1 .right span.weight {
+                font-size: 15pt;
+                font-weight: bold;
+            }
+
+            .upsSure .row1 .right span.o1 {
+                font-size: 12pt;
+                font-weight: bold;
+            }
+
+
+    .upsSure .row2 {
+        height: .7in;
+        width: 100%;
+        overflow: hidden;
+    }
+
+        .upsSure .row2 .label {
+            width: 15%;
+            padding-right: 2%;
+            height: 100%;
+            float: left;
+            margin-top: 5pt;
+            text-align: right;
+        }
+
+        .upsSure .row2 .address {
+            width: 80%;
+            height: 100%;
+            float: right;
+            font-size: 12pt;
+            margin-top: 5pt;
+        }
+
+    .upsSure .row3 {
+        height: 1.1in;
+        width: 100%;
+        border-top: solid black 1pt;
+        clear: both;
+    }
+
+        .upsSure .row3 .bullseye {
+            width: 1.08in;
+            float: left;
+            border-right: solid black 1pt;
+            display: inline-block;
+        }
+
+            .upsSure .row3 .bullseye img.bull {
+                width: 1in;
+                /*width: 1in;*/
+                margin: .05in auto;
+            }
+
+        .upsSure .row3 .urc-wrapper {
+            height: 1.1in;
+            width: 2.9in;
+            float: right;
+            font-weight: bold;
+        }
+
+            .upsSure .row3 .urc-wrapper .urc {
+                width: 100%;
+                font-size: 30pt;
+                text-align: center;
+                padding-left: 3px;
+            }
+
+            .upsSure .row3 .urc-wrapper .barcode {
+                width: 100%;
+                height: 0.6in;
+                text-align: center;
+            }
+
+                .upsSure .row3 .urc-wrapper .barcode img {
+                    height: 0.5in;
+                    width: 70%;
+                    margin: 0 auto;
+                }
+
+    .upsSure .row4 {
+        height: 0.5in;
+        width: 100%;
+        border-top: solid black 9pt;
+    }
+
+        .upsSure .row4 .tracking-wrapper {
+            width: 80%;
+            float: left;
+            height: 100%;
+            font-size: 10pt;
+        }
+
+            .upsSure .row4 .tracking-wrapper span {
+                font-size: 16pt;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+
+        .upsSure .row4 .icon {
+            width: 20%;
+            height: 100%;
+            float: left;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 36pt;
+            font-weight: bold;
+            /*letter-spacing: -5px;*/
+        }
+
+            .upsSure .row4 .icon img {
+                height: 100%;
+                width: 100%;
+            }
+
+    .upsSure .row5 {
+        height: 1.55in;
+        width: 100%;
+        overflow: hidden;
+        border-bottom: solid black 9pt;
+        border-top: solid black 1px;
+    }
+
+        .upsSure .row5 .track {
+            width: 90%;
+            margin: 1pt auto;
+        }
+
+            .upsSure .row5 .track img {
+                height: .7in;
+                width: 3.25in;
+                margin: .25in 0 .25in 0;
+            }
+
+    .upsSure .row6 {
+        height: 1in;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+        .upsSure .row6 .track {
+            width: 90%;
+            margin: 1pt auto;
+        }
+
+            .upsSure .row6 .track .carrier {
+                width: 100%;
+                text-align: left;
+                padding-left: 20px;
+                font-weight: bold;
+            }
+
+        .upsSure .row6 .deliver {
+            width: 65%;
+            height: .7in;
+            float: left;
+            font-size: 8pt;
+        }
+
+        .upsSure .row6 .box {
+            width: 1.05in;
+            height: .8in;
+            float: right;
+        }
+
+            .upsSure .row6 .box .wrap {
+                width: 1.0in;
+                height: .6in;
+                float: right;
+                border: 1pt solid black;
+                text-align: center;
+                font-size: 6pt;
+                margin-top: .1in;
+                position: relative;
+            }
+
+                .upsSure .row6 .box .wrap p.indica {
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin-right: -50%;
+                    -webkit-transform: translate(-50%, -50%);
+                    -moz-transform: translate(-50%, -50%);
+                    -ms-transform: translate(-50%, -50%);
+                    -o-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+                }
+
+    .upsSure .row7 {
+        height: 1.75in;
+        width: 100%;
+        overflow: hidden;
+        margin: 0;
+        margin-bottom: .15in;
+        border-top: solid black 9pt;
+        border-bottom: solid black 9pt;
+    }
+
+        .upsSure .row7 .track {
+            width: 90%;
+            margin: 1pt auto;
+            font-size: 10pt;
+        }
+
+        .upsSure .row7 .tracklabel {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12pt;
+            margin-top: .05in;
+        }
+
+        .upsSure .row7 .track img {
+            height: 1in;
+            margin: .125in auto;
+        }
+
+        .upsSure .row7 .label {
+            width: 100%;
+            margin-top: .03in;
+            text-align: center;
+            font-size: 12pt;
+            font-weight: bold;
+        }
+
+/*#endregion */
+
+/*#region Purolator */
+.CAPost {
+    height: 5.95in;
+    width: 3.98in;
+}
+
+    .CAPost .row1 {
+        width: 100%;
+        height: .75in;
+        border-top: 1pt solid black;
+        border-bottom: 1pt solid black;
+        font-weight: bold;
+        font-size: 18pt;
+        text-align: center;
+    }
+
+        .CAPost .row1 .header {
+            width: 55%;
+            height: 100%;
+            float: left;
+        }
+
+        .CAPost .row1 .airport {
+            width: 25%;
+            height: 100%;
+            float: left;
+        }
+
+        .CAPost .row1 .expHeader {
+            width: 80%;
+            height: 100%;
+            float: left;
+        }
+
+        .CAPost .row1 .iconwrapper {
+            width: .56in;
+            height: .56in;
+            float: right;
+            margin: .1in;
+        }
+
+            .CAPost .row1 .iconwrapper img {
+                width: 100%;
+                height: 100%;
+            }
+
+    .CAPost .row2 {
+        height: 1.8in;
+        width: 4in;
+    }
+
+        .CAPost .row2 .left {
+            width: 65%;
+            height: 1.8in;
+            float: left;
+        }
+
+            .CAPost .row2 .left span {
+                display: block;
+                width: 100%;
+            }
+
+                .CAPost .row2 .left span.texth {
+                    height: .16in;
+                    font-size: 10pt;
+                    font-weight: bold;
+                }
+
+                .CAPost .row2 .left span.texti {
+                    height: .7in;
+                    font-size: 8pt;
+                }
+
+        .CAPost .row2 .right {
+            width: 30%;
+            height: 1.8in;
+            float: right;
+            text-align: right;
+        }
+
+            .CAPost .row2 .right span {
+                display: block;
+                width: 95%;
+                margin-right: 1%;
+            }
+
+                .CAPost .row2 .right span.texth {
+                    height: .25in;
+                    font-size: 8pt;
+                    font-weight: bold;
+                    margin-top: .2in;
+                }
+
+                .CAPost .row2 .right span.texti {
+                    height: .4in;
+                    font-size: 7.5pt;
+                    margin-top: .1in;
+                }
+
+    .CAPost .row3 {
+        width: 4in;
+    }
+
+        .CAPost .row3 .right {
+            width: 97%;
+            margin: 0 auto;
+            border-top: 5pt dashed black;
+            border-bottom: 5pt dashed black;
+            padding: .1in 0 .1in 0;
+        }
+
+            .CAPost .row3 .right span {
+                width: 100%;
+                line-height: 1;
+                text-align: center;
+                display: block;
+            }
+
+            .CAPost .row3 .right .postal {
+                width: 90%;
+                height: .4in;
+                margin: 0 auto;
+                margin-bottom: 0in;
+                font-weight: bold;
+            }
+
+                .CAPost .row3 .right .postal .p1 {
+                    width: 10%;
+                    height: .17in;
+                    text-align: right;
+                    font-size: 15pt;
+                    float: right;
+                    margin-top: .19in;
+                    margin-right: .16in;
+                }
+
+                .CAPost .row3 .right .postal .p2 {
+                    width: 27%;
+                    height: .4in;
+                    text-align: center;
+                    font-size: 27pt;
+                    float: right;
+                }
+
+                .CAPost .row3 .right .postal .track {
+                    width: 50%;
+                    height: .17in;
+                    text-align: center;
+                    margin-left: .2in;
+                    float: left;
+                    font-size: 11pt;
+                    margin-top: .23in;
+                }
+
+            .CAPost .row3 .right .trkbarcode {
+                margin: .25in .12in .25in .12in;
+                text-align: center;
+            }
+
+                .CAPost .row3 .right .trkbarcode img {
+                    max-width: 3.29in;
+                    height: 1in;
+                }
+
+            .CAPost .row3 .right .verbiage {
+                width: 95%;
+                text-align: center;
+                font-size: 6.5pt;
+                margin: 0 auto;
+            }
+
+        .CAPost .row3 .left {
+            width: 100%;
+            height: .64in;
+            float: left;
+        }
+
+            .CAPost .row3 .left .sigwrapl {
+                width: 100%;
+                float: left;
+                margin-top: .05in;
+            }
+
+                .CAPost .row3 .left .sigwrapl div {
+                    float: right;
+                }
+
+                .CAPost .row3 .left .sigwrapl .r1 {
+                    height: .3in;
+                    width: .3in;
+                    border: 5pt solid black;
+                    font-size: 20pt;
+                    font-weight: bold;
+                    text-align: center;
+                }
+
+                .CAPost .row3 .left .sigwrapl .r2 {
+                    font-size: 6.5pt;
+                    font-weight: bold;
+                    width: 24%;
+                    height: .2in;
+                }
+
+                .CAPost .row3 .left .sigwrapl .r3 {
+                    font-size: 19pt;
+                    font-weight: bold;
+                    width: 50%;
+                    height: .25in;
+                }
+
+            .CAPost .row3 .left .sigwrapr {
+                width: 100%;
+                height: .3in;
+                float: right;
+                font-size: 6pt;
+            }
+
+                .CAPost .row3 .left .sigwrapr .r1 {
+                    width: 42%;
+                    float: left;
+                    height: .3in;
+                }
+
+                .CAPost .row3 .left .sigwrapr .r2 {
+                    width: 50%;
+                    float: left;
+                    height: .3in;
+                }
+
+        .CAPost .row3 .bottom {
+            width: 100%;
+            font-weight: bold;
+            float: left;
+        }
+
+            .CAPost .row3 .bottom .vin {
+                width: 41%;
+                float: left;
+                font-size: 6pt;
+            }
+
+            .CAPost .row3 .bottom .vin2 {
+                width: 30%;
+                float: left;
+                font-size: 6pt;
+            }
+
+            .CAPost .row3 .bottom .heavy {
+                width: 25%;
+                float: right;
+                text-align: right;
+                padding-right: .05in;
+                font-size: 8pt;
+                font-weight: bold;
+            }
+
+/*#endregion*/
+
+/*#region Canada Post */
+.divCanadaPost {
+    height: 5.95in;
+    width: 3.98in;
+}
+.divLogo {
+    width: 190px;
+    text-align: right;
+    vertical-align: bottom;
+    float: left;
+}
+
+.divLogoTopRightServiceIcon {
+    background-color: black;
+    color: white;
+    font-size: 36pt;
+    font-weight: bold;
+    text-align: center;
+    min-width: .55in;
+    min-height: .55in;
+    line-height: 60px;
+    float: right;
+    display: inline;
+}
+
+.divLogoWrapper {
+    top: -10mm;
+    height: 60px;
+    vertical-align: middle;
+    width: 365px;
+    border-bottom: solid 1px black;
+}
+
+.divLogoWrapper:after {
+	clear: both;
+}
+
+.trademarkSupFrench {
+    font-size: 7.5pt;
+}
+
+.divServiceAirportWrapper {
+    width: 365px;
+    height: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.divServiceAirportWrapper:after {
+	clear: both;
+}
+
+.divServiceName {
+    font-size: 16pt;
+    font-weight: bold;
+    float: left;
+    width: 295px;
+    display: inline;
+    white-space: nowrap;
+}
+
+.divAirportCode {
+    font-size: 16pt;
+    font-weight: bold;
+    width: 45px;
+    float: right;
+    text-align: right;
+    display: inline;
+    margin-right: 10px;
+}
+
+.divAddressToWrapper {
+    border-top: solid 1px black;
+}
+
+.headerToField {
+    background-color: black;
+    color: white;
+    font-size: 7.5pt;
+    font-weight: bold;
+    display: inline;
+}
+
+.divAddressTo {
+    border-top: 0px;
+    vertical-align: top;
+    height: 80px;
+    font-weight: bold;
+    min-font-size: 7.5pt;
+}
+
+.headerToTel {
+    font-size: 6pt;
+    font-weight: bold;
+    display: inline;
+}
+
+.spanHeavyInfo {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.divPostalCode {
+    font-weight: bold;
+    font-size: 28pt;
+}
+
+.CAPostLeft {
+    width: 50%;
+    height: 60px;
+    float: left;
+    display: inline;
+    border-right: 3px solid black;
+}
+
+.CAPostRight {
+    width: 45%;
+    height: 60px;
+    float: left;
+    display: inline;
+    /*border-left: 1px solid black;*/
+    margin-left: 10px;
+}
+
+.divOSGF {
+    border-top: solid 1px black;
+}
+
+.divOSGF:after {
+	clear: both;
+}
+
+.spanDeliverySignature {
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+.divBarCode {
+    min-height: 90px;
+    width: 360px;
+    margin: 0 auto;
+    border-top: 5pt dashed black;
+    border-bottom: 5pt dashed black;
+    clear: both;
+    text-align: center;
+}
+
+.imgBarCode {
+    min-height: 80px;
+    max-height: 120px;
+    max-width: 320px;
+    padding: .1in .25in .1in .25in;
+}
+
+.divTrackNumberLabel {
+    display: inline;
+    text-align: center;
+    font-size: 7pt;
+    font-weight: bold;
+}
+
+.divTrackNumberValue {
+    display: inline;
+    text-align: center;
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+.divLegal {
+    font-size: 6.5pt;
+    height: 20px;
+}
+
+.divSenderAddressShipmentInfoWrapper {
+    border-top: solid 1px black;
+}
+
+.divSenderAddressShipmentInfoWrapper:after {
+	clear: both;
+}
+
+.leftSenderAddress {
+    width: 70%;
+    float: left;
+    display: inline;
+    height: 60px;
+}
+
+.rightShipmentInfo {
+    width: 30%;
+    float: right;
+    display: inline;
+    margin-left: -1px;
+    font-size: 7pt;
+    height: 60px;
+    border-left: solid 1px black;
+}
+
+.footerFromField {
+    background-color: black;
+    color: white;
+    font-size: 6pt;
+    font-weight: bold;
+    display: inline;
+}
+
+.footerFromAddress {
+    font-size: 9pt;
+    font-weight: bold;
+    display: inline;
+}
+
+.divAC {
+    border-top: solid 1px black;
+    font-size: 8pt; 
+	font-weight: bold;
+    float: right;
+    text-align: right;
+    width: 30%;
+    border-left: solid 1px black;
+}
+
+.divPF {
+    float: left;
+    border-right: solid 1px black;
+}
+
+.divSystemInfo:before {
+    clear: both;
+}
+
+.divSystemInfo {
+    clear: both;
+    text-align: left;
+    font-size: 6.5pt;
+    border-top: solid 1px black;
+    height: 20px;
+}
+/*#endregion*/
+
+/*#region NewFedex -- These are overrides to the existing Fedex Style sheet */
+.fedexnew .shiptophone {
+	font-size: 7pt;
+	font-weight: normal;
+}
+
+.fedex.fedexnew.priority .shiptophone {
+	font-weight: 900;
+	line-height: 1;
+}
+
+.fedex.fedexnew span.shiptocitystate {
+	font-size: 10pt;
+	font-family: Arial;
+	font-weight: 900;
+}
+
+.fedex.fedexnew .ref {
+	font-size: 7pt;
+	font-weight: normal;
+}
+
+.fedex.fedexnew span.ref {
+	margin-left: 0.5in;
+}
+
+.fedex.fedexnew .row2 .tocountry .ref {
+	line-height: 1.1;
+	margin-top: 0.025in;
+}
+
+.ref+.ref {
+    /* float: right!important; */
+    width: 50%;
+    text-align: right!important;
+}
+
+.fedex.fedexnew .row2 {
+	height: 1.1in !important;
+	overflow: hidden !important;
+}
+
+	.fedex.fedexnew .row2 .toaddress .country {
+		font-size: 10pt;
+		font-weight: 900;
+		float: right;
+		margin-right: 0.30in;
+	}
+
+.fedex.fedexnew .row3 {
+	height: 1.4in;
+}
+
+.fedex.fedexnew.priority .row3 {
+	height: 1.625in;
+}
+
+
+
+
+.fedex.fedexnew .row4 .leftGround .label {
+	width: 26.31579%;
+	height: 40%;
+	float: left;
+	margin-top: 0.15in;
+	font-weight: bold;
+}
+
+.fedex.fedexnew.priority .row4 .leftExpress .label {
+	margin-top: 8%;
+	font-weight: bold;
+}
+
+
+
+	.fedex.fedexnew.priority .row4 .leftExpress .label .formID {
+		width: 70%;
+		height: 40%;
+		padding: 2px;
+		border: 1px solid black;
+		font-size: 7.5pt;
+		text-align: center;
+	}
+
+.fedex.fedexnew.priority .row4 .leftExpress .trackingno,
+.fedex.fedexnew .row4 .leftGround .trackingno {
+	width: 71.05263%;
+	height: 40%;
+	margin-top: 16%;
+	float: left; /* right */
+	font-size: 14pt;
+	font-family: Courier New, Courier, monospace;
+	/* font-weight: normal; */
+	text-align: center;
+}
+
+.fedex.fedexnew .row4 .leftGround .trackingno {
+	font-size: 14pt;
+	white-space: nowrap;
+	margin-top: 0.15in;
+	font-weight: 900;
+}
+
+.fedex.fedexnew .row4 .rightGround {
+	position: relative;
+	white-space: nowrap;
+}
+
+
+.fedex.fedexnew.priority .row4 .leftExpress .trackingno {
+	margin-top: 11%;
+	font-size: 14pt;
+	font-weight: 900;
+	text-align: left;
+	margin-left: -0.1in;
+	white-space: nowrap;
+}
+
+
+.fedex.fedexnew.priority .row4 .leftExpress .ursa30 {
+	font-family: Arial, 'Arial Narrow Bold', Helvetica, sans-serif;
+	font-size: 36pt;
+	width: 1.9in;
+	float: left;
+	white-space: nowrap;
+	font-weight: bold;
+	margin-top: 0.15in;
+}
+
+
+.fedex.fedexnew.priority .row4 .rightExpress .textA {
+	width: 100%;
+	height: 18%;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: right;
+	font-weight: bold;
+	margin-top: 0.10in;
+	font-size: 10pt;
+}
+
+.fedex.fedexnew.priority .row4 .rightExpress .textB {
+	width: 100%;
+	height: 18%; /*16%*/
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: right;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+.fedex.fedexnew .row4 .rightExpress .textB.adultSignature, .fedex.fedexnew .adultSignature {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+
+
+.fedex.fedexnew.priority .row4 .rightExpress .lasttext,
+.fedex.fedexnew .row4 .rightGround .lasttext {
+	width: 100%;
+	font-family: 'Courier New', monospace;
+	text-align: right;
+	font-weight: bold;
+	font-size: initial; /*20pt;*/
+	height: initial; /*24%;*/
+}
+
+.fedex.fedexnew.priority .row4 .rightExpress .lasttext {
+    font-size: 20pt;
+}
+
+.airportcode {
+    font-size: 14pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.fedex.fedexnew .row4 .rightGround .lasttext {
+	position: absolute;
+	bottom: 0; /*15%;*/
+	height: auto;
+	font-size: 20pt;
+}
+
+.adultSignature {
+    font-size: 9pt;
+}
+
+.fedex.fedexnew .row4 .leftGround,
+.fedex.fedexnew .row4 .rightGround {
+	height: 0.65in;
+}
+
+.fedex.fedexnew .row4 .leftGround {
+	width: 47.5%;
+	float: left;
+	font-size: 8pt;
+}
+
+.fedex.fedexnew.priority .row4 .rightExpress {
+	height: 39%;
+	width: 47.5%;
+}
+
+.fedex.fedexnew.priority .row4 .leftExpress {
+	height: 20%;
+	width: 50%;
+}
+
+.fedex.fedexnew .row4 .bottombarcode {
+	clear: both;
+	padding-top: 0.2in;
+}
+
+.fedex.fedexnew.priority .row4 .bottombarcode {
+	clear: both;
+	padding-top: 0.35in;
+}
+
+
+.fedex.fedexnew .row4 .rightGround .text {
+	width: 100%;
+	height: 16%;
+	font-family: 'Courier New', monospace;
+	font-size: 9pt;
+	text-align: right;
+	font-weight: bold;
+}
+
+.fedex.fedexnew.priority .row4 .rightExpress .smallCityCountry {
+	font-size: 12pt;
+	font-weight: 900;
+	margin-right: 0.05in;
+}
+
+
+/*#endregion*/

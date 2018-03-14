@@ -1,0 +1,395 @@
+﻿<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <title>Pick Ticket Recap</title>
+    <style type="text/css">
+        td.pick {
+            background-color: CCFFFF;
+        }
+    </style>
+    <script language="javascript">
+
+        var count = 0;
+
+        function PageBreakCounter() {
+            count = count + 1;
+            if (count == 1)
+                document.write("");
+            else
+                document.write("<span style=\"page-break-before:always; height:0px\"></span>");
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <vendornet>
+
+        <script>PageBreakCounter();</script>
+        <b><center>Pick Recap Fields</center></b>
+        <table width="100%" border=1>
+            <tr><td colspan=3><b><center>Pick Recap Header</center></b><br></td></tr>
+            <tr>
+                <td class="pick" id="PickRecapTicketHeader1">
+                    <label id="PrintBatch">PrintBatch: «PrintBatch»</label><br>
+                    <label id="Who">Who: «Who»</label><br>
+                    <label id="Picker">Picker: «Picker»</label><br>
+                    <label id="Carrier">Carrier: «Carrier»</label><br>
+                </td>
+                <td class="pick" id="PickRecapTicketHeader2">
+                    <label id="TicketId">TicketId: «TicketId»</label><br>
+                    <label id="TicketNo">TicketNo: «TicketNo»</label><br>
+                    <label id="Section1">Section1: «Section1»</label><br>
+                    <label id="Location1">Location1: «Location1»</label><br>
+                </td>
+                <td class="pick" id="PickRecapTicketHeader3">
+                    <label id="VendorNo1">VendorNo1: «VendorNo1»</label><br>
+                    <label id="VendorName1">VendorName1: «VendorName1»</label><br>
+                   <label id="PickType"> PickType: «PickType»</label><br>
+                </td>
+            </tr>
+                <tr><td colspan=3><b><center>Product info</center></b><br></td></tr>
+            <tr>
+                <td class="pick"  id="PickRecapTicketProduct1">
+                    <b>Product Label 1</b><br>
+                    <label id="ItemId1">ItemId1: «ItemId1»</label><br>
+                    <label id="SKU1">SKU1: «SKU1»</label><br>
+                    <label id="VendorSKU1">VendorSKU1: «VendorSKU1»</label><br>
+                    <label id="VendorDesc1">VendorDesc1: «VendorDesc1»</label><br>
+                    <label id="Description1">Description1: «Description1»</label><br>
+                    <label id="UPCCode1">UPCCode1: «UPCCode1»</label><br>
+                    <label id="Quantity1">Quantity1: «Quantity1»</label><br>
+                    <label id="GTIN1">GTIN1: «GTIN1»</label><br>
+                    <label id="UPCCodeEncoded1">UPCCodeEncoded1: «UPCCodeEncoded1»</label><br>
+                    <label id="GTINEncoded1">GTINEncoded1: «GTINEncoded1»</label><br>
+                    <label id="EncodeData1">EncodeData1: «EncodeData1»</label><br>
+                    <label id="EncodeDataEncoded1">EncodeDataEncoded1: «EncodeDataEncoded1»</label><br>
+                    <label id="Section1">Section1: «Section1»</label><br>
+                    <label id="Location1">Location1: «Location1»</label><br>
+                    <label id="Location_21">Location_21: «Location_21»</label><br>
+                    <label id="Location_31">Location_31: «Location_31»</label><br>
+                    <label id="Bin1">Bin1: «Bin1»</label><br>
+                    <label id="Picked1">Picked1: «Picked1»</label><br>
+                    <label id="Allocated1">Allocated1: «Allocated1»</label><br>
+                    <label id="RtnStock1">RtnStock1:«RtnStock1»</label><br>
+                    <label id="Style1">Style1:«Style1»</label><br>
+                    <label id="StyleDescription1">StyleDescription1: «StyleDescription1»</label><br>
+                    <label id="Level1SKU1">Level1SKU1: «Level1SKU1»</label><br>
+                    <label id="Level2SKU1">Level2SKU1: «Level2SKU1»</label><br>
+                    <label id="Level3SKU1">Level3SKU1:«Level3SKU1»</label><br>
+                    <label id="Level4SKU1">Level4SKU1:«Level4SKU1»</label><br>
+                    <label id="ExtCost1">ExtCost1:«ExtCost1»</label><br>
+                    <label id="ExtPrice1">ExtPrice1: «ExtPrice1»</label><br>
+                    <label id="CatSKU1">CatSKU1: «CatSKU1»</label><br>
+                    <label id="Brand1">Brand1: «Brand1»</label><br>
+                    <label id="Size1">Size1: «Size1»</label><br>
+                    <label id="UPCAlias1">UPCAlias1: «UPCAlias1»</label><br>
+                    <label id="SMB1">SMB1: «SMB1»</label><br>
+                    <label id="PRC1">PRC1: «PRC1»</label><br>
+                </td>
+                <td class="pick" id="PickRecapTicketProduct2">
+                    <b>Product Label 2</b><br>
+                    <label id="ItemId2">ItemId2: «ItemId2»</label><br>
+                    <label id="SKU2">SKU2: «SKU2»</label><br>
+                    <label id="VendorSKU2">VendorSKU2: «VendorSKU2»</label><br>
+                    <label id="VendorDesc2">VendorDesc2: «VendorDesc2»</label><br>
+                    <label id="Description2">Description2: «Description2»</label><br>
+                    <label id="UPCCode2">UPCCode2: «UPCCode2»</label><br>
+                    <label id="Quantity2">Quantity2: «Quantity2»</label><br>
+                    <label id="GTIN2">GTIN2: «GTIN2»</label><br>
+                    <label id="UPCCodeEncoded2">UPCCodeEncoded2: «UPCCodeEncoded2»</label><br>
+                    <label id="GTINEncoded2">GTINEncoded2: «GTINEncoded2»</label><br>
+                    <label id="EncodeData2">EncodeData2: «EncodeData2»</label><br>
+                    <label id="EncodeDataEncoded2">EncodeDataEncoded2: «EncodeDataEncoded2»</label><br>
+                    <label id="Section2">Section2: «Section2»</label><br>
+                    <label id="Location2">Location2: «Location2»</label><br>
+                    <label id="Location_22">Location_22: «Location_22»</label><br>
+                    <label id="Location_32">Location_32: «Location_32»</label><br>
+                    <label id="Bin2">Bin2: «Bin2»</label><br>
+                    <label id="Picked2">Picked2: «Picked2»</label><br>
+                    <label id="Allocated2">Allocated2: «Allocated2»</label><br>
+                    <label id="RtnStock2">RtnStock2:«RtnStock2»</label><br>
+                    <label id="Style2">Style2:«Style2»</label><br>
+                    <label id="StyleDescription2">StyleDescription2: «StyleDescription2»</label><br>
+                    <label id="Level1SKU2">Level1SKU2: «Level1SKU2»</label><br>
+                    <label id="Level2SKU2">Level2SKU2: «Level2SKU2»</label><br>
+                    <label id="Level3SKU2">Level3SKU2:«Level3SKU2»</label><br>
+                    <label id="Level4SKU2">Level4SKU2:«Level4SKU2»</label><br>
+                    <label id="ExtCost2">ExtCost2:«ExtCost2»</label><br>
+                    <label id="ExtPrice2">ExtPrice2: «ExtPrice2»</label><br>
+                    <label id="CatSKU2">CatSKU2: «CatSKU2»</label><br>
+                    <label id="Brand2">Brand2: «Brand2»</label><br>
+                    <label id="Size2">Size2: «Size2»</label><br>
+                    <label id="UPCAlias2">UPCAlias2: «UPCAlias2»</label><br>
+                    <label id="SMB2">SMB2: «SMB2»</label><br>
+                    <label id="PRC2">PRC2: «PRC2»</label><br>
+                </td>
+                <td class="pick" id="PickRecapTicketProduct3">
+                    <b>Product Label 3</b><br>
+                    <label id="ItemId3">ItemId3: «ItemId3»</label><br>
+                    <label id="SKU3">SKU3: «SKU3»</label><br>
+                    <label id="VendorSKU3">VendorSKU3: «VendorSKU3»</label><br>
+                    <label id="VendorDesc3">VendorDesc3: «VendorDesc3»</label><br>
+                    <label id="Description3">Description3: «Description3»</label><br>
+                    <label id="UPCCode3">UPCCode3: «UPCCode3»</label><br>
+                    <label id="Quantity3">Quantity3: «Quantity3»</label><br>
+                    <label id="GTIN3">GTIN3: «GTIN3»</label><br>
+                    <label id="UPCCodeEncoded3">UPCCodeEncoded3: «UPCCodeEncoded3»</label><br>
+                    <label id="GTINEncoded3">GTINEncoded3: «GTINEncoded3»</label><br>
+                    <label id="EncodeData3">EncodeData3: «EncodeData3»</label><br>
+                    <label id="EncodeDataEncoded3">EncodeDataEncoded3: «EncodeDataEncoded3»</label><br>
+                    <label id="Section3">Section3: «Section3»</label><br>
+                    <label id="Location3">Location3: «Location3»</label><br>
+                    <label id="Location_23">Location_23: «Location_23»</label><br>
+                    <label id="Location_33">Location_33: «Location_33»</label><br>
+                    <label id="Bin3">Bin3: «Bin3»</label><br>
+                    <label id="Picked3">Picked3: «Picked3»</label><br>
+                    <label id="Allocated3">Allocated3: «Allocated3»</label><br>
+                    <label id="RtnStock3">RtnStock3:«RtnStock3»</label><br>
+                    <label id="Style3">Style3:«Style3»</label><br>
+                    <label id="StyleDescription3">StyleDescription3: «StyleDescription3»</label><br>
+                    <label id="Level1SKU3">Level1SKU3: «Level1SKU3»</label><br>
+                    <label id="Level2SKU3">Level2SKU3: «Level2SKU3»</label><br>
+                    <label id="Level3SKU3">Level3SKU3:«Level3SKU3»</label><br>
+                    <label id="Level4SKU3">Level4SKU3:«Level4SKU3»</label><br>
+                    <label id="ExtCost3">ExtCost3:«ExtCost3»</label><br>
+                    <label id="ExtPrice3">ExtPrice3: «ExtPrice3»</label><br>
+                    <label id="CatSKU3">CatSKU3: «CatSKU3»</label><br>
+                    <label id="Brand3">Brand3: «Brand3»</label><br>
+                    <label id="Size3">Size3: «Size3»</label><br>
+                    <label id="UPCAlias3">UPCAlias3: «UPCAlias3»</label><br>
+                    <label id="SMB3">SMB3: «SMB3»</label><br>
+                    <label id="PRC3">PRC3: «PRC3»</label><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="pick" id="PickRecapTicketProduct4">
+                    <b>Product Label 4</b><br>
+                    <label id="ItemId4">ItemId4: «ItemId4»</label><br>
+                    <label id="SKU4">SKU4: «SKU4»</label><br>
+                    <label id="VendorSKU4">VendorSKU4: «VendorSKU4»</label><br>
+                    <label id="VendorDesc4">VendorDesc4: «VendorDesc4»</label><br>
+                    <label id="Description4">Description4: «Description4»</label><br>
+                    <label id="UPCCode4">UPCCode4: «UPCCode4»</label><br>
+                    <label id="Quantity4">Quantity4: «Quantity4»</label><br>
+                    <label id="GTIN4">GTIN4: «GTIN4»</label><br>
+                    <label id="UPCCodeEncoded4">UPCCodeEncoded4: «UPCCodeEncoded4»</label><br>
+                    <label id="GTINEncoded4">GTINEncoded4: «GTINEncoded4»</label><br>
+                    <label id="EncodeData4">EncodeData4: «EncodeData4»</label><br>
+                    <label id="EncodeDataEncoded4">EncodeDataEncoded4: «EncodeDataEncoded4»</label><br>
+                    <label id="Section4">Section4: «Section4»</label><br>
+                    <label id="Location4">Location4: «Location4»</label><br>
+                    <label id="Location_24">Location_24: «Location_24»</label><br>
+                    <label id="Location_34">Location_34: «Location_34»</label><br>
+                    <label id="Bin4">Bin4: «Bin4»</label><br>
+                    <label id="Picked4">Picked4: «Picked4»</label><br>
+                    <label id="Allocated4">Allocated4: «Allocated4»</label><br>
+                    <label id="RtnStock4">RtnStock4:«RtnStock4»</label><br>
+                    <label id="Style4">Style4:«Style4»</label><br>
+                    <label id="StyleDescription4">StyleDescription4: «StyleDescription4»</label><br>
+                    <label id="Level1SKU4">Level1SKU4: «Level1SKU4»</label><br>
+                    <label id="Level2SKU4">Level2SKU4: «Level2SKU4»</label><br>
+                    <label id="Level3SKU4">Level3SKU4:«Level3SKU4»</label><br>
+                    <label id="Level4SKU4">Level4SKU4:«Level4SKU4»</label><br>
+                    <label id="ExtCost4">ExtCost4:«ExtCost4»</label><br>
+                    <label id="ExtPrice4">ExtPrice4: «ExtPrice4»</label><br>
+                    <label id="CatSKU4">CatSKU4: «CatSKU4»</label><br>
+                    <label id="Brand4">Brand4: «Brand4»</label><br>
+                    <label id="Size4">Size4: «Size4»</label><br>
+                    <label id="UPCAlias4">UPCAlias4: «UPCAlias4»</label><br>
+                    <label id="SMB4">SMB4: «SMB4»</label><br>
+                    <label id="PRC4">PRC4: «PRC4»</label><br>
+                </td>
+                <td class="pick" id="PickRecapTicketProduct5">
+                    <b>Product Label 5</b><br>
+                    <label id="ItemId5">ItemId5: «ItemId5»</label><br>
+                    <label id="SKU5">SKU5: «SKU5»</label><br>
+                    <label id="VendorSKU5">VendorSKU5: «VendorSKU5»</label><br>
+                    <label id="VendorDesc5">VendorDesc5: «VendorDesc5»</label><br>
+                    <label id="Description5">Description5: «Description5»</label><br>
+                    <label id="UPCCode5">UPCCode5: «UPCCode5»</label><br>
+                    <label id="Quantity5">Quantity5: «Quantity5»</label><br>
+                    <label id="GTIN5">GTIN5: «GTIN5»</label><br>
+                    <label id="UPCCodeEncoded5">UPCCodeEncoded5: «UPCCodeEncoded5»</label><br>
+                    <label id="GTINEncoded5">GTINEncoded5: «GTINEncoded5»</label><br>
+                    <label id="EncodeData5">EncodeData5: «EncodeData5»</label><br>
+                    <label id="EncodeDataEncoded5">EncodeDataEncoded5: «EncodeDataEncoded5»</label><br>
+                    <label id="Section5">Section5: «Section5»</label><br>
+                    <label id="Location5">Location5: «Location5»</label><br>
+                    <label id="Location_25">Location_25: «Location_25»</label><br>
+                    <label id="Location_35">Location_35: «Location_35»</label><br>
+                    <label id="Bin5">Bin5: «Bin5»</label><br>
+                    <label id="Picked5">Picked5: «Picked5»</label><br>
+                    <label id="Allocated5">Allocated5: «Allocated5»</label><br>
+                    <label id="RtnStock5">RtnStock5:«RtnStock5»</label><br>
+                    <label id="Style5">Style5:«Style5»</label><br>
+                    <label id="StyleDescription5">StyleDescription5: «StyleDescription5»</label><br>
+                    <label id="Level1SKU5">Level1SKU5: «Level1SKU5»</label><br>
+                    <label id="Level2SKU5">Level2SKU5: «Level2SKU5»</label><br>
+                    <label id="Level3SKU5">Level3SKU5:«Level3SKU5»</label><br>
+                    <label id="Level4SKU5">Level4SKU5:«Level4SKU5»</label><br>
+                    <label id="ExtCost5">ExtCost5:«ExtCost5»</label><br>
+                    <label id="ExtPrice5">ExtPrice5: «ExtPrice5»</label><br>
+                    <label id="CatSKU5">CatSKU5: «CatSKU5»</label><br>
+                    <label id="Brand5">Brand5 «Brand5»</label><br>
+                    <label id="Size5">Size5: «Size5»</label><br>
+                    <label id="UPCAlias5">UPCAlias5: «UPCAlias5»</label><br>
+                    <label id="SMB5">SMB5: «SMB5»</label><br>
+                    <label id="PRC5">PRC5: «PRC5»</label><br>
+                </td>
+                <td class="pick" id="PickRecapTicketProduct6">
+                    <b>Product Label 6</b><br>
+                    <label id="ItemId6">ItemId6: «ItemId6»</label><br>
+                    <label id="SKU6">SKU6: «SKU6»</label><br>
+                    <label id="VendorSKU6">VendorSKU6: «VendorSKU6»</label><br>
+                    <label id="VendorDesc6">VendorDesc6: «VendorDesc6»</label><br>
+                    <label id="Description6">Description6: «Description6»</label><br>
+                    <label id="UPCCode6">UPCCode6: «UPCCode6»</label><br>
+                    <label id="Quantity6">Quantity6: «Quantity6»</label><br>
+                    <label id="GTIN6">GTIN6: «GTIN6»</label><br>
+                    <label id="UPCCodeEncoded6">UPCCodeEncoded6: «UPCCodeEncoded6»</label><br>
+                    <label id="GTINEncoded6">GTINEncoded6: «GTINEncoded6»</label><br>
+                    <label id="EncodeData6">EncodeData6: «EncodeData6»</label><br>
+                    <label id="EncodeDataEncoded6">EncodeDataEncoded6: «EncodeDataEncoded6»</label><br>
+                    <label id="Section6">Section6: «Section6»</label><br>
+                    <label id="Location6">Location6: «Location6»</label><br>
+                    <label id="Location_26">Location_26: «Location_26»</label><br>
+                    <label id="Location_36">Location_36: «Location_36»</label><br>
+                    <label id="Bin6">Bin6: «Bin6»</label><br>
+                    <label id="Picked6">Picked6: «Picked6»</label><br>
+                    <label id="Allocated6">Allocated6: «Allocated6»</label><br>
+                    <label id="RtnStock6">RtnStock6:«RtnStock6»</label><br>
+                    <label id="Style6">Style6:«Style6»</label><br>
+                    <label id="StyleDescription6">StyleDescription6: «StyleDescription6»</label><br>
+                    <label id="Level1SKU6">Level1SKU6: «Level1SKU6»</label><br>
+                    <label id="Level2SKU6">Level2SKU6: «Level2SKU6»</label><br>
+                    <label id="Level3SKU6">Level3SKU6:«Level3SKU6»</label><br>
+                    <label id="Level4SKU6">Level4SKU6:«Level4SKU6»</label><br>
+                    <label id="ExtCost6">ExtCost6:«ExtCost6»</label><br>
+                    <label id="ExtPrice6">ExtPrice6: «ExtPrice6»</label><br>
+                    <label id="CatSKU6">CatSKU6: «CatSKU6»</label><br>
+                    <label id="Brand6">Brand6: «Brand6»</label><br>
+                    <label id="Size6">Size6: «Size6»</label><br>
+                    <label id="UPCAlias6">UPCAlias6: «UPCAlias6»</label><br>
+                    <label id="SMB6">SMB6: «SMB6»</label><br>
+                    <label id="PRC6">PRC6: «PRC6»</label><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="pick" id="PickRecapTicketProduct7">
+                    <b>Product Label 7</b><br>
+                    <label id="ItemId7">ItemId7: «ItemId7»</label><br>
+                    <label id="SKU7">SKU7: «SKU7»</label><br>
+                    <label id="VendorSKU7">VendorSKU7: «VendorSKU7»</label><br>
+                    <label id="VendorDesc7">VendorDesc7: «VendorDesc7»</label><br>
+                    <label id="Description7">Description7: «Description7»</label><br>
+                    <label id="UPCCode7">UPCCode7: «UPCCode7»</label><br>
+                    <label id="Quantity7">Quantity7: «Quantity7»</label><br>
+                    <label id="GTIN7">GTIN7: «GTIN7»</label><br>
+                    <label id="UPCCodeEncoded7">UPCCodeEncoded7: «UPCCodeEncoded7»</label><br>
+                    <label id="GTINEncoded7">GTINEncoded7: «GTINEncoded7»</label><br>
+                    <label id="EncodeData7">EncodeData7: «EncodeData7»</label><br>
+                    <label id="EncodeDataEncoded7">EncodeDataEncoded7: «EncodeDataEncoded7»</label><br>
+                    <label id="Section7">Section7: «Section7»</label><br>
+                    <label id="Location7">Location7: «Location7»</label><br>
+                    <label id="Location_27">Location_27: «Location_27»</label><br>
+                    <label id="Location_37">Location_37: «Location_37»</label><br>
+                    <label id="Bin7">Bin7: «Bin7»</label><br>
+                    <label id="Picked7">Picked7: «Picked7»</label><br>
+                    <label id="Allocated7">Allocated7: «Allocated7»</label><br>
+                    <label id="RtnStock7">RtnStock7:«RtnStock7»</label><br>
+                    <label id="Style7">Style7:«Style7»</label><br>
+                    <label id="StyleDescription7">StyleDescription7: «StyleDescription7»</label><br>
+                    <label id="Level1SKU7">Level1SKU7: «Level1SKU7»</label><br>
+                    <label id="Level2SKU7">Level2SKU7: «Level2SKU7»</label><br>
+                    <label id="Level3SKU7">Level3SKU7:«Level3SKU7»</label><br>
+                    <label id="Level4SKU7">Level4SKU7:«Level4SKU7»</label><br>
+                    <label id="ExtCost7">ExtCost7:«ExtCost7»</label><br>
+                    <label id="ExtPrice7">ExtPrice7: «ExtPrice7»</label><br>
+                    <label id="CatSKU7">CatSKU7: «CatSKU7»</label><br>
+                    <label id="Size7">Brand7: «Brand7»</label><br>
+                    <label id="Size7">Size7: «Size7»</label><br>
+                    <label id="UPCAlias7">UPCAlias7: «UPCAlias7»</label><br>
+                    <label id="SMB7">SMB7: «SMB7»</label><br>
+                    <label id="PRC7">PRC7: «PRC7»</label><br>
+                </td>
+                <td class="pick" id="PickRecapTicketProduct8">
+                    <b>Product Label 8</b><br>
+                    <label id="ItemId8">ItemId8: «ItemId8»</label><br>
+                    <label id="SKU8">SKU8: «SKU8»</label><br>
+                    <label id="VendorSKU8">VendorSKU8: «VendorSKU8»</label><br>
+                    <label id="VendorDesc8">VendorDesc8: «VendorDesc8»</label><br>
+                    <label id="Description8">Description8: «Description8»</label><br>
+                    <label id="UPCCode8">UPCCode8: «UPCCode8»</label><br>
+                    <label id="Quantity8">Quantity8: «Quantity8»</label><br>
+                    <label id="GTIN8">GTIN8: «GTIN8»</label><br>
+                    <label id="UPCCodeEncoded8">UPCCodeEncoded8: «UPCCodeEncoded8»</label><br>
+                    <label id="GTINEncoded8">GTINEncoded8: «GTINEncoded8»</label><br>
+                    <label id="EncodeData8">EncodeData8: «EncodeData8»</label><br>
+                    <label id="EncodeDataEncoded8">EncodeDataEncoded8: «EncodeDataEncoded8»</label><br>
+                    <label id="Section8">Section8: «Section8»</label><br>
+                    <label id="Location8">Location8: «Location8»</label><br>
+                    <label id="Location_28">Location_28: «Location_28»</label><br>
+                    <label id="Location_38">Location_38: «Location_38»</label><br>
+                    <label id="Bin8">Bin8: «Bin8»</label><br>
+                    <label id="Picked8">Picked8: «Picked8»</label><br>
+                    <label id="Allocated8">Allocated8: «Allocated8»</label><br>
+                    <label id="RtnStock8">RtnStock8:«RtnStock8»</label><br>
+                    <label id="Style8">Style8:«Style8»</label><br>
+                    <label id="StyleDescription8">StyleDescription8: «StyleDescription8»</label><br>
+                    <label id="Level1SKU8">Level1SKU8: «Level1SKU8»</label><br>
+                    <label id="Level2SKU8">Level2SKU8: «Level2SKU8»</label><br>
+                    <label id="Level3SKU8">Level3SKU8:«Level3SKU8»</label><br>
+                    <label id="Level4SKU8">Level4SKU8:«Level4SKU8»</label><br>
+                    <label id="ExtCost8">ExtCost8:«ExtCost8»</label><br>
+                    <label id="ExtPrice8">ExtPrice8: «ExtPrice8»</label><br>
+                    <label id="CatSKU8">CatSKU8: «CatSKU8»</label><br>
+                    <label id="Brand8">Brand8: «Brand8»</label><br>
+                    <label id="Size8">Size8: «Size8»</label><br>
+                    <label id="UPCAlias8">UPCAlias8: «UPCAlias8»</label><br>
+                    <label id="SMB8">SMB8: «SMB8»</label><br>
+                    <label id="PRC8">PRC8: «PRC8»</label><br>
+                </td>
+                <td class="pick" id="PickRecapTicketProduct9">
+                    <b>Product Label 9</b><br>
+                    <label id="ItemId9">ItemId9: «ItemId9»</label><br>
+                    <label id="SKU9">SKU9: «SKU9»</label><br>
+                    <label id="VendorSKU9">VendorSKU9: «VendorSKU9»</label><br>
+                    <label id="VendorDesc9">VendorDesc9: «VendorDesc9»</label><br>
+                    <label id="Description9">Description9: «Description9»</label><br>
+                    <label id="UPCCode9">UPCCode9: «UPCCode9»</label><br>
+                    <label id="Quantity9">Quantity9: «Quantity9»</label><br>
+                    <label id="GTIN9">GTIN9: «GTIN9»</label><br>
+                    <label id="UPCCodeEncoded9">UPCCodeEncoded9: «UPCCodeEncoded9»</label><br>
+                    <label id="GTINEncoded9">GTINEncoded9: «GTINEncoded9»</label><br>
+                    <label id="EncodeData9">EncodeData9: «EncodeData9»</label><br>
+                    <label id="EncodeDataEncoded9"> EncodeDataEncoded9: «EncodeDataEncoded9»</label><br>
+                    <label id="Section9">Section9: «Section9»</label><br>
+                    <label id="Location9">Location9: «Location9»</label><br>
+                    <label id="Location_29">Location_29: «Location_29»</label><br>
+                    <label id="Location_39">Location_39: «Location_39»</label><br>
+                    <label id="Bin9">Bin9: «Bin9»</label><br>
+                    <label id="Picked9">Picked9: «Picked9»</label><br>
+                    <label id="Allocated9">Allocated9: «Allocated9»</label><br>
+                    <label id="RtnStock9">RtnStock9:«RtnStock9»</label><br>
+                    <label id="Style9">Style9:«Style9»</label><br>
+                    <label id="StyleDescription9">StyleDescription9: «StyleDescription9»</label><br>
+                    <label id="Level1SKU9">Level1SKU9: «Level1SKU9»</label><br>
+                    <label id="Level2SKU9">Level2SKU9: «Level2SKU9»</label><br>
+                    <label id="Level3SKU9">Level3SKU9:«Level3SKU9»</label><br>
+                    <label id="Level4SKU9">Level4SKU9:«Level4SKU9»</label><br>
+                    <label id="ExtCost9">ExtCost9:«ExtCost9»</label><br>
+                    <label id="ExtPrice9">ExtPrice9: «ExtPrice9»</label><br>
+                    <label id="CatSKU9">CatSKU9: «CatSKU9»</label><br>
+                    <label id="Brand9">Brand9: «Brand9»</label><br>
+                    <label id="Size9">Size9: «Size9»</label><br>
+                    <label id="UPCAlias9">UPCAlias9: «UPCAlias9»</label><br>
+                    <label id="SMB9">SMB9: «SMB9»</label><br>
+                    <label id="PRC9">PRC9: «PRC9»</label><br>
+                </td>
+            </tr>      
+        </table>
+    </vendornet>
+</body>
+</html>

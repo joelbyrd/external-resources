@@ -1,0 +1,207 @@
+﻿/* MOST IMPORTANT!!!!!!!!! */
+.wrapper *, .wrapper *:after, .wrapper *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* this gets added to the section where we will place the carrier labels, it revers that area to the old
+    style content-box so that the carrier library renders properly until we rewrite it
+*/
+.carrierWrapper *, .carrierWrapper *:after, .carrierWrapper *:before {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+body {
+    color: black;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 8pt;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    display: block;
+    overflow: hidden;
+    width: 8in;
+    height: 10in;
+    background-color: white;
+    margin: 0 auto;
+    padding: 5pt;
+    page-break-after: avoid; /* keep the contents together */
+    -webkit-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.pagebreakafter {
+    page-break-after: always; /* some IOS devices dont like page-break-before, so use after */
+    -webkit-break-after: always;
+    break-after: always;
+}
+
+.pagebreakbefore {
+    page-break-before: always;
+    -webkit-break-before: always;
+    break-before: always;
+}
+
+/* alignment classes*/
+.ac{text-align:center}.al{text-align:left}.ar{text-align:right}
+.cl{clear:left}.cr{clear:right}.clear{clear:both}
+
+/* grid system stuff */
+.grid {
+    clear: both;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.row:before,.row:after{content:"";display:table;clear:both}.row:after{clear:both}.row{zoom:1}
+
+/* each cell gets a .col class; the last column in each row gets a padding-right: 0. We can adapt
+    these classes (or make new ones) that have borders -- etc.. In the case of borders you only
+    apply them to the left and bottom and then have the last-of-type add to the right and then let
+    the containing div do the top. There's a bit of a trick to doing it right so you don't
+    get double thick borders
+*/
+.col {
+    padding-top: 1pt;
+    padding-left: 1pt;
+    border-collapse: collapse;
+    float: left;
+    padding-right: 5pt;
+    margin: 0;
+    position: relative;
+    height: 100%;
+    min-height: 1pt;
+}
+
+.col:last-of-type {
+    padding-right: 0;
+}
+
+/* this is the meat and potatoes of sizing the grid */
+.p-100{width:100%}.p-99{width:99%}.p-98{width:98%}.p-97{width:97%}.p-96{width:96%}.p-95{width:95%}.p-94{width:94%}.p-93{width:93%}.p-92{width:92%}.p-91{width:91%}.p-90{width:90%}.p-89{width:89%}.p-88{width:88%}.p-87{width:87%}.p-86{width:86%}.p-85{width:85%}.p-84{width:84%}.p-83{width:83%}.p-82{width:82%}.p-81{width:81%}.p-80{width:80%}.p-79{width:79%}.p-78{width:78%}.p-77{width:77%}.p-76{width:76%}.p-75{width:75%}.p-74{width:74%}.p-73{width:73%}.p-72{width:72%}.p-71{width:71%}.p-70{width:70%}.p-69{width:69%}.p-68{width:68%}.p-67{width:67%}.p-66{width:66%}.p-65{width:65%}.p-64{width:64%}.p-63{width:63%}.p-62{width:62%}.p-61{width:61%}.p-60{width:60%}.p-59{width:59%}.p-58{width:58%}.p-57{width:57%}.p-56{width:56%}.p-55{width:55%}.p-54{width:54%}.p-53{width:53%}.p-52{width:52%}.p-51{width:51%}.p-50{width:50%}.p-49{width:49%}.p-48{width:48%}.p-47{width:47%}.p-46{width:46%}.p-45{width:45%}.p-44{width:44%}.p-43{width:43%}.p-42{width:42%}.p-41{width:41%}.p-40{width:40%}.p-39{width:39%}.p-38{width:38%}.p-37{width:37%}.p-36{width:36%}.p-35{width:35%}.p-34{width:34%}.p-33{width:33%}.p-32{width:32%}.p-31{width:31%}.p-30{width:30%}.p-29{width:29%}.p-28{width:28%}.p-27{width:27%}.p-26{width:26%}.p-25{width:25%}.p-24{width:24%}.p-23{width:23%}.p-22{width:22%}.p-21{width:21%}.p-20{width:20%}.p-19{width:19%}.p-18{width:18%}.p-17{width:17%}.p-16{width:16%}.p-15{width:15%}.p-14{width:14%}.p-13{width:13%}.p-12{width:12%}.p-11{width:11%}.p-10{width:10%}.p-9{width:9%}.p-8{width:8%}.p-7{width:7%}.p-6{width:6%}.p-5{width:5%}.p-4{width:4%}.p-3{width:3%}.p-2{width:2%}.p-1{width:1%}
+
+/* utility */
+.fr{float:right}.fl{float:left}
+.superbold { font-weight: 800;}
+.bold {font-weight: bold; }
+.noOverFlow {overflow: no-display;}
+
+.bottomBorder { border-bottom: 1pt solid black;}
+
+.fs-100pt{font-size:100pt}.fs-99pt{font-size:99pt}.fs-98pt{font-size:98pt}.fs-97pt{font-size:97pt}.fs-96pt{font-size:96pt}.fs-95pt{font-size:95pt}.fs-94pt{font-size:94pt}.fs-93pt{font-size:93pt}.fs-92pt{font-size:92pt}.fs-91pt{font-size:91pt}.fs-90pt{font-size:90pt}.fs-89pt{font-size:89pt}.fs-88pt{font-size:88pt}.fs-87pt{font-size:87pt}.fs-86pt{font-size:86pt}.fs-85pt{font-size:85pt}.fs-84pt{font-size:84pt}.fs-83pt{font-size:83pt}.fs-82pt{font-size:82pt}.fs-81pt{font-size:81pt}.fs-80pt{font-size:80pt}.fs-79pt{font-size:79pt}.fs-78pt{font-size:78pt}.fs-77pt{font-size:77pt}.fs-76pt{font-size:76pt}.fs-75pt{font-size:75pt}.fs-74pt{font-size:74pt}.fs-73pt{font-size:73pt}.fs-72pt{font-size:72pt}.fs-71pt{font-size:71pt}.fs-70pt{font-size:70pt}.fs-69pt{font-size:69pt}.fs-68pt{font-size:68pt}.fs-67pt{font-size:67pt}.fs-66pt{font-size:66pt}.fs-65pt{font-size:65pt}.fs-64pt{font-size:64pt}.fs-63pt{font-size:63pt}.fs-62pt{font-size:62pt}.fs-61pt{font-size:61pt}.fs-60pt{font-size:60pt}.fs-59pt{font-size:59pt}.fs-58pt{font-size:58pt}.fs-57pt{font-size:57pt}.fs-56pt{font-size:56pt}.fs-55pt{font-size:55pt}.fs-54pt{font-size:54pt}.fs-53pt{font-size:53pt}.fs-52pt{font-size:52pt}.fs-51pt{font-size:51pt}.fs-50pt{font-size:50pt}.fs-49pt{font-size:49pt}.fs-48pt{font-size:48pt}.fs-47pt{font-size:47pt}.fs-46pt{font-size:46pt}.fs-45pt{font-size:45pt}.fs-44pt{font-size:44pt}.fs-43pt{font-size:43pt}.fs-42pt{font-size:42pt}.fs-41pt{font-size:41pt}.fs-40pt{font-size:40pt}.fs-39pt{font-size:39pt}.fs-38pt{font-size:38pt}.fs-37pt{font-size:37pt}.fs-36pt{font-size:36pt}.fs-35pt{font-size:35pt}.fs-34pt{font-size:34pt}.fs-33pt{font-size:33pt}.fs-32pt{font-size:32pt}.fs-31pt{font-size:31pt}.fs-30pt{font-size:30pt}.fs-29pt{font-size:29pt}.fs-28pt{font-size:28pt}.fs-27pt{font-size:27pt}.fs-26pt{font-size:26pt}.fs-25pt{font-size:25pt}.fs-24pt{font-size:24pt}.fs-23pt{font-size:23pt}.fs-22pt{font-size:22pt}.fs-21pt{font-size:21pt}.fs-20pt{font-size:20pt}.fs-19pt{font-size:19pt}.fs-18pt{font-size:18pt}.fs-17pt{font-size:17pt}.fs-16pt{font-size:16pt}.fs-15pt{font-size:15pt}.fs-14pt{font-size:14pt}.fs-13pt{font-size:13pt}.fs-12pt{font-size:12pt}.fs-11pt{font-size:11pt}.fs-10pt{font-size:10pt}.fs-9pt{font-size:9pt}.fs-8pt{font-size:8pt}.fs-7pt{font-size:7pt}.fs-6pt{font-size:6pt}.fs-5pt{font-size:5pt}.fs-4pt{font-size:4pt}.fs-3pt{font-size:3pt}.fs-2pt{font-size:2pt}.fs-1pt{font-size:1pt}
+
+/* "shivs" let us insert spacing when needed*/
+div.shiv {
+    clear: both;
+    width: 100%;
+    height: 25px;
+}
+
+div.halfshiv {
+    clear: both;
+    width: 100%;
+    height: 12.5px;
+}
+
+@media screen {
+    html {
+        width: 8.5in;
+    }
+
+    .wrapper {
+        background-color: white;
+        box-shadow: 0px 0px 10px black;
+        margin-top: 10pt;
+    }
+}
+
+@page {
+    size: auto;
+    size: letter portrait;  /* some browsers don't understand this, so they'll stick to auto */
+    margin: 0.25in;
+}
+
+@media print {
+    .wrapper {
+        overflow: hidden;
+        width: 100%;
+        height: 10.4in;
+        border: none;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    html { margin: 0 auto;}
+    html, body {
+        font-size: 8pt;
+        font-family: arial, Helvetica, sans-serif;
+        height: 10.4in;
+    }
+
+}
+
+/* chrome fix */
+@media only print and (-webkit-min-device-pixel-ratio:0) {
+
+    html, body {
+        height: auto;
+    }
+
+    div.wrapper {
+        overflow: hidden;
+        height: 10.3in;
+    }
+
+    div.wrapper.chromefix {
+        height: 10.2in;
+    }
+
+
+    body {
+        margin: 8pt;
+    }
+}
+
+/* FireFox hacks */
+@media print and (min--moz-device-pixel-ratio:0) {
+     div.wrapper {
+        overflow: hidden;
+        height: 10.1in;
+    }
+
+    html, body {
+        height: 10.1in;
+    }
+
+}
+
+/* Export Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}

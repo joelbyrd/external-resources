@@ -1,0 +1,1008 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script>
+    var baseURL = "[PRINT_DOC_BASE_URL]";
+    if (baseURL.charAt(0) == '[')
+        baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+</script>
+<head>
+    <script type="text/javascript">
+        document.write("<base href='"+baseURL+"' />");
+    </script>
+    <meta http-equiv=Content-Type content="text/html; charset=UTF-8" />
+    <title>Pick List</title>
+
+    <!-- ==FOR TESTING=== -- might need some work here to switch refs depending on 'PickTypeIn'-->
+    <!-- This is included on PickTicket-->
+    <!--<script src="http://w12devtest01:8039//shared/js/packslipBase.js" charset='UTF-8'></script>-->
+    <!-- These are included on PickCart-->
+    <!--<script src="http://w12devtest01:8039//printing/packing/js/packslipBase.js" charset='UTF-8'></script>-->
+    <!-- ==Live== -->
+    <!-- This is included on PickTicket-->
+    <script src="/shared/js/packslipBase.js" charset='UTF-8'></script>
+    <!-- These are included on PickCart-->
+    <!-- <script src="/printing/packing/js/packslipBase.js" charset='UTF-8'></script> -->
+
+    <script language="javascript">
+
+        var isPickTicket; // use this for differentiation later
+
+        //all parameters possible from pick perspective, and custom attributes can be passed in via vendornetConfig and an array as the last parameter
+        function PickTicket() {
+            //class specific variables, these are all parameters for you to pass in.
+            this.isSet = false;
+            this.who = "";
+            this.picker = "";
+            this.pickBatch = "";
+            this.carrier = "";
+            this.ticketId = "";
+            this.ticketNo = "";
+            this.section1 = "";
+            this.location1 = "";
+            this.VendorNo1 = "";
+            this.VendorName1 = "";
+            this.ticketName = "";
+            this.pickType = "";
+            this.customAttr = [];
+            this.items = [];
+            this.addItem = addItem;
+            this.sort = sortItems;
+            this.setHeaderVars = setHeaderVars;
+            this.generateTicket = generateTicket;
+            this.setMaxPage = setMaxPage;
+            this.writeSteps = writeSteps;
+            this.createPickCart = createPickCart; // BEAU - this is teh only difference between files. This isn't in 'PickTicket' but it's fine to set either way, just unused one way
+            this.maxPage = 0;
+
+            this.itemsPerLastPage = 6;
+            //***********************************************
+
+            //current page no iterated through when wiritng out pages
+            this.pageNo = 1;
+
+
+            //set this for self-referencing functions
+            var self = this;
+
+            function setHeaderVars(whoIn, pickerIn, pickBatchIn, carrierIn, ticketIdIn, ticketNoIn, section1In, location1In, VendorNo1In, VendorName1In, ticketNameIn, pickTypeIn, customAttrIn) {
+                if (!self.isSet) {
+                    self.who = whoIn;
+                    self.picker = pickerIn;
+                    self.pickBatch = pickBatchIn;
+                    self.carrier = carrierIn;
+                    self.ticketId = ticketIdIn;
+                    self.ticketNo = ticketNoIn;
+                    self.section1 = section1In;
+                    self.location1 = location1In;
+                    self.VendorNo1 = VendorNo1In;
+                    self.VendorName1 = VendorName1In;
+                    self.ticketName = ticketNameIn;
+                    self.pickType = pickTypeIn;
+                    self.customAttr = customAttrIn;
+                    self.isSet = true;
+                    //******************************** setup vars ***************/
+                    switch (pickTypeIn) {
+                        case "0":
+                        case "1":
+                            // item - std PickTicket
+                            this.itemsPerPage = 9;
+                            isPickTicket = true; // use this for differentiation later
+                            break;
+                        case "2":
+                        case "3":
+                        case "4":
+                        case "5":
+                            // slot - Pick Cart
+                            this.itemsPerPage = 7;
+                            isPickTicket = false; // use this for differentiation later
+                            break;
+                        default:
+                            break;
+                    }
+                    //alert("PickTypeIn=" + pickTypeIn);
+                    // end differentiation
+                    // ----------------------
+                }
+            }//set header vals
+
+            function addItem(itemObjIn) {
+                //only add to item array if qty does not contain whitespace
+                if (itemObjIn.qty) {
+                    self.items.push(itemObjIn);
+                }
+            }//additem
+
+            // ------------------
+            // Beau: use this setMaxPage method for both since it has logic to encompass/ignore what's in PickCart via conditional
+            // ------------------
+            function setMaxPage() {
+
+                var countOfItems;
+
+                //for ware house logic
+                if (self.pickType === "2" || self.pickType === "3" || self.pickType === "4" || self.pickType === "5") {
+                    //figure out how many unique items here, based on item.sku
+                    var uniqueItems = [];
+
+                    for (var i = 0; i < self.items.length; ++i) {
+                        if (uniqueItems.indexOf(self.items[i].sku) === -1) { //if item not found in unique items array
+                            uniqueItems.push(self.items[i].sku);
+                        }
+                    }
+
+                    countOfItems = uniqueItems.length;
+
+                } else { //use normal logic
+                    countOfItems = self.items.length;
+                }
+
+                //console.log("ipp:" + self.itemsPerPage + ";  ilen:" + countOfItems + "; m.ceil:" + Math.ceil(countOfItems / self.itemsPerPage));
+                if (countOfItems > 0)
+                { self.maxPage = Math.ceil(countOfItems / self.itemsPerPage); }
+                else
+                    self.maxPage = -1;
+
+                if ((countOfItems % self.itemsPerPage) > self.itemsPerLastPage || ((countOfItems % self.itemsPerPage) == 0 && self.itemsPerPage > self.itemsPerLastPage)) self.maxPage++;
+                //console.log("mod items/perpage: " + (countOfItems % self.itemsPerPage) + "; minus pplp: " + ((countOfItems % self.itemsPerPage) - self.itemsPerLastPage) + "; perlastpage: " + self.itemsPerLastPage);
+
+            }//set max page
+
+            function sortItems() {
+                for (var i = 0; i < (self.items.length - 1) ; i++)
+                    for (var j = i + 1; j < self.items.length; j++)
+                        if (self.items[j].sortValue < self.items[i].sortValue) {
+                            var temp = self.items[i];
+                            self.items[i] = self.items[j];
+                            self.items[j] = temp;
+                        }
+            }//sort
+
+            function createPickCart() {
+                /*
+                logic here is to take all existing items and make them unique. If dupes are found, add additional items to the original item's item.binInfo array of hash values
+                --to change how items are grouped you'll need to alter self.items[i].sku in the code below to be whatever item attribute is being grouped on
+
+                */
+                //only do this if it's not a recap, otherwise do it san's cart
+                var notRecap = (Number(self.items[0].rtnStock) + Number(self.items[0].picked) + Number(self.items[0].allocated) === 0);
+                if (notRecap) {
+                    var uniqueItems = []; //emtry array of items, keeps track of where the items are in the array
+                    var uniqueItemObjs = [];	//new array of new item objects
+
+                    if (self.pickType == "2" || self.pickType == "3" || self.pickType == "4" || self.pickType == "5") {
+                        for (var k = 0; k < self.items.length; k++) {
+                            if (uniqueItems.indexOf(self.items[k].sku) == -1) { //if item not found in unique items array
+
+                                uniqueItems.push(self.items[k].sku); //add a new entry to unique items
+                                uniqueItemObjs.push(self.items[k]);  //add a new entry to the new obj Array
+                                //copy current item's bin info onto the new item in unique items array
+                                uniqueItemObjs[uniqueItemObjs.length - 1].binInfo.push(
+                                    {
+                                        qty: self.items[k].qty,
+                                        slot: self.items[k].bin,
+                                        picked: self.items[k].picked,
+                                        alloc: self.items[k].allocated,
+                                        rtn: self.items[k].rtnStock
+                                    }
+                                );
+                            } else { //item already exists, add to it's bin info
+                                uniqueItemObjs[uniqueItems.indexOf(self.items[k].sku)].binInfo.push(
+                                    {
+                                        qty: self.items[k].qty,
+                                        slot: self.items[k].bin,
+                                        picked: self.items[k].picked,
+                                        alloc: self.items[k].allocated,
+                                        rtn: self.items[k].rtnStock
+                                    }
+                                );
+                            }
+                        }//for each item
+
+                        //set this array of objects to the new array of unique objects with bin info
+                        self.items = uniqueItemObjs;
+                    }//if picktype is 2 or 3
+                    else {
+                        for (var j = self.items.length - 1; j >= 0; j--) {
+                            self.items[j].binInfo.push(
+                                {
+                                    qty: self.items[j].qty,
+                                    slot: self.items[j].bin,
+                                    picked: self.items[j].picked,
+                                    alloc: self.items[j].allocated,
+                                    rtn: self.items[j].rtnStock
+                                }
+                            );
+                        }//for each item just copy it's bin info into itself
+                    }//else
+                }//if not pick cart
+            }//func createpickcart
+
+            function writeHeader() {
+                //write document header here, this is displayed at the top of each document
+
+                // slot - Pick Cart
+                //preferred name format
+                var vndNameFormatted = self.VendorName1.replace(/\(.*\)|\[.*\]/gi, "").trim().substring(0, 20);
+                var thisdate = new Date();
+                var dateStr = ("00" + (thisdate.getMonth() + 1)).takeR(2) + "/" + ("00" + thisdate.getDate()).takeR(2) + "/" + thisdate.getFullYear();
+                var timeStr = ("00" + thisdate.getHours()).takeR(2) + ":" + ("00" + thisdate.getMinutes()).takeR(2) + ":" + ("00" + thisdate.getSeconds()).takeR(2);
+
+                return "" +
+                "<div style='width:30%;text-align:left;float:left;font-size:8pt;margin:0;padding:0;'>" +
+                "	<img src='' style='width:90%;' onerror='this.style.height = \"0.5in\";this.style.visibility=\"hidden\";' /> <br/>" +
+                "	Store #: " + self.VendorNo1 + "<br/> " + self.VendorName1 +
+                "</div>" +
+                "<div style='width:40%;text-align:center;font-size:6pt;margin:0;padding:0;float:left;text-align:right;'>" +
+                "	Pick Batch: " + self.pickBatch + "<br/>" +
+                "	<span style='font-size:6pt;'>  Page " + self.pageNo + " of " + self.maxPage + "</span> <br/>" +
+                "	<img src='/images/Barcode.ashx?Code=" + self.pickBatch + "&Type=128A&X=2.5&Y=0.4&round=1' style='width:2.5in; height:0.4in;border:none;' onerror='this.style.visibility=\"hidden\";'> " +
+                "</div>" +
+                "<div style='width:30%;text-align:right;font-size:6pt;float:right;'> " +
+                " <span class='b' style='font-size:10pt;'>Date: " + dateStr + "</span><br/><span class='b' style='font-size:10pt;'>" + "Time: " + timeStr + "</span><br/>" +
+                "<span class='b' style='font-size:10pt;'>" + self.ticketName + "</span><br/>" +
+				"<span class='b' style='font-size:10pt;'>Pick Ticket ID: " + self.ticketNo + "</span></div>";
+
+            }//writeheader
+
+            // Beau: touched here
+            function writeSteps(notRecapIn) {
+
+
+
+                //steparray is array of string values
+                var stepArray = [
+                    "<span class='b' >PACKAGING: </span> Ensure product and product packaging have no visible damage and are in good condition.",
+                    "<span class='b' >LABELS: </span> Remove any stickers/labels from product and/or packaging.",
+                    "<span class='b' >APPAREL ITEMS: </span> Check the size tag of the item to ensure it matches the requested item size on the pick ticket.",
+                    "<span class='b' >FOOTWEAR ITEMS: </span> Check there is a left and right shoe in the selected size and style.",
+                    "<span class='b' >CONFIRM PICKS: </span>Prior to systematically confirming picks, verify the product’s UPC/SKU against the pick ticket.",
+                    "<span class='b' >SORT ORDERS: </span>Use packing slip to sort/match orders for shipment.",
+                    "<span class='b' >PREPARE PACKAGING: </span>Use approved shipping box/bag, packing materials, and fill material to prepare shipments. DO NOT SEAL PACKAGE.",
+                    "<span class='b' >SHIPPING LABEL: </span>Properly affix shipping label for the order to the shipment box/bag. Place packing slip inside shipment.",
+                    "<span class='b' >SEAL & STAGE: </span>Seal shipping package and place shipments in the staging area for courier pick up.",
+                ];
+
+                var notRecap = (Number(self.items[0].rtnStock) + Number(self.items[0].picked) + Number(self.items[0].allocated) === 0);
+                if (!notRecap) {
+                    stepArray = [];
+                    stepArray = ["<b>RESTOCK:</b>  Restock any quantity in \"Restock\" column.  These items were cancelled before you could finish picking item(s).",
+                        "<b>ERROR:</b>  Shipping address or ship method requires a change before item can be shipped.  Set item(s) aside until StoreNet Admin contacts store to confirm item(s) may now be properly picked or may be returned to stock."
+                    ];
+                }
+                document.write("<table class='Checklist' style='width: 100%; border:solid black 1pt; padding: 3pt 1pt 1pt 3pt;border-collapse:collapse;'> " +
+                        "<tr><th colspan='2' style='font-size:15px; background-color:#7ABC32;text-align:center;' class='b'>Store Procedures</th></tr>");
+
+                for (var i = 0; i < stepArray.length; ++i) {
+                   /* if (i > 1 && i < 5) {//letters for the 3 substeps for number 2.
+                        document.write("<td class='nums' style='border: 1px solid black !important;'></td><td style='border: 1px solid black !important;'>" + stepArray[i] + "</td></tr>");
+                    }
+					
+                    else if (i < 2) { //Normal for anything before the second line since there are no letters.*/
+                        document.write("<td class='nums' style='border: 1px solid black !important;'>" + (i + 1) + "</td><td style='border: 1px solid black !important;'>" + stepArray[i] + "</td></tr>");
+                    //}
+                    //else {//account for the steps from 3 forward due to the substeps for number 2.*/
+                    //    document.write("<td class='nums' style='border: 1px solid black !important;'>" + (i - 2) + "</td><td style='border: 1px solid black !important;'>" + stepArray[i] + "</td></tr>");
+                    //}
+                }//for each step
+                document.write("</table>");
+				
+				// slot - Pick Cart
+                document.write("" +
+                "<table style='width:100%;margin-top:.1in'> " +
+                "<tr><td style='width:15%;'>Completed By:</td><td style='width:31%;border-bottom:solid black 1pt;'>&nbsp;</td> " +
+                "	<td style='width:8%;'> &nbsp; </td> <td style='width:13%;'>Reviewed By:</td> <td style='width:31%;border-bottom:solid black 1pt;'>&nbsp</td></tr> ");
+            }
+        
+
+        function generateTicket() {
+            var notRecap = (Number(self.items[0].rtnStock) + Number(self.items[0].picked) + Number(self.items[0].allocated) === 0);
+            if (isPickTicket){
+                // item - std PickTicket
+                document.write("<div class='pagewrap'>");
+                document.write(writeHeader());
+                //console.log("self.items.len:" + self.items.length);
+
+                document.write("<table class='Items' ><tr><th style='border:solid black 1pt'>Item Information</th>" +
+						"<th style='border:solid black 1pt' width='136px'>UPC</th>" +
+						"<th style='border:solid black 1pt' width='136px'>Image</th>" +
+                        "<th style='border:solid black 1pt' width=5%>Qty</th>");
+                if (notRecap) {
+                    document.write("<th style='border:solid black 1pt;width:9%;'>Picked</th></tr>");
+                } else {
+                    document.write("<th style='border:solid black 1pt;width:9%;'>Error</th><th style='border:solid black 1pt;width:9%;'>Restock</th></tr>");
+                }
+
+                for (var icnt = 0; icnt < self.items.length; icnt++) {
+                    if (icnt != 0 && icnt % self.itemsPerPage === 0) {
+                        //console.log("newpage");
+                        self.pageNo++;
+                        document.write("</table>");
+                        document.write("</div>"); //close pagewrap
+                        pageBreak(self.pageNo !== 1);
+                        document.write("<div class='pagewrap'>");
+                        document.write(writeHeader());
+                        document.write("<table class='Items' ><tr><th style='border:solid black 1pt'>Item Information</th>" +
+						"<th style='border:solid black 1pt' width='136px'>UPC</th>" +
+                        "<th style='border:solid black 1pt' width='136px'>Image</th>" +
+                        "<th style='border:solid black 1pt' width=5%>Qty</th>");// +
+                        if (notRecap) {
+                            document.write("<th style='border:solid black 1pt;width:9%;'>Picked</th></tr>");
+                        } else {
+                            document.write("<th style='border:solid black 1pt;width:9%;'>Error</th><th style='border:solid black 1pt;width:9%;'>Restock</th></tr>");
+                        }
+                    }
+                    //document.write("<tr><td>test</td></tr>");
+
+                    document.write(self.items[icnt].displayItem(notRecap));
+                    //document.write("item " + icnt + ": " + self.items[icnt].sku);
+                }//for every item
+                document.write("</table>");
+
+                if (self.items.length % self.itemsPerPage == 0 || self.items.length % self.itemsPerPage > self.itemsPerLastPage) {
+                    document.write("</table>");
+                    document.write("</div>"); //close pagewrap
+                    pageBreak(true); //always write page breaks for last page
+                    self.pageNo++;
+                    document.write("<div class='pagewrap'>");
+                    document.write(writeHeader());
+                    self.writeSteps(notRecap);
+                } else
+                    self.writeSteps(notRecap);
+
+                document.write("</div>"); //close pagewrap
+            }else{
+                //alert("generateTicket 2-5");
+                // slot - Pick Cart
+                document.write("<div class='pagewrap'>");
+                document.write(writeHeader());
+
+                if (notRecap) {
+                    document.write("<table class='Items' > " +
+                        "<tr><th style='border-bottom:solid black 1pt;width:136px;'> &nbsp</th> " +
+                        "<th style='border-bottom:solid black 1pt;'> &nbsp </th> " +
+                        "<th style='border-bottom:solid black 1pt;width:40%;' > " +
+                        "</th></tr>");
+                } else {
+                    document.write("<table class='Items' > " +
+                    "<tr><th style='border-bottom:solid black 1pt;width:13%;'> &nbsp</th> " +
+                    "<th style='border-bottom:solid black 1pt;width:44%;'> &nbsp </th> " +
+                    "<th style='border-bottom:solid black 1pt;width:30%;' > " +
+                    "</th>");
+                    document.write("</tr>");
+                    //shouldn't change as recap logic is handled in the bin table
+                    //document.write("<th style='border-bottom:solid black 1pt;width:6%;'>Error</th><th style='border-bottom:solid black 1pt;width:9%;'>Restock</th></tr>");
+                }
+
+                for (var icnt = 0; icnt < self.items.length; icnt++) {
+                    if (icnt != 0 && icnt % self.itemsPerPage == 0) {
+                        //console.log("newpage");
+
+                        document.write("</table>");
+                        document.write("</div>"); //close pagewrap
+                        pageBreak(true); //always write page breaks for last page
+                        self.pageNo++;
+                        document.write("<div class='pagewrap'>");
+                        document.write(writeHeader());
+                        document.write("<table class='Items' > " +
+                        "<tr><th style='border-bottom:solid black 1pt;width:136px;'> &nbsp</th> " +
+                        "<th style='border-bottom:solid black 1pt;'> &nbsp </th> " +
+                        "<th style='border-bottom:solid black 1pt;width:40%;' > " +
+                        "</th>");
+
+                        /*Recap Addition*/
+                        if (notRecap) {
+                            document.write("</tr>");//nothing else to display
+                        } else {
+                            document.write("<th style='border-bottom:solid black 1pt;width:7%;'>Error</th><th style='border-bottom:solid black 1pt;width:7%;'>Restock</th></tr>");
+                        }
+                    }
+                    //document.write("<tr><td>test</td></tr>");
+
+                    document.write(self.items[icnt].displayItem(notRecap));
+                    //document.write("item " + icnt + ": " + self.items[icnt].sku);
+                }//for every item
+                document.write("</table>");
+
+                if (self.items.length % self.itemsPerPage == 0 || self.items.length % self.itemsPerPage > self.itemsPerLastPage) {
+                    document.write("</table>");
+                    document.write("</div>"); //close pagewrap
+                    pageBreak(self.pageNo != 1);
+                    self.pageNo++;
+                    document.write("<div class='pagewrap'>");
+                    document.write(writeHeader());
+                    writeSteps();
+                } else
+                    writeSteps();
+
+                document.write("</div>"); //close pagewrap
+                //console.log("end icnt:" + icnt) ;
+			}
+            }//generate ticket
+		
+        }//pickticket class
+        
+
+        function PickItem(itemIdIn, skuIn, vskuIn, descIn, vdescIn, qtyIn, upcIn, gtinIn, upcEncIn, gtinEncIn, encodeDataIn, encodeDataEncIn,
+            sectionIn, locationIn, location2In, location3In, sellingPriceIn, binIn, pickedIn, allocatedIn, rtnStockIn,
+            styleIn, styleDescIn, lvl1SkuIn, lvl2SkuIn, lvl3SkuIn, lvl4SkuIn, extCostIn, extPriceIn, customAttrIn) {
+
+            //class specific variables
+            this.itemId = itemIdIn;
+            this.sku = skuIn;
+            this.vsku = vskuIn;
+            this.desc = descIn;
+            this.vdesc = vdescIn;
+            this.qty = qtyIn;
+            this.upc = upcIn;
+            this.gtin = gtinIn;
+            this.upcEnc = upcEncIn;
+            this.gtinEnc = gtinEncIn;
+            this.encodeData = encodeDataIn;
+            this.encodeDataEnc = encodeDataEncIn;
+            this.section = sectionIn;
+            this.baselocation = locationIn;
+            this.itmlocation2 = location2In;
+            this.itmlocation3 = location3In;
+            this.sellingPrice = sellingPriceIn;
+            this.bin = binIn;  //will be slot passed in
+            this.picked = pickedIn;
+            this.allocated = allocatedIn;
+            this.rtnStock = rtnStockIn;
+            this.itmstyle = styleIn;
+            this.styleDesc = styleDescIn;
+            this.lvl1Sku = lvl1SkuIn;
+            this.lvl2Sku = lvl2SkuIn;
+            this.lvl3Sku = lvl3SkuIn;
+            this.lvl4Sku = lvl4SkuIn;
+            this.extCost = extCostIn;
+            this.extPrice = extPriceIn;
+            this.customAttrIn = customAttrIn; //this should be a hash defined with attributes, then pull data with self.customAttrIn['attribute'] in functions
+
+            this.binInfo = []; //this will be an array of hashes {slot: "", qty: ""}
+            this.displayItem = displayItem;
+
+            //change this value to change the way the items are sorted
+            this.sortValue = ("000" + this.baselocation.trim()).takeR(3) + ("000" + this.vsku.trim()).takeR(3) ;
+
+            //set this for self-referencing functions
+            var self = this;
+
+            /*
+            assume each item is rendered in table rows.
+
+            */
+            function displayItem(isNotRecap) {
+
+                var outstring;
+
+                if (isPickTicket){
+                    // item - std PickTicket
+                    outstring = "<tr > " +
+                                   "<td style='border:1pt solid black;'>  " +
+                                       "<table class='inditem'> " +
+                                       "	<tr><th style='width:25%;'>SKU:</th><td style='width:75%;'> " + self.vsku + " </td></tr> " +
+                                       "	<tr><th >Description:</th><td > " + self.vdesc + " </td></tr> " +
+                                       "	<tr><th >Location:</th><td > " + self.baselocation + " </td></tr> " +
+                                       "	<tr><th >Color:</th><td > " + (self.customAttrIn['color'] || "") + " </td></tr> " +
+                                       "	<tr><th >Size:</th><td > " + (self.customAttrIn['size'] || "") + " </td> </tr> " +
+									   "	<tr><th >Price:</th><td > " + self.sellingPrice + " </td> </tr> " +
+                                       "</table> " +
+                                   "</td> " +
+								   "<td class='UPC' style='border:1pt solid black;text-align:center;'> <img style='width:91px;height:.4in;' src='/images/Barcode.ashx?Code=" + trimUPC(self.gtin) + "&Type=128A&X=2.5&Y=0.4&round=1' onerror='this.style.visibility=\"hidden\";this.style.height=\"60px\";' /><br/>" + trimUPC(self.gtin) + "</td> " +
+								   "<td class='image' style='border:1pt solid black;'> <img style='width:91px;' src='" + (self.customAttrIn['image'] || "none") + "' onerror='this.style.visibility=\"hidden\";this.style.height=\"60px\";' /> </td> " +
+                                   "<td class='qty' style='border:1pt solid black;'> " + self.qty + " </td> ";
+
+                    if (isNotRecap) {
+                        //picked
+                        outstring += "<td style='border:1pt solid black;'> &nbsp; </td> ";
+                    } else { //recap columns
+                        var returnToStock = parseInt(self.picked) - parseInt(self.allocated);
+                        var carrierErrorAmt = self.rtnStock - (parseInt(self.picked) - parseInt(self.allocated));
+                        if (carrierErrorAmt < 0) carrierErrorAmt = 0;
+                        outstring += "<td style='text-align:center;'>" + carrierErrorAmt + "</td><td style='text-align:center;'>" + returnToStock + "</td>";
+                    }
+                    outstring += "</tr> ";
+                }else{
+                    // slot - Pick Cart
+
+                    outstring =
+                        "<tr> " +
+                            "<td class='image'> <img style='width:91px;' src='" + (self.customAttrIn['image'] || "none") + "' onerror='this.style.visibility=\"hidden\";this.style.height=\"60px\";'> </td> " +
+                            "<td>  " +
+                            "<table class='inditem'> " +
+                            "	<tr><th style='width:20%'>Buy Group:</th><td style='width:30%;'> " + self.baselocation + " </td><th style='width:20%'>UPC:</th><td style='width:30%;'> " + self.upc + " </td> </tr> " +
+                            "	<tr><th >Brand:</th><td > " + (self.customAttrIn['brand'] || "") + " </td><th style='width:20%'>Image:</th><td style='width:30%;'> " + (self.customAttrIn['altgtin'] || "") + " </td> </tr> " +
+                            "	<tr><th >Style:</th><td > " + self.itmstyle + " </td><th style='width:20%'>&nbsp;</th><td style='width:30%;'>  </td> </tr> " +
+                            "	<tr><th >Color:</th><td > " + (self.customAttrIn['color'] || "") + " </td><th style='width:20%'>SKU:</th><td style='width:30%;'> " + self.vsku + " </td> </tr> " +
+                            "	<tr><th >Size:</th><td > " + (self.customAttrIn['size'] || "") + " </td><th style='width:20%'>Price:</th><td style='width:30%;'> " + self.extPrice + " " + self.itmlocation3 + " </td> </tr> " +
+                            "</table> " +
+                            "</td> " +
+                            "<td class='bintable'>" +
+                            "	<table class='bintable' >";
+
+                    if (self.binInfo.length > 5) {
+                        outstring += "	<tr><th>Slot</th> " +
+                        "		<th>Qty</th> " +
+                        "		<th>Picked</th> ";
+                        if (!isNotRecap) { //if recap
+                            outstring += "<th>Error</th><th>Restock</th>";
+                        }
+                        outstring += "		<th>Slot</th> " +
+                        "		<th>Qty</th> " +
+                        "		<th>Picked</th> ";
+                        if (!isNotRecap) { //if recap
+                            outstring += "<th>Error</th><th>Restock</th>";
+                        }
+                        outstring += "	</tr> ";
+                    }
+                    else {//single rows
+                        outstring += "	<tr><th>Slot</th> " +
+                        "		<th>Qty</th> " +
+                        "		<th>Picked</th> ";
+                        if (!isNotRecap) { //if recap
+                            outstring += "<th>Error</th><th>Restock</th>";
+                        }
+                        outstring += "	</tr> ";
+                    }
+
+                    if (self.binInfo.length > 8) {
+
+                        for (var l = 0; l < 8; l++) {
+                            outstring += "<tr><td>" + self.binInfo[l]['slot'] + "</td><td>" + self.binInfo[l]['qty'] + "</td><td> &nbsp; </td> ";
+                            if (l + 8 >= self.binInfo.length) {//l+l doesn't exist
+                                outstring += "<td> &nbsp;</td><td>&nbsp;</td><td> &nbsp; </td>";
+                            } else {
+                                outstring += "<td>" + self.binInfo[l + 8]['slot'] + "</td><td>" + self.binInfo[l + 8]['qty'] + "</td><td> &nbsp; </td>";
+                            }//i+1 exists
+                            outstring += "</tr>";
+                        }
+                    } else {
+                        if (!isNotRecap) { //if recap
+                            outstring += "<tr><td>" + self.bin + "</td><td>" + self.qty + "</td>";
+                            console.log("sku: " + self.sku + "; qty: " + self.qty + "; allc:" + self.allocated + "; rtn: " + self.rtnStock + "; pk: " + self.picked);
+                            var rtnToStock = parseInt(self.picked) - parseInt(self.allocated);
+                            var errAmt = self.rtnStock - (parseInt(self.picked) - parseInt(self.allocated));
+
+                            console.log("err: " + errAmt);
+                            if (errAmt < 0) errAmt = 0;
+                            outstring += "<td>" + self.picked + "</td><td>" + errAmt + "</td><td>" + rtnToStock + "</td></tr>";
+                        } else {
+                            for (var i = 0; i < self.binInfo.length; i++) {
+                                outstring += "<tr><td>" + self.binInfo[i]['slot'] + "</td><td>" + self.binInfo[i]['qty'] + "</td>";
+                                outstring += "<td> &nbsp; </td></tr>";
+                            }
+                        }
+                    }//less than 8 items
+
+                    outstring +=
+                        "</table>" +
+                    "</td>" +
+                "</tr> ";
+                }
+
+                return outstring;
+				
+            }//displayitem
+
+        }//pickticket
+        function trimUPC(upc)
+        {
+
+            return upc.substring(upc.search(/\)/) + 1, upc.length).trim();
+        }
+
+
+    </script>
+
+
+
+    <style type="text/css">
+        body {
+            font-family: arial,Helvetica,sans-serif;
+            font-size: 10pt;
+        }
+
+        .b {
+            font-weight: bold;
+        }
+
+
+        table.Items {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            margin: .1in 0 0 0;
+            padding: 0;
+            font-size: 9pt;
+            clear: both;
+        }
+
+            table.Items td {
+                padding: 0 .5% 0 .5%;
+                border-bottom: solid black 1pt;
+            }
+
+                table.Items td.image {
+                    text-align: center;
+                }
+
+                table.Items td.qty {
+                    overflow: hidden;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+                table.Items td.bintable {
+                    vertical-align: top;
+                    font-size: 7pt;
+                }
+
+        table.inditem {
+            border-collapse: collapse;
+            font-size: 8pt;
+            width: 80%;
+            table-layout: fixed;
+        }
+
+            table.inditem td {
+                padding: 0 .5% 0 .5%;
+                border: none;
+                padding: 0 .5% 0 .5%;
+                margin: 0;
+                white-space: nowrap;
+            }
+
+            table.inditem th {
+                padding-top: 0;
+                text-align: left;
+            }
+
+        table.bintable {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            padding: 0;
+            float: right;
+            border-top: none;
+        }
+
+            table.bintable td {
+                border: solid black 1pt;
+                padding: 1px 0 1px 0;
+                text-align: center;
+                border-top: none;
+            }
+
+            table.bintable th {
+                border-bottom: solid black 1pt;
+            }
+
+
+        table.Checklist {
+            font-size: 8pt;
+            font-family: Arial;
+            border: solid black .5pt;
+            margin-top: .1in;
+            clear: both;
+        }
+
+            table.Checklist th {
+                border: solid black 1pt;
+                text-align: left;
+            }
+
+            table.Checklist td {
+                padding-left: 2pt;
+                border: solid black .5pt;
+            }
+
+                table.Checklist td.nums {
+                    padding: 0pt 2pt 0pt 2pt;
+                    text-align: center;
+                }
+
+        div.pagewrap {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid black;
+            width: 7.9in;
+            height: 10.4in;
+            margin: 5px auto;
+            background-color: white;
+            box-shadow: 0px 0px 10px black;
+            padding: .25in;
+            position: relative;
+        }
+
+        @page {
+            margin: 0.25in;
+        }
+
+        @media print {
+            div.pagewrap {
+                margin: 0;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<!--
+***************************
+Remove any codes in vendorNetConfig that are not being used, as they will increase performance
+
+-->
+<vendornetconfig>
+    <code original="«ItemId»" replace="«Image»">
+        <function name="SkuData" parameter1="1" />
+        <function name="HtmlAllQuotes" />
+    </code>
+
+    <code original="«ItemId»" replace="«Color»">
+        <function name="SkuXref" parameter1="CLR" />
+        <function name="HtmlAllQuotes" />
+    </code>
+
+    <code original="«ItemId»" replace="«Size»">
+        <function name="SkuXref" parameter1="SZE" />
+        <function name="HtmlAllQuotes" />
+    </code>
+
+    <code original="«ItemId»" replace="«Brand»">
+        <function name="SkuXref" parameter1="BRN" />
+        <function name="HtmlAllQuotes" />
+    </code>
+
+    <code original="«ItemId»" replace="«AltGTIN»">
+        <function name="SkuXref" parameter1="GTIN" />
+        <function name="HtmlAllQuotes" />
+    </code>
+
+    <code original="«TicketId»" replace="«TicketId»"><function name="HtmlAllQuotes" /></code>
+    <code original="«Description»" replace="«Description»"><function name="HtmlAllQuotes" /></code>
+    <code original="«VendorSKU»" replace="«VendorSKU»"><function name="HtmlAllQuotes" /></code>
+    <code original="«VendorDesc»" replace="«VendorDesc»"><function name="HtmlAllQuotes" /></code>
+    <code original="«VendorName»" replace="«VendorName»"><function name="HtmlAllQuotes" /></code>
+</vendornetconfig>
+
+<body onload="">
+
+    <script type="text/javascript">
+        var pickTicketObj = new PickTicket();
+    </script>
+    <vendornet>
+
+        <script language="javascript">
+
+            //whoIn,pickerIn,pickBatchIn,carrierIn,ticketIdIn,ticketNoIn,section1In,location1In,VendorNo1In,VendorName1In,ticketNameIn,pickTypeIn,customAttrIn){
+            pickTicketObj.setHeaderVars("«Who»", "«Picker»", "«PrintBatch»", "«Carrier»", "«TicketId»", "«TicketNo»", "«Section1»", "«Location1»", "«VendorNo1»", "«VendorName1»",
+                    "«TicketName»", "«PickType»", []);
+
+            /*
+            (itemIdIn,skuIn,vskuIn,descIn,vdescIn,qtyIn,upcIn,gtinIn,upcEncIn,gtinEncIn,encodeDataIn, encodeDataEncIn,
+            sectionIn,locationIn,location2In,location3In,sellingPriceIn,binIn,pickedIn,allocatedIn,rtnStockIn,
+            styleIn,styleDescIn,lvl1SkuIn,lvl2SkuIn,lvl3SkuIn,lvl4SkuIn,extCostIn,extPriceIn)
+            */
+            pickTicketObj.addItem(new PickItem("«ItemId1»", "«SKU1»", "«VendorSKU1»", "«Description1»", "«VendorDesc1»", "«Quantity1»", "«UPCCode1»", "«GTIN1»", "«UPCCodeEncoded1»", "«GTINEncoded1»", "«EncodeData1»", "«EncodeDataEncoded1»",
+                "«Section1»", "«Location1»", "«Location_21»", "«Location_31»", "«SellingPrice1»", "«Bin1»", "«Picked1»", "«Allocated1»", "«RtnStock1»",
+                "«Style1»", "«StyleDescription1»", "«Level1SKU1»", "«Level2SKU1»", "«Level3SKU1»", "«Level4SKU1»", "«ExtCost1»", "«ExtPrice1»", { image: "«Image1»", color: "«Color1»", size: "«Size1»", brand: "«Brand1»", altgtin: "«AltGTIN1»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId2»", "«SKU2»", "«VendorSKU2»", "«Description2»", "«VendorDesc2»", "«Quantity2»", "«UPCCode2»", "«GTIN2»", "«UPCCodeEncoded2»", "«GTINEncoded2»", "«EncodeData2»", "«EncodeDataEncoded2»",
+                "«Section2»", "«Location2»", "«Location_22»", "«Location_32»", "«SellingPrice2»", "«Bin2»", "«Picked2»", "«Allocated2»", "«RtnStock2»",
+                "«Style2»", "«StyleDescription2»", "«Level2SKU2»", "«Level2SKU2»", "«Level3SKU2»", "«Level4SKU2»", "«ExtCost2»", "«ExtPrice2»", { image: "«Image2»", color: "«Color2»", size: "«Size2»", brand: "«Brand2»", altgtin: "«AltGTIN2»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId3»", "«SKU3»", "«VendorSKU3»", "«Description3»", "«VendorDesc3»", "«Quantity3»", "«UPCCode3»", "«GTIN3»", "«UPCCodeEncoded3»", "«GTINEncoded3»", "«EncodeData3»", "«EncodeDataEncoded3»",
+                "«Section3»", "«Location3»", "«Location_23»", "«Location_33»", "«SellingPrice3»", "«Bin3»", "«Picked3»", "«Allocated3»", "«RtnStock3»",
+                "«Style3»", "«StyleDescription3»", "«Level1SKU3»", "«Level2SKU3»", "«Level3SKU3»", "«Level4SKU3»", "«ExtCost3»", "«ExtPrice3»", { image: "«Image3»", color: "«Color3»", size: "«Size3»", brand: "«Brand3»", altgtin: "«AltGTIN3»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId4»", "«SKU4»", "«VendorSKU4»", "«Description4»", "«VendorDesc4»", "«Quantity4»", "«UPCCode4»", "«GTIN4»", "«UPCCodeEncoded4»", "«GTINEncoded4»", "«EncodeData4»", "«EncodeDataEncoded4»",
+                "«Section4»", "«Location4»", "«Location_24»", "«Location_34»", "«SellingPrice4»", "«Bin4»", "«Picked4»", "«Allocated4»", "«RtnStock4»",
+                "«Style4»", "«StyleDescription4»", "«Level1SKU4»", "«Level2SKU4»", "«Level3SKU4»", "«Level4SKU4»", "«ExtCost4»", "«ExtPrice4»", { image: "«Image4»", color: "«Color4»", size: "«Size4»", brand: "«Brand4»", altgtin: "«AltGTIN4»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId5»", "«SKU5»", "«VendorSKU5»", "«Description5»", "«VendorDesc5»", "«Quantity5»", "«UPCCode5»", "«GTIN5»", "«UPCCodeEncoded5»", "«GTINEncoded5»", "«EncodeData5»", "«EncodeDataEncoded5»",
+                "«Section5»", "«Location5»", "«Location_25»", "«Location_35»", "«SellingPrice5»", "«Bin5»", "«Picked5»", "«Allocated5»", "«RtnStock5»",
+                "«Style5»", "«StyleDescription5»", "«Level1SKU5»", "«Level2SKU5»", "«Level3SKU5»", "«Level4SKU5»", "«ExtCost5»", "«ExtPrice5»", { image: "«Image5»", color: "«Color5»", size: "«Size5»", brand: "«Brand5»", altgtin: "«AltGTIN5»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId6»", "«SKU6»", "«VendorSKU6»", "«Description6»", "«VendorDesc6»", "«Quantity6»", "«UPCCode6»", "«GTIN6»", "«UPCCodeEncoded6»", "«GTINEncoded6»", "«EncodeData6»", "«EncodeDataEncoded6»",
+                "«Section6»", "«Location6»", "«Location_26»", "«Location_36»", "«SellingPrice6»", "«Bin6»", "«Picked6»", "«Allocated6»", "«RtnStock6»",
+                "«Style6»", "«StyleDescription6»", "«Level1SKU6»", "«Level2SKU6»", "«Level3SKU6»", "«Level4SKU6»", "«ExtCost6»", "«ExtPrice6»", { image: "«Image6»", color: "«Color6»", size: "«Size6»", brand: "«Brand6»", altgtin: "«AltGTIN6»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId7»", "«SKU7»", "«VendorSKU7»", "«Description7»", "«VendorDesc7»", "«Quantity7»", "«UPCCode7»", "«GTIN7»", "«UPCCodeEncoded7»", "«GTINEncoded7»", "«EncodeData7»", "«EncodeDataEncoded7»",
+                "«Section7»", "«Location7»", "«Location_27»", "«Location_37»", "«SellingPrice7»", "«Bin7»", "«Picked7»", "«Allocated7»", "«RtnStock7»",
+                "«Style7»", "«StyleDescription7»", "«Level1SKU7»", "«Level2SKU7»", "«Level3SKU7»", "«Level4SKU7»", "«ExtCost7»", "«ExtPrice7»", { image: "«Image7»", color: "«Color7»", size: "«Size7»", brand: "«Brand7»", altgtin: "«AltGTIN7»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId8»", "«SKU8»", "«VendorSKU8»", "«Description8»", "«VendorDesc8»", "«Quantity8»", "«UPCCode8»", "«GTIN8»", "«UPCCodeEncoded8»", "«GTINEncoded8»", "«EncodeData8»", "«EncodeDataEncoded8»",
+                "«Section8»", "«Location8»", "«Location_28»", "«Location_38»", "«SellingPrice8»", "«Bin8»", "«Picked8»", "«Allocated8»", "«RtnStock8»",
+                "«Style8»", "«StyleDescription8»", "«Level1SKU8»", "«Level2SKU8»", "«Level3SKU8»", "«Level4SKU8»", "«ExtCost8»", "«ExtPrice8»", { image: "«Image8»", color: "«Color8»", size: "«Size8»", brand: "«Brand8»", altgtin: "«AltGTIN8»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId9»", "«SKU9»", "«VendorSKU9»", "«Description9»", "«VendorDesc9»", "«Quantity9»", "«UPCCode9»", "«GTIN9»", "«UPCCodeEncoded9»", "«GTINEncoded9»", "«EncodeData9»", "«EncodeDataEncoded9»",
+                "«Section9»", "«Location9»", "«Location_29»", "«Location_39»", "«SellingPrice9»", "«Bin9»", "«Picked9»", "«Allocated9»", "«RtnStock9»",
+                "«Style9»", "«StyleDescription9»", "«Level1SKU9»", "«Level2SKU9»", "«Level3SKU9»", "«Level4SKU9»", "«ExtCost9»", "«ExtPrice9»", { image: "«Image9»", color: "«Color9»", size: "«Size9»", brand: "«Brand9»", altgtin: "«AltGTIN9»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId10»", "«SKU10»", "«VendorSKU10»", "«Description10»", "«VendorDesc10»", "«Quantity10»", "«UPCCode10»", "«GTIN10»", "«UPCCodeEncoded10»", "«GTINEncoded10»", "«EncodeData10»", "«EncodeDataEncoded10»",
+                "«Section10»", "«Location10»", "«Location_210»", "«Location_310»", "«SellingPrice10»", "«Bin10»", "«Picked10»", "«Allocated10»", "«RtnStock10»",
+                "«Style10»", "«StyleDescription10»", "«Level1SKU10»", "«Level2SKU10»", "«Level3SKU10»", "«Level4SKU10»", "«ExtCost10»", "«ExtPrice10»", { image: "«Image10»", color: "«Color10»", size: "«Size10»", brand: "«Brand10»", altgtin: "«AltGTIN10»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId11»", "«SKU11»", "«VendorSKU11»", "«Description11»", "«VendorDesc11»", "«Quantity11»", "«UPCCode11»", "«GTIN11»", "«UPCCodeEncoded11»", "«GTINEncoded11»", "«EncodeData11»", "«EncodeDataEncoded11»",
+                "«Section11»", "«Location11»", "«Location_211»", "«Location_311»", "«SellingPrice11»", "«Bin11»", "«Picked11»", "«Allocated11»", "«RtnStock11»",
+                "«Style11»", "«StyleDescription11»", "«Level1SKU11»", "«Level2SKU11»", "«Level3SKU11»", "«Level4SKU11»", "«ExtCost11»", "«ExtPrice11»", { image: "«Image11»", color: "«Color11»", size: "«Size11»", brand: "«Brand11»", altgtin: "«AltGTIN11»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId12»", "«SKU12»", "«VendorSKU12»", "«Description12»", "«VendorDesc12»", "«Quantity12»", "«UPCCode12»", "«GTIN12»", "«UPCCodeEncoded12»", "«GTINEncoded12»", "«EncodeData12»", "«EncodeDataEncoded12»",
+                "«Section12»", "«Location12»", "«Location_212»", "«Location_312»", "«SellingPrice12»", "«Bin12»", "«Picked12»", "«Allocated12»", "«RtnStock12»",
+                "«Style12»", "«StyleDescription12»", "«Level1SKU12»", "«Level2SKU12»", "«Level3SKU12»", "«Level4SKU12»", "«ExtCost12»", "«ExtPrice12»", { image: "«Image12»", color: "«Color12»", size: "«Size12»", brand: "«Brand12»", altgtin: "«AltGTIN12»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId13»", "«SKU13»", "«VendorSKU13»", "«Description13»", "«VendorDesc13»", "«Quantity13»", "«UPCCode13»", "«GTIN13»", "«UPCCodeEncoded13»", "«GTINEncoded13»", "«EncodeData13»", "«EncodeDataEncoded13»",
+                "«Section13»", "«Location13»", "«Location_213»", "«Location_313»", "«SellingPrice13»", "«Bin13»", "«Picked13»", "«Allocated13»", "«RtnStock13»",
+                "«Style13»", "«StyleDescription13»", "«Level1SKU13»", "«Level2SKU13»", "«Level3SKU13»", "«Level4SKU13»", "«ExtCost13»", "«ExtPrice13»", { image: "«Image13»", color: "«Color13»", size: "«Size13»", brand: "«Brand13»", altgtin: "«AltGTIN13»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId14»", "«SKU14»", "«VendorSKU14»", "«Description14»", "«VendorDesc14»", "«Quantity14»", "«UPCCode14»", "«GTIN14»", "«UPCCodeEncoded14»", "«GTINEncoded14»", "«EncodeData14»", "«EncodeDataEncoded14»",
+                "«Section14»", "«Location14»", "«Location_214»", "«Location_314»", "«SellingPrice14»", "«Bin14»", "«Picked14»", "«Allocated14»", "«RtnStock14»",
+                "«Style14»", "«StyleDescription14»", "«Level1SKU14»", "«Level2SKU14»", "«Level3SKU14»", "«Level4SKU14»", "«ExtCost14»", "«ExtPrice14»", { image: "«Image14»", color: "«Color14»", size: "«Size14»", brand: "«Brand14»", altgtin: "«AltGTIN14»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId15»", "«SKU15»", "«VendorSKU15»", "«Description15»", "«VendorDesc15»", "«Quantity15»", "«UPCCode15»", "«GTIN15»", "«UPCCodeEncoded15»", "«GTINEncoded15»", "«EncodeData15»", "«EncodeDataEncoded15»",
+                "«Section15»", "«Location15»", "«Location_215»", "«Location_315»", "«SellingPrice15»", "«Bin15»", "«Picked15»", "«Allocated15»", "«RtnStock15»",
+                "«Style15»", "«StyleDescription15»", "«Level1SKU15»", "«Level2SKU15»", "«Level3SKU15»", "«Level4SKU15»", "«ExtCost15»", "«ExtPrice15»", { image: "«Image15»", color: "«Color15»", size: "«Size15»", brand: "«Brand15»", altgtin: "«AltGTIN15»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId16»", "«SKU16»", "«VendorSKU16»", "«Description16»", "«VendorDesc16»", "«Quantity16»", "«UPCCode16»", "«GTIN16»", "«UPCCodeEncoded16»", "«GTINEncoded16»", "«EncodeData16»", "«EncodeDataEncoded16»",
+                "«Section16»", "«Location16»", "«Location_216»", "«Location_316»", "«SellingPrice16»", "«Bin16»", "«Picked16»", "«Allocated16»", "«RtnStock16»",
+                "«Style16»", "«StyleDescription16»", "«Level1SKU16»", "«Level2SKU16»", "«Level3SKU16»", "«Level4SKU16»", "«ExtCost16»", "«ExtPrice16»", { image: "«Image16»", color: "«Color16»", size: "«Size16»", brand: "«Brand16»", altgtin: "«AltGTIN16»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId17»", "«SKU17»", "«VendorSKU17»", "«Description17»", "«VendorDesc17»", "«Quantity17»", "«UPCCode17»", "«GTIN17»", "«UPCCodeEncoded17»", "«GTINEncoded17»", "«EncodeData17»", "«EncodeDataEncoded17»",
+                "«Section17»", "«Location17»", "«Location_217»", "«Location_317»", "«SellingPrice17»", "«Bin17»", "«Picked17»", "«Allocated17»", "«RtnStock17»",
+                "«Style17»", "«StyleDescription17»", "«Level1SKU17»", "«Level2SKU17»", "«Level3SKU17»", "«Level4SKU17»", "«ExtCost17»", "«ExtPrice17»", { image: "«Image17»", color: "«Color17»", size: "«Size17»", brand: "«Brand17»", altgtin: "«AltGTIN17»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId18»", "«SKU18»", "«VendorSKU18»", "«Description18»", "«VendorDesc18»", "«Quantity18»", "«UPCCode18»", "«GTIN18»", "«UPCCodeEncoded18»", "«GTINEncoded18»", "«EncodeData18»", "«EncodeDataEncoded18»",
+                "«Section18»", "«Location18»", "«Location_218»", "«Location_318»", "«SellingPrice18»", "«Bin18»", "«Picked18»", "«Allocated18»", "«RtnStock18»",
+                "«Style18»", "«StyleDescription18»", "«Level1SKU18»", "«Level2SKU18»", "«Level3SKU18»", "«Level4SKU18»", "«ExtCost18»", "«ExtPrice18»", { image: "«Image18»", color: "«Color18»", size: "«Size18»", brand: "«Brand18»", altgtin: "«AltGTIN18»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId19»", "«SKU19»", "«VendorSKU19»", "«Description19»", "«VendorDesc19»", "«Quantity19»", "«UPCCode19»", "«GTIN19»", "«UPCCodeEncoded19»", "«GTINEncoded19»", "«EncodeData19»", "«EncodeDataEncoded19»",
+                "«Section19»", "«Location19»", "«Location_219»", "«Location_319»", "«SellingPrice19»", "«Bin19»", "«Picked19»", "«Allocated19»", "«RtnStock19»",
+                "«Style19»", "«StyleDescription19»", "«Level1SKU19»", "«Level2SKU19»", "«Level3SKU19»", "«Level4SKU19»", "«ExtCost19»", "«ExtPrice19»", { image: "«Image19»", color: "«Color19»", size: "«Size19»", brand: "«Brand19»", altgtin: "«AltGTIN19»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId20»", "«SKU20»", "«VendorSKU20»", "«Description20»", "«VendorDesc20»", "«Quantity20»", "«UPCCode20»", "«GTIN20»", "«UPCCodeEncoded20»", "«GTINEncoded20»", "«EncodeData20»", "«EncodeDataEncoded20»",
+                "«Section20»", "«Location20»", "«Location_220»", "«Location_320»", "«SellingPrice20»", "«Bin20»", "«Picked20»", "«Allocated20»", "«RtnStock20»",
+                "«Style20»", "«StyleDescription20»", "«Level1SKU20»", "«Level2SKU20»", "«Level3SKU20»", "«Level4SKU20»", "«ExtCost20»", "«ExtPrice20»", { image: "«Image20»", color: "«Color20»", size: "«Size20»", brand: "«Brand20»", altgtin: "«AltGTIN20»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId21»", "«SKU21»", "«VendorSKU21»", "«Description21»", "«VendorDesc21»", "«Quantity21»", "«UPCCode21»", "«GTIN21»", "«UPCCodeEncoded21»", "«GTINEncoded21»", "«EncodeData21»", "«EncodeDataEncoded21»",
+                "«Section21»", "«Location21»", "«Location_221»", "«Location_321»", "«SellingPrice21»", "«Bin21»", "«Picked21»", "«Allocated21»", "«RtnStock21»",
+                "«Style21»", "«StyleDescription21»", "«Level1SKU21»", "«Level2SKU21»", "«Level3SKU21»", "«Level4SKU21»", "«ExtCost21»", "«ExtPrice21»", { image: "«Image21»", color: "«Color21»", size: "«Size21»", brand: "«Brand21»", altgtin: "«AltGTIN21»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId22»", "«SKU22»", "«VendorSKU22»", "«Description22»", "«VendorDesc22»", "«Quantity22»", "«UPCCode22»", "«GTIN22»", "«UPCCodeEncoded22»", "«GTINEncoded22»", "«EncodeData22»", "«EncodeDataEncoded22»",
+                "«Section22»", "«Location22»", "«Location_222»", "«Location_322»", "«SellingPrice22»", "«Bin22»", "«Picked22»", "«Allocated22»", "«RtnStock22»",
+                "«Style22»", "«StyleDescription22»", "«Level1SKU22»", "«Level2SKU22»", "«Level3SKU22»", "«Level4SKU22»", "«ExtCost22»", "«ExtPrice22»", { image: "«Image22»", color: "«Color22»", size: "«Size22»", brand: "«Brand22»", altgtin: "«AltGTIN22»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId23»", "«SKU23»", "«VendorSKU23»", "«Description23»", "«VendorDesc23»", "«Quantity23»", "«UPCCode23»", "«GTIN23»", "«UPCCodeEncoded23»", "«GTINEncoded23»", "«EncodeData23»", "«EncodeDataEncoded23»",
+                "«Section23»", "«Location23»", "«Location_223»", "«Location_323»", "«SellingPrice23»", "«Bin23»", "«Picked23»", "«Allocated23»", "«RtnStock23»",
+                "«Style23»", "«StyleDescription23»", "«Level1SKU23»", "«Level2SKU23»", "«Level3SKU23»", "«Level4SKU23»", "«ExtCost23»", "«ExtPrice23»", { image: "«Image23»", color: "«Color23»", size: "«Size23»", brand: "«Brand23»", altgtin: "«AltGTIN23»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId24»", "«SKU24»", "«VendorSKU24»", "«Description24»", "«VendorDesc24»", "«Quantity24»", "«UPCCode24»", "«GTIN24»", "«UPCCodeEncoded24»", "«GTINEncoded24»", "«EncodeData24»", "«EncodeDataEncoded24»",
+                "«Section24»", "«Location24»", "«Location_224»", "«Location_324»", "«SellingPrice24»", "«Bin24»", "«Picked24»", "«Allocated24»", "«RtnStock24»",
+                "«Style24»", "«StyleDescription24»", "«Level1SKU24»", "«Level2SKU24»", "«Level3SKU24»", "«Level4SKU24»", "«ExtCost24»", "«ExtPrice24»", { image: "«Image24»", color: "«Color24»", size: "«Size24»", brand: "«Brand24»", altgtin: "«AltGTIN24»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId25»", "«SKU25»", "«VendorSKU25»", "«Description25»", "«VendorDesc25»", "«Quantity25»", "«UPCCode25»", "«GTIN25»", "«UPCCodeEncoded25»", "«GTINEncoded25»", "«EncodeData25»", "«EncodeDataEncoded25»",
+                "«Section25»", "«Location25»", "«Location_225»", "«Location_325»", "«SellingPrice25»", "«Bin25»", "«Picked25»", "«Allocated25»", "«RtnStock25»",
+                "«Style25»", "«StyleDescription25»", "«Level1SKU25»", "«Level2SKU25»", "«Level3SKU25»", "«Level4SKU25»", "«ExtCost25»", "«ExtPrice25»", { image: "«Image25»", color: "«Color25»", size: "«Size25»", brand: "«Brand25»", altgtin: "«AltGTIN25»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId26»", "«SKU26»", "«VendorSKU26»", "«Description26»", "«VendorDesc26»", "«Quantity26»", "«UPCCode26»", "«GTIN26»", "«UPCCodeEncoded26»", "«GTINEncoded26»", "«EncodeData26»", "«EncodeDataEncoded26»",
+                "«Section26»", "«Location26»", "«Location_226»", "«Location_326»", "«SellingPrice26»", "«Bin26»", "«Picked26»", "«Allocated26»", "«RtnStock26»",
+                "«Style26»", "«StyleDescription26»", "«Level1SKU26»", "«Level2SKU26»", "«Level3SKU26»", "«Level4SKU26»", "«ExtCost26»", "«ExtPrice26»", { image: "«Image26»", color: "«Color26»", size: "«Size26»", brand: "«Brand26»", altgtin: "«AltGTIN26»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId27»", "«SKU27»", "«VendorSKU27»", "«Description27»", "«VendorDesc27»", "«Quantity27»", "«UPCCode27»", "«GTIN27»", "«UPCCodeEncoded27»", "«GTINEncoded27»", "«EncodeData27»", "«EncodeDataEncoded27»",
+                "«Section27»", "«Location27»", "«Location_227»", "«Location_327»", "«SellingPrice27»", "«Bin27»", "«Picked27»", "«Allocated27»", "«RtnStock27»",
+                "«Style27»", "«StyleDescription27»", "«Level1SKU27»", "«Level2SKU27»", "«Level3SKU27»", "«Level4SKU27»", "«ExtCost27»", "«ExtPrice27»", { image: "«Image27»", color: "«Color27»", size: "«Size27»", brand: "«Brand27»", altgtin: "«AltGTIN27»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId28»", "«SKU28»", "«VendorSKU28»", "«Description28»", "«VendorDesc28»", "«Quantity28»", "«UPCCode28»", "«GTIN28»", "«UPCCodeEncoded28»", "«GTINEncoded28»", "«EncodeData28»", "«EncodeDataEncoded28»",
+                "«Section28»", "«Location28»", "«Location_228»", "«Location_328»", "«SellingPrice28»", "«Bin28»", "«Picked28»", "«Allocated28»", "«RtnStock28»",
+                "«Style28»", "«StyleDescription28»", "«Level1SKU28»", "«Level2SKU28»", "«Level3SKU28»", "«Level4SKU28»", "«ExtCost28»", "«ExtPrice28»", { image: "«Image28»", color: "«Color28»", size: "«Size28»", brand: "«Brand28»", altgtin: "«AltGTIN28»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId29»", "«SKU29»", "«VendorSKU29»", "«Description29»", "«VendorDesc29»", "«Quantity29»", "«UPCCode29»", "«GTIN29»", "«UPCCodeEncoded29»", "«GTINEncoded29»", "«EncodeData29»", "«EncodeDataEncoded29»",
+                "«Section29»", "«Location29»", "«Location_229»", "«Location_329»", "«SellingPrice29»", "«Bin29»", "«Picked29»", "«Allocated29»", "«RtnStock29»",
+                "«Style29»", "«StyleDescription29»", "«Level1SKU29»", "«Level2SKU29»", "«Level3SKU29»", "«Level4SKU29»", "«ExtCost29»", "«ExtPrice29»", { image: "«Image29»", color: "«Color29»", size: "«Size29»", brand: "«Brand29»", altgtin: "«AltGTIN29»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId30»", "«SKU30»", "«VendorSKU30»", "«Description30»", "«VendorDesc30»", "«Quantity30»", "«UPCCode30»", "«GTIN30»", "«UPCCodeEncoded30»", "«GTINEncoded30»", "«EncodeData30»", "«EncodeDataEncoded30»",
+                "«Section30»", "«Location30»", "«Location_230»", "«Location_330»", "«SellingPrice30»", "«Bin30»", "«Picked30»", "«Allocated30»", "«RtnStock30»",
+                "«Style30»", "«StyleDescription30»", "«Level1SKU30»", "«Level2SKU30»", "«Level3SKU30»", "«Level4SKU30»", "«ExtCost30»", "«ExtPrice30»", { image: "«Image30»", color: "«Color30»", size: "«Size30»", brand: "«Brand30»", altgtin: "«AltGTIN30»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId31»", "«SKU31»", "«VendorSKU31»", "«Description31»", "«VendorDesc31»", "«Quantity31»", "«UPCCode31»", "«GTIN31»", "«UPCCodeEncoded31»", "«GTINEncoded31»", "«EncodeData31»", "«EncodeDataEncoded31»",
+                "«Section31»", "«Location31»", "«Location_231»", "«Location_331»", "«SellingPrice31»", "«Bin31»", "«Picked31»", "«Allocated31»", "«RtnStock31»",
+                "«Style31»", "«StyleDescription31»", "«Level1SKU31»", "«Level2SKU31»", "«Level3SKU31»", "«Level4SKU31»", "«ExtCost31»", "«ExtPrice31»", { image: "«Image31»", color: "«Color31»", size: "«Size31»", brand: "«Brand31»", altgtin: "«AltGTIN31»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId32»", "«SKU32»", "«VendorSKU32»", "«Description32»", "«VendorDesc32»", "«Quantity32»", "«UPCCode32»", "«GTIN32»", "«UPCCodeEncoded32»", "«GTINEncoded32»", "«EncodeData32»", "«EncodeDataEncoded32»",
+                "«Section32»", "«Location32»", "«Location_232»", "«Location_332»", "«SellingPrice32»", "«Bin32»", "«Picked32»", "«Allocated32»", "«RtnStock32»",
+                "«Style32»", "«StyleDescription32»", "«Level1SKU32»", "«Level2SKU32»", "«Level3SKU32»", "«Level4SKU32»", "«ExtCost32»", "«ExtPrice32»", { image: "«Image32»", color: "«Color32»", size: "«Size32»", brand: "«Brand32»", altgtin: "«AltGTIN32»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId33»", "«SKU33»", "«VendorSKU33»", "«Description33»", "«VendorDesc33»", "«Quantity33»", "«UPCCode33»", "«GTIN33»", "«UPCCodeEncoded33»", "«GTINEncoded33»", "«EncodeData33»", "«EncodeDataEncoded33»",
+                "«Section33»", "«Location33»", "«Location_233»", "«Location_333»", "«SellingPrice33»", "«Bin33»", "«Picked33»", "«Allocated33»", "«RtnStock33»",
+                "«Style33»", "«StyleDescription33»", "«Level1SKU33»", "«Level2SKU33»", "«Level3SKU33»", "«Level4SKU33»", "«ExtCost33»", "«ExtPrice33»", { image: "«Image33»", color: "«Color33»", size: "«Size33»", brand: "«Brand33»", altgtin: "«AltGTIN33»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId34»", "«SKU34»", "«VendorSKU34»", "«Description34»", "«VendorDesc34»", "«Quantity34»", "«UPCCode34»", "«GTIN34»", "«UPCCodeEncoded34»", "«GTINEncoded34»", "«EncodeData34»", "«EncodeDataEncoded34»",
+                "«Section34»", "«Location34»", "«Location_234»", "«Location_334»", "«SellingPrice34»", "«Bin34»", "«Picked34»", "«Allocated34»", "«RtnStock34»",
+                "«Style34»", "«StyleDescription34»", "«Level1SKU34»", "«Level2SKU34»", "«Level3SKU34»", "«Level4SKU34»", "«ExtCost34»", "«ExtPrice34»", { image: "«Image34»", color: "«Color34»", size: "«Size34»", brand: "«Brand34»", altgtin: "«AltGTIN34»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId35»", "«SKU35»", "«VendorSKU35»", "«Description35»", "«VendorDesc35»", "«Quantity35»", "«UPCCode35»", "«GTIN35»", "«UPCCodeEncoded35»", "«GTINEncoded35»", "«EncodeData35»", "«EncodeDataEncoded35»",
+                "«Section35»", "«Location35»", "«Location_235»", "«Location_335»", "«SellingPrice35»", "«Bin35»", "«Picked35»", "«Allocated35»", "«RtnStock35»",
+                "«Style35»", "«StyleDescription35»", "«Level1SKU35»", "«Level2SKU35»", "«Level3SKU35»", "«Level4SKU35»", "«ExtCost35»", "«ExtPrice35»", { image: "«Image35»", color: "«Color35»", size: "«Size35»", brand: "«Brand35»", altgtin: "«AltGTIN35»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId36»", "«SKU36»", "«VendorSKU36»", "«Description36»", "«VendorDesc36»", "«Quantity36»", "«UPCCode36»", "«GTIN36»", "«UPCCodeEncoded36»", "«GTINEncoded36»", "«EncodeData36»", "«EncodeDataEncoded36»",
+                "«Section36»", "«Location36»", "«Location_236»", "«Location_336»", "«SellingPrice36»", "«Bin36»", "«Picked36»", "«Allocated36»", "«RtnStock36»",
+                "«Style36»", "«StyleDescription36»", "«Level1SKU36»", "«Level2SKU36»", "«Level3SKU36»", "«Level4SKU36»", "«ExtCost36»", "«ExtPrice36»", { image: "«Image36»", color: "«Color36»", size: "«Size36»", brand: "«Brand36»", altgtin: "«AltGTIN36»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId37»", "«SKU37»", "«VendorSKU37»", "«Description37»", "«VendorDesc37»", "«Quantity37»", "«UPCCode37»", "«GTIN37»", "«UPCCodeEncoded37»", "«GTINEncoded37»", "«EncodeData37»", "«EncodeDataEncoded37»",
+                "«Section37»", "«Location37»", "«Location_237»", "«Location_337»", "«SellingPrice37»", "«Bin37»", "«Picked37»", "«Allocated37»", "«RtnStock37»",
+                "«Style37»", "«StyleDescription37»", "«Level1SKU37»", "«Level2SKU37»", "«Level3SKU37»", "«Level4SKU37»", "«ExtCost37»", "«ExtPrice37»", { image: "«Image37»", color: "«Color37»", size: "«Size37»", brand: "«Brand37»", altgtin: "«AltGTIN37»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId38»", "«SKU38»", "«VendorSKU38»", "«Description38»", "«VendorDesc38»", "«Quantity38»", "«UPCCode38»", "«GTIN38»", "«UPCCodeEncoded38»", "«GTINEncoded38»", "«EncodeData38»", "«EncodeDataEncoded38»",
+                "«Section38»", "«Location38»", "«Location_238»", "«Location_338»", "«SellingPrice38»", "«Bin38»", "«Picked38»", "«Allocated38»", "«RtnStock38»",
+                "«Style38»", "«StyleDescription38»", "«Level1SKU38»", "«Level2SKU38»", "«Level3SKU38»", "«Level4SKU38»", "«ExtCost38»", "«ExtPrice38»", { image: "«Image38»", color: "«Color38»", size: "«Size38»", brand: "«Brand38»", altgtin: "«AltGTIN38»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId39»", "«SKU39»", "«VendorSKU39»", "«Description39»", "«VendorDesc39»", "«Quantity39»", "«UPCCode39»", "«GTIN39»", "«UPCCodeEncoded39»", "«GTINEncoded39»", "«EncodeData39»", "«EncodeDataEncoded39»",
+                "«Section39»", "«Location39»", "«Location_239»", "«Location_339»", "«SellingPrice39»", "«Bin39»", "«Picked39»", "«Allocated39»", "«RtnStock39»",
+                "«Style39»", "«StyleDescription39»", "«Level1SKU39»", "«Level2SKU39»", "«Level3SKU39»", "«Level4SKU39»", "«ExtCost39»", "«ExtPrice39»", { image: "«Image39»", color: "«Color39»", size: "«Size39»", brand: "«Brand39»", altgtin: "«AltGTIN39»" })//pickticket
+                );
+
+            pickTicketObj.addItem(new PickItem("«ItemId40»", "«SKU40»", "«VendorSKU40»", "«Description40»", "«VendorDesc40»", "«Quantity40»", "«UPCCode40»", "«GTIN40»", "«UPCCodeEncoded40»", "«GTINEncoded40»", "«EncodeData40»", "«EncodeDataEncoded40»",
+                "«Section40»", "«Location40»", "«Location_240»", "«Location_340»", "«SellingPrice40»", "«Bin40»", "«Picked40»", "«Allocated40»", "«RtnStock40»",
+                "«Style40»", "«StyleDescription40»", "«Level1SKU40»", "«Level2SKU40»", "«Level3SKU40»", "«Level4SKU40»", "«ExtCost40»", "«ExtPrice40»", { image: "«Image40»", color: "«Color40»", size: "«Size40»", brand: "«Brand40»", altgtin: "«AltGTIN40»" })//pickticket
+                );
+
+
+        </script>
+
+    </vendornet>
+
+    <script language="javascript">
+        pickTicketObj.setMaxPage();
+        //pickTicketObj.sort();
+
+        // only use if pickType 2-5
+        if (!isPickTicket) {
+            pickTicketObj.createPickCart();
+        }
+        pickTicketObj.generateTicket();
+
+    </script>
+
+</body>
+</html>

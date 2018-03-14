@@ -1,0 +1,631 @@
+﻿<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <title>Pack Slip</title>
+    <style type="text/css">
+        td.pack {
+            background-color: CCFFFF;
+        }
+    </style>
+    <script language="javascript">
+
+        var count = 0;
+
+        function PageBreakCounter() {
+            count = count + 1;
+            if (count == 1)
+                document.write("");
+            else
+                document.write("<span style=\"page-break-before:always; height:0px\"></span>");
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <vendornet>
+
+        <script>PageBreakCounter();</script>
+        <b><center>Pack Slip Fields</center></b>
+        <table width="100%" border=1>
+            <tr><td colspan=3><b><center>Pack Slip Header</center></b><br></td></tr>
+            <tr>
+                <td class="pack" id="packHeaderList1">
+                    <label id="OrderNo">OrderNo: «OrderNo»</label><br>
+                    <label id="Source">Source: «Source»</label><br>
+                    <label id="PoNo">PoNo: «PoNo»</label><br>
+                    <label id="OrderDate">OrderDate: «OrderDate»</label><br>
+                    <label id="BatchId">BatchId: «BatchId»</label><br>
+                    <label id="BoxId"> BoxId: «BoxId»</label><br>
+                    <label id="BoxDescription">BoxDescription: «BoxDescription»</label><br>
+                    <label id="BoxLength"> BoxLength: «BoxLength»</label><br>
+                    <label id="BoxWidth">BoxWidth: «BoxWidth»</label><br>
+                    <label id="BoxHeight">BoxHeight: «BoxHeight»</label><br>
+                    <label id="BoxMaxWeight">BoxMaxWeight: «BoxMaxWeight»</label><br>
+                    <label id="BoxDunnageWeight">BoxDunnageWeight: «BoxDunnageWeight»</label><br>
+                    <label id="GlobalComment">GlobalComment: «GlobalComment»</label><br>
+                    <label id="TrackingNoType">TrackingNoType: «TrackingNoType»</label><br>
+                    <label id="TrackingNoLabelValue">TrackingNoLabelValue: «TrackingNoLabelValue»</label><br>
+                    <label id="FOB">FOB: «FOB»</label><br>
+                </td>
+                <td class="pack" id="packHeaderList2">
+                    <label id="WebOrderNo">WebOrderNo: «WebOrderNo»</label><br>
+                    <label id="EstDate">EstDate: «EstDate»</label><br>
+                    <label id="ReqDate">ReqDate: «ReqDate»</label><br>
+                    <label id="CancelDate">CancelDate: «CancelDate»</label><br>
+                    <label id="CoDivDept">CoDivDept: «CoDivDept»</label><br>
+                    <label id="ShipMethodHrd">ShipMethod: «ShipMethod»</label><br>
+                    <label id="ShipMethodDescHrd">ShipMethodDesc: «ShipMethodDesc»</label><br>
+                    <label id="SalesPerson">SalesPerson: «SalesPerson»</label><br>
+                    <label id="Language">Language: «Language»</label><br>
+                    <label id="PackCountry">PackCountry: «PackCountry»</label><br>
+                    <label id="PH">PH: «PH»</label><br>
+                    <label id="Tax">Tax: «Tax»</label><br>
+                    <label id="Subtotal">Subtotal: «Subtotal»</label><br>
+                    <label id="Total">Total: «Total»</label><br>
+                    <label id="Tax">Tax: «Tax»</label><br>
+                    <label id="CommentHrd">Comment: «Comment»</label><br>
+                </td>
+                <td class="pack" id="packHeaderList3">
+                    <label id="StagingLocation">StagingLocation: «StagingLocation»</label><br>
+                    <label id="Subtotal"> Subtotal: «Subtotal»</label><br>
+                    <label id="Total">Total: «Total»</label><br>
+                    <label id="TotalCost">TotalCost: «TotalCost»</label><br>
+                    <label id="TotalQuantity">TotalQuantity: «TotalQuantity»</label><br>
+                    <label id="LotNo"> LotNo: «LotNo»</label><br>
+                    <label id="OrderReason"> OrderReason: «OrderReason»</label><br>
+                    <label id="ShipmentReason"> ShipmentReason: «ShipmentReason»</label><br>
+                    <label id="Terms">Terms: «Terms»</label><br>
+                    <label id="TermType">TermType: «TermType»</label><br>
+                    <label id="TermDays">TermDays: «TermDays»</label><br>
+                    <label id="TermPct"> TermPct: «TermPct»</label><br>
+                    <label id="CCType"> CCType: «CCType»</label><br>
+                    <label id="CCNo">CCNo: «CCNo»</label><br>
+                    <label id="CCExpDate">CCExpDate: «CCExpDate»</label><br>
+                    <label id="CCId">CCId: «CCId»</label><br>
+                    <label id="CCExpDate"> CCExpDate: «CCExpDate»</label><br>
+                </td>
+            </tr>
+
+
+            <tr><td colspan=3><b><center>Product Labels</center></b><br></td></tr>
+            <tr>
+                <td class="pack" id="packProductField1">
+                    <b>Product Label 1</b><br>
+                    <label id="OrderNo1">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo1">LineNo1: «LineNo1»</label><br>
+                    <label id="SKU1"> SKU1: «SKU1»</label><br>
+                    <label id="VendorSKU1"> VendorSKU1: «VendorSKU1»</label><br>
+                    <label id="Description1"> Description1: «Description1»</label><br>
+                    <label id="VendorDesc1">VendorDesc1: «VendorDesc1»</label><br>
+                    <label id="Weight1">Weight1: «Weight1»</label><br>
+                    <label id="GTIN1"> GTIN1: «GTIN1»</label><br>
+                    <label id="UPCCode1"> UPCCode1: «UPCCode1»</label><br>
+                    <label id="EncodeData1">EncodeData1: «EncodeData1»</label><br>
+                    <label id="UnitPrice1">UnitPrice1: «UnitPrice1»</label><br>
+                    <label id="ExtPrice1">ExtPrice1: «ExtPrice1»</label><br>
+                    <label id="UnitCost1"> UnitCost1: «UnitCost1»</label><br>
+                    <label id="ExtCost1">ExtCost1: «ExtCost1»</label><br>
+                    <label id="LotType1">LotType1: «LotType1»</label><br>
+                    <label id="Tax1">Tax1: «Tax1»</label><br>
+                    <label id="originalQty1">originalQty1: «OriginalLineQty1»</label><br>
+                    <label id="lineTax1">lineTax1: «LineTax1»</label><br>
+                    <label id="lineTaxDiscount1">lineTaxDiscount1: «LineTaxDiscount1»</label><br>
+                    <label id="lineSandH1">lineSandH1:«LineSH1»</label><br>
+                    <label id="lineSandHDiscount1">lineSandHDiscount1:«LineSHDiscount1»</label><br>
+                    <label id="unitDiscount1">unitDiscount1: «UnitDiscount1»</label><br>
+                    <label id="WebStyle1">WebStyle1: «WebStyle1»</label><br>
+                    <label id="GTINAlias1"> GTINAlias1: «GTINAlias1»</label><br>
+                    <label id="GW1">GW1:«GW1»</label><br>
+                    <label id="Color1">Color1:«Color1»</label><br>
+                    <label id="Size1">Size1:«Size1»</label><br>
+                    <label id="GiftWrapID1"> GiftWrapID1: «GiftWrapID1»</label><br>
+                    <label id="Quantity1"> Quantity1: «Quantity1»</label><br>
+                </td>
+                <td class="pack" id="packProductField2">
+                    <b>Product Label 2</b><br>
+                    <label id="OrderNo2">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo2">LineNo2: «LineNo2»</label><br>
+                    <label id="SKU2">SKU2: «SKU2»</label><br>
+                    <label id="VendorSKU2">VendorSKU2: «VendorSKU2»</label><br>
+                    <label id="Description2">Description2: «Description2»</label><br>
+                    <label id="VendorDesc2">VendorDesc2: «VendorDesc2»</label><br>
+                    <label id="Weight2"> Weight2: «Weight2»</label><br>
+                    <label id="GTIN2">GTIN2: «GTIN2»</label><br>
+                    <label id="UPCCode2">UPCCode2: «UPCCode2»</label><br>
+                    <label id="EncodeData2">EncodeData2: «EncodeData2»</label><br>
+                    <label id="UnitPrice2">UnitPrice2: «UnitPrice2»</label><br>
+                    <label id="ExtPrice2">ExtPrice2: «ExtPrice2»</label><br>
+                    <label id="UnitCost2"> UnitCost2: «UnitCost2»</label><br>
+                    <label id="ExtCost2"> ExtCost2: «ExtCost2»</label><br>
+                    <label id="LotType2">LotType2: «LotType2»</label><br>
+                    <label id="Tax2"> Tax2: «Tax2»</label><br>
+                    <label id="originalQty2"> originalQty2: «OriginalLineQty2»</label><br>
+                    <label id="lineTax2">lineTax2: «LineTax2»</label><br>
+                    <label id="lineTaxDiscount2"> lineTaxDiscount2: «LineTaxDiscount2»</label><br>
+                    <label id="lineSandH2"> lineSandH2:«LineSH2»</label><br>
+                    <label id="lineSandHDiscount2"> lineSandHDiscount2:«LineSHDiscount2»</label><br>
+                    <label id="unitDiscount2">unitDiscount2: «UnitDiscount2»</label><br>
+                    <label id="WebStyle2">WebStyle2: «WebStyle2»</label><br>
+                    <label id="GTINAlias2">GTINAlias2: «GTINAlias2»</label><br>
+                    <label id="GW2">GW2:«GW2»</label><br>
+                    <label id="Color2">Color2:«Color2»</label><br>
+                    <label id="Size2">Size2:«Size2»</label><br>
+                    <label id="GiftWrapID2">GiftWrapID2: «GiftWrapID2»</label><br>
+                    <label id="Quantity2">Quantity2: «Quantity2»</label><br>
+                </td>
+                <td class="pack" id="packProductField3">
+                    <b>Product Label 3</b><br>
+                    <label id="OrderNo3">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo3">LineNo3: «LineNo3»</label><br>
+                    <label id="SKU3">SKU3: «SKU3»</label><br>
+                    <label id="VendorSKU3">VendorSKU3: «VendorSKU3»</label><br>
+                    <label id="Description3">Description3: «Description3»</label><br>
+                    <label id="VendorDesc3">VendorDesc3: «VendorDesc3»</label><br>
+                    <label id="Weight3">Weight3: «Weight3»</label><br>
+                    <label id="GTIN3">GTIN3: «GTIN3»</label><br>
+                    <label id="UPCCode3">UPCCode3: «UPCCode3»</label><br>
+                    <label id="EncodeData3">EncodeData3: «EncodeData3»</label><br>
+                    <label id="UnitPrice3">UnitPrice3: «UnitPrice3»</label><br>
+                    <label id="ExtPrice3">ExtPrice3: «ExtPrice3»</label><br>
+                    <label id="UnitCost3">UnitCost3: «UnitCost3»</label><br>
+                    <label id="ExtCost3">ExtCost3: «ExtCost3»</label><br>
+                    <label id="LotType3">LotType3: «LotType3»</label><br>
+                    <label id="Tax3">Tax3: «Tax3»</label><br>
+                    <label id="originalQty3">originalQty3: «OriginalLineQty3»</label><br>
+                    <label id="lineTax3">lineTax3: «LineTax3»</label><br>
+                    <label id="lineTaxDiscount3">lineTaxDiscount3: «LineTaxDiscount3»</label><br>
+                    <label id="lineSandH3">lineSandH3:«LineSH3»</label><br>
+                    <label id="lineSandHDiscount3">lineSandHDiscount3:«LineSHDiscount3»</label><br>
+                    <label id="unitDiscount3">unitDiscount3: «UnitDiscount3»</label><br>
+                    <label id="WebStyle3">WebStyle3: «WebStyle3»</label><br>
+                    <label id="GTINAlias3">GTINAlias3: «GTINAlias3»</label><br>
+                    <label id="GW3">GW3:«GW3»</label><br>
+                    <label id="Color3">Color3:«Color3»</label><br>
+                    <label id="Size3">Size3:«Size3»</label><br>
+                    <label id="GiftWrapID3">GiftWrapID3: «GiftWrapID3»</label><br>
+                    <label id="Quantity3">Quantity3: «Quantity3»</label><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="pack" id="packProductField4">
+                    <b>Product Label 4</b><br>
+                    <label id="OrderNo4">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo4">LineNo4: «LineNo4»</label><br>
+                    <label id="SKU4">SKU4: «SKU4»</label><br>
+                    <label id="VendorSKU4">VendorSKU4: «VendorSKU4»</label><br>
+                    <label id="Description4">Description4: «Description4»</label><br>
+                    <label id="VendorDesc4">VendorDesc4: «VendorDesc4»</label><br>
+                    <label id="Weight4">Weight4: «Weight4»</label><br>
+                    <label id="GTIN4">GTIN4: «GTIN4»</label><br>
+                    <label id="UPCCode4">UPCCode4: «UPCCode4»</label><br>
+                    <label id="EncodeData4">EncodeData4: «EncodeData4»</label><br>
+                    <label id="UnitPrice4">UnitPrice4: «UnitPrice4»</label><br>
+                    <label id="ExtPrice4">ExtPrice4: «ExtPrice4»</label><br>
+                    <label id="UnitCost4">UnitCost4: «UnitCost4»</label><br>
+                    <label id="ExtCost4">ExtCost4: «ExtCost4»</label><br>
+                    <label id="LotType4">LotType4: «LotType4»</label><br>
+                    <label id="Tax4">Tax4: «Tax4»</label><br>
+                    <label id="originalQty4">originalQty4: «OriginalLineQty4»</label><br>
+                    <label id="lineTax4">lineTax4: «LineTax4»</label><br>
+                    <label id="lineTaxDiscount4">lineTaxDiscount4: «LineTaxDiscount4»</label><br>
+                    <label id="lineSandH4">lineSandH4:«LineSH4»</label><br>
+                    <label id="lineSandHDiscount4">lineSandHDiscount4:«LineSHDiscount4»</label><br>
+                    <label id="unitDiscount4">unitDiscount4: «UnitDiscount4»</label><br>
+                    <label id="WebStyle4">WebStyle4: «WebStyle4»</label><br>
+                    <label id="GTINAlias4">GTINAlias4: «GTINAlias4»</label><br>
+                    <label id="GW4">GW4:«GW4»</label><br>
+                    <label id="Color4">Color4:«Color4»</label><br>
+                    <label id="Size4">Size4:«Size4»</label><br>
+                    <label id="GiftWrapID4">GiftWrapID4: «GiftWrapID4»</label><br>
+                    <label id="Quantity4">Quantity4: «Quantity4»</label><br>
+                </td>
+                <td class="pack" id="packProductField5">
+                    <b>Product Label 5</b><br>
+                    <label id="OrderNo5">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo5">LineNo5: «LineNo5»</label><br>
+                    <label id="SKU5">SKU5: «SKU5»</label><br>
+                    <label id="VendorSKU5">VendorSKU5: «VendorSKU5»</label><br>
+                    <label id="Description5">Description5: «Description5»</label><br>
+                    <label id="VendorDesc5">VendorDesc5: «VendorDesc5»</label><br>
+                    <label id="Weight5">Weight5: «Weight5»</label><br>
+                    <label id="GTIN5">GTIN5: «GTIN5»</label><br>
+                    <label id="UPCCode5">UPCCode5: «UPCCode5»</label><br>
+                    <label id="EncodeData5">EncodeData5: «EncodeData5»</label><br>
+                    <label id="UnitPrice5">UnitPrice5: «UnitPrice5»</label><br>
+                    <label id="ExtPrice5">ExtPrice5: «ExtPrice5»</label><br>
+                    <label id="UnitCost5">UnitCost5: «UnitCost5»</label><br>
+                    <label id="ExtCost5">ExtCost5: «ExtCost5»</label><br>
+                    <label id="LotType5">LotType5: «LotType5»</label><br>
+                    <label id="Tax5">Tax5: «Tax5»</label><br>
+                    <label id="originalQty5">originalQty5: «OriginalLineQty5»</label><br>
+                    <label id="lineTax5">lineTax5: «LineTax5»</label><br>
+                    <label id="lineTaxDiscount5">lineTaxDiscount5: «LineTaxDiscount5»</label><br>
+                    <label id="lineSandH5">lineSandH5:«LineSH5»</label><br>
+                    <label id="lineSandHDiscount5">lineSandHDiscount5:«LineSHDiscount5»</label><br>
+                    <label id="unitDiscount5">unitDiscount5: «UnitDiscount5»</label><br>
+                    <label id="WebStyle5">WebStyle5: «WebStyle5»</label><br>
+                    <label id="GTINAlias5">GTINAlias5: «GTINAlias5»</label><br>
+                    <label id="GW5">GW5:«GW5»</label><br>
+                    <label id="Color5">Color5:«Color5»</label><br>
+                    <label id="Size5">Size5:«Size5»</label><br>
+                    <label id="GiftWrapID5">GiftWrapID5: «GiftWrapID5»</label><br>
+                    <label id="Quantity5">Quantity5: «Quantity5»</label><br>
+                </td>
+                <td class="pack" id="packProductField6">
+                    <b>Product Label 6</b><br>
+                    <label id="OrderNo6">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo6">LineNo6: «LineNo6»</label><br>
+                    <label id="SKU6">SKU6: «SKU6»</label><br>
+                    <label id="VendorSKU6">VendorSKU6: «VendorSKU6»</label><br>
+                    <label id="Description6">Description6: «Description6»</label><br>
+                    <label id="VendorDesc6">VendorDesc6: «VendorDesc6»</label><br>
+                    <label id="Weight6">Weight6: «Weight6»</label><br>
+                    <label id="GTIN6">GTIN6: «GTIN6»</label><br>
+                    <label id="UPCCode6">UPCCode6: «UPCCode6»</label><br>
+                    <label id="EncodeData6">EncodeData6: «EncodeData6»</label><br>
+                    <label id="UnitPrice6">UnitPrice6: «UnitPrice6»</label><br>
+                    <label id="ExtPrice6">ExtPrice6: «ExtPrice6»</label><br>
+                    <label id="UnitCost6">UnitCost6: «UnitCost6»</label><br>
+                    <label id="ExtCost6">ExtCost6: «ExtCost6»</label><br>
+                    <label id="LotType6">LotType6: «LotType6»</label><br>
+                    <label id="Tax6">Tax6: «Tax6»</label><br>
+                    <label id="originalQty6">originalQty6: «OriginalLineQty6»</label><br>
+                    <label id="lineTax6">lineTax6: «LineTax6»</label><br>
+                    <label id="lineTaxDiscount6">lineTaxDiscount6: «LineTaxDiscount6»</label><br>
+                    <label id="lineSandH6">lineSandH6:«LineSH6»</label><br>
+                    <label id="lineSandHDiscount6">lineSandHDiscount6:«LineSHDiscount6»</label><br>
+                    <label id="unitDiscount6">unitDiscount6: «UnitDiscount6»</label><br>
+                    <label id="WebStyle6">WebStyle6: «WebStyle6»</label><br>
+                    <label id="GTINAlias6">GTINAlias6: «GTINAlias6»</label><br>
+                    <label id="GW6">GW6:«GW6»</label><br>
+                    <label id="Color6">Color6:«Color6»</label><br>
+                    <label id="Size6">Size6:«Size6»</label><br>
+                    <label id="GiftWrapID6">GiftWrapID6: «GiftWrapID6»</label><br>
+                    <label id="Quantity6">Quantity6: «Quantity6»</label><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="pack" id="packProductField7">
+                    <b>Product Label 7</b><br>
+                    <label id="OrderNo7">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo7">LineNo7: «LineNo7»</label><br>
+                    <label id="SKU7">SKU7: «SKU7»</label><br>
+                    <label id="VendorSKU7">VendorSKU7: «VendorSKU7»</label><br>
+                    <label id="Description7">Description7: «Description7»</label><br>
+                    <label id="VendorDesc7">VendorDesc7: «VendorDesc7»</label><br>
+                    <label id="Weight7">Weight7: «Weight7»</label><br>
+                    <label id="GTIN7">GTIN7: «GTIN7»</label><br>
+                    <label id="UPCCode7">UPCCode7: «UPCCode7»</label><br>
+                    <label id="EncodeData7">EncodeData7: «EncodeData7»</label><br>
+                    <label id="UnitPrice7">UnitPrice7: «UnitPrice7»</label><br>
+                    <label id="ExtPrice7">ExtPrice7: «ExtPrice7»</label><br>
+                    <label id="UnitCost7">UnitCost7: «UnitCost7»</label><br>
+                    <label id="ExtCost7">ExtCost7: «ExtCost7»</label><br>
+                    <label id="LotType7">LotType7: «LotType7»</label><br>
+                    <label id="Tax7">Tax7: «Tax7»</label><br>
+                    <label id="originalQty7">originalQty7: «OriginalLineQty7»</label><br>
+                    <label id="lineTax7">lineTax7: «LineTax7»</label><br>
+                    <label id="lineTaxDiscount7">lineTaxDiscount7: «LineTaxDiscount7»</label><br>
+                    <label id="lineSandH7">lineSandH7:«LineSH7»</label><br>
+                    <label id="lineSandHDiscount7">lineSandHDiscount7:«LineSHDiscount7»</label><br>
+                    <label id="unitDiscount7">unitDiscount7: «UnitDiscount7»</label><br>
+                    <label id="WebStyle7">WebStyle7: «WebStyle7»</label><br>
+                    <label id="GTINAlias7">GTINAlias7: «GTINAlias7»</label><br>
+                    <label id="GW7">GW7:«GW7»</label><br>
+                    <label id="Color7">Color7:«Color7»</label><br>
+                    <label id="Size7">Size7:«Size7»</label><br>
+                    <label id="GiftWrapID7">GiftWrapID7: «GiftWrapID7»</label><br>
+                    <label id="Quantity7">Quantity7: «Quantity7»</label><br>
+                </td>
+                <td class="pack" id="packProductField8">
+                    <b>Product Label 8</b><br>
+                    <label id="OrderNo8">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo8">LineNo8: «LineNo8»</label><br>
+                    <label id="SKU8">SKU8: «SKU8»</label><br>
+                    <label id="VendorSKU8">VendorSKU8: «VendorSKU8»</label><br>
+                    <label id="Description8">Description8: «Description8»</label><br>
+                    <label id="VendorDesc8">VendorDesc8: «VendorDesc8»</label><br>
+                    <label id="Weight8">Weight8: «Weight8»</label><br>
+                    <label id="GTIN8">GTIN8: «GTIN8»</label><br>
+                    <label id="UPCCode8">UPCCode8: «UPCCode8»</label><br>
+                    <label id="EncodeData8">EncodeData8: «EncodeData8»</label><br>
+                    <label id="UnitPrice8">UnitPrice8: «UnitPrice8»</label><br>
+                    <label id="ExtPrice8">ExtPrice8: «ExtPrice8»</label><br>
+                    <label id="UnitCost8">UnitCost8: «UnitCost8»</label><br>
+                    <label id="ExtCost8">ExtCost8: «ExtCost8»</label><br>
+                    <label id="LotType8">LotType8: «LotType8»</label><br>
+                    <label id="Tax8">Tax8: «Tax8»</label><br>
+                    <label id="originalQty8">originalQty8: «OriginalLineQty8»</label><br>
+                    <label id="lineTax8">lineTax8: «LineTax8»</label><br>
+                    <label id="lineTaxDiscount8">lineTaxDiscount8: «LineTaxDiscount8»</label><br>
+                    <label id="lineSandH8">lineSandH8:«LineSH8»</label><br>
+                    <label id="lineSandHDiscount8">lineSandHDiscount8:«LineSHDiscount8»</label><br>
+                    <label id="unitDiscount8">unitDiscount8: «UnitDiscount8»</label><br>
+                    <label id="WebStyle8">WebStyle8: «WebStyle8»</label><br>
+                    <label id="GTINAlias8">GTINAlias8: «GTINAlias8»</label><br>
+                    <label id="GW8">GW8:«GW8»</label><br>
+                    <label id="Color8">Color8:«Color8»</label><br>
+                    <label id="Size8">Size8:«Size8»</label><br>
+                    <label id="GiftWrapID8">GiftWrapID8: «GiftWrapID8»</label><br>
+                    <label id="Quantity8">Quantity8: «Quantity8»</label><br>
+                </td>
+                <td class="pack" id="packProductField9">
+                    <b>Product Label 9</b><br>
+                    <label id="OrderNo9">OrderNo: «OrderNo»</label><br>
+                    <label id="LineNo9">LineNo9: «LineNo9»</label><br>
+                    <label id="SKU9">SKU9: «SKU9»</label><br>
+                    <label id="VendorSKU9">VendorSKU9: «VendorSKU9»</label><br>
+                    <label id="Description9">Description9: «Description9»</label><br>
+                    <label id="VendorDesc9">VendorDesc9: «VendorDesc9»</label><br>
+                    <label id="Weight9">Weight9: «Weight9»</label><br>
+                    <label id="GTIN9">GTIN9: «GTIN9»</label><br>
+                    <label id="UPCCode9">UPCCode9: «UPCCode9»</label><br>
+                    <label id="EncodeData9">EncodeData9: «EncodeData9»</label><br>
+                    <label id="UnitPrice9">UnitPrice9: «UnitPrice9»</label><br>
+                    <label id="ExtPrice9">ExtPrice9: «ExtPrice9»</label><br>
+                    <label id="UnitCost9">UnitCost9: «UnitCost9»</label><br>
+                    <label id="ExtCost9">ExtCost9: «ExtCost9»</label><br>
+                    <label id="LotType9">LotType9: «LotType9»</label><br>
+                    <label id="Tax9">Tax9: «Tax9»</label><br>
+                    <label id="originalQty9">originalQty9: «OriginalLineQty9»</label><br>
+                    <label id="lineTax9">lineTax9: «LineTax9»</label><br>
+                    <label id="lineTaxDiscount9">lineTaxDiscount9: «LineTaxDiscount9»</label><br>
+                    <label id="lineSandH9">lineSandH9:«LineSH9»</label><br>
+                    <label id="lineSandHDiscount9">lineSandHDiscount9:«LineSHDiscount9»</label><br>
+                    <label id="unitDiscount9">unitDiscount9: «UnitDiscount9»</label><br>
+                    <label id="WebStyle9">WebStyle9: «WebStyle9»</label><br>
+                    <label id="GTINAlias9">GTINAlias9: «GTINAlias9»</label><br>
+                    <label id="GW9">GW9:«GW9»</label><br>
+                    <label id="Color">Color:«Color9»</label><br>
+                    <label id="Size9">Size9:«Size9»</label><br>
+                    <label id="GiftWrapID9">GiftWrapID9: «GiftWrapID9»</label><br>
+                    <label id="Quantity9">Quantity9: «Quantity9»</label><br>
+                </td>
+            </tr>
+            <tr><td colspan=3><b><center>Vendor Info</center></b><br></td></tr>
+            <tr>
+                <td class="pack" id="packVendorList1">
+                    <label id="VendorCustNo">VendorCustNo: «VendorCustNo»</label><br>
+                    <label id="VendorName"> VendorName: «VendorName»</label><br>
+                    <label id="VendorTitle">VendorTitle: «VendorTitle»</label><br>
+                    <label id="VendorSuffix">VendorSuffix: «VendorSuffix»</label><br>
+                    <label id="VendorFName">VendorFName: «VendorFName»</label><br>
+                    <label id="VendorMI">VendorMI: «VendorMI»</label><br>
+                    <label id="VendorLName">VendorLName: «VendorLName»</label><br>
+                    <label id="VendorRef1">VendorRef1: «VendorRef1»</label><br>
+                </td>
+                <td class="pack" id="packVendorList2">
+                    <label id="VendorRef2">VendorRef2: «VendorRef2»</label><br>
+                    <label id="VendorStreet">VendorStreet: «VendorStreet»</label><br>
+                    <label id="VendorStreet2">VendorStreet2: «VendorStreet2»</label><br>
+                    <label id="VendorCity">VendorCity: «VendorCity»</label><br>
+                    <label id="VendorState">VendorState: «VendorState»</label><br>
+                    <label id="VendorZip">VendorZip: «VendorZip»</label><br>
+                    <label id="VendorPhone">VendorPhone: «VendorPhone»</label><br>
+                    <label id="VendorCountry">VendorCountry: «VendorCountry»</label><br>
+                </td>
+                <td class="pack" id="packVendorList3">
+                    <label id="VendorCustNo">VendorCustNo: «VendorCustNo»</label><br>
+                    <label id="Vendor1">Vendor1: «Vendor1»</label><br>
+                    <label id="Vendor2">Vendor2: «Vendor2»</label><br>
+                    <label id="Vendor3">Vendor3: «Vendor3»</label><br>
+                    <label id="Vendor4">Vendor4: «Vendor4»</label><br>
+                    <label id="Vendor5">Vendor5: «Vendor5»</label><br>
+                    <label id="Vendor6">Vendor6: «Vendor6»</label><br>
+                    <label id="VendorPhone">VendorPhone: «VendorPhone»</label><br>
+                    <label id="VendorCountry">VendorCountry: «VendorCountry»</label><br>
+                </td>
+            </tr>
+            <tr><td colspan=3><b><center>Customer Info</center></b><br></td></tr>
+            <tr>
+                <td class="pack" id="packCustList1">
+                    <label id="BillToCustNo">BillToCustNo: «BillToCustNo»</label><br>
+                    <label id="BillToName">BillToName: «BillToName»</label><br>
+                    <label id="BillToTitle">BillToTitle: «BillToTitle»</label><br>
+                    <label id="BillToSuffix">BillToSuffix: «BillToSuffix»</label><br>
+                    <label id="BillToFName">BillToFName: «BillToFName»</label><br>
+                    <label id="BillToMI">BillToMI: «BillToMI»</label><br>
+                    <label id="BillToLName">BillToLName: «BillToLName»</label><br>
+                    <label id="BillToRef1">BillToRef1: «BillToRef1»</label><br>
+                    <label id="BillToRef2">BillToRef2: «BillToRef2»</label><br>
+                    <label id="BillToStreet">BillToStreet: «BillToStreet»</label><br>
+                    <label id="BillToStreet2">BillToStreet2: «BillToStreet2»</label><br>
+                    <label id="BillToCity">BillToCity: «BillToCity»</label><br>
+                    <label id="BillToState">BillToState: «BillToState»</label><br>
+                    <label id="BillToZip">BillToZip: «BillToZip»</label><br>
+                    <label id="BillToPhone">BillToPhone: «BillToPhone»</label><br>
+                    <label id="BillToCountry">BillToCountry: «BillToCountry»</label><br>
+                    <label id="BillTo1">BillTo1: «BillTo1»</label><br>
+                    <label id="BillTo2">BillTo2: «BillTo2»</label><br>
+                    <label id="BillTo3">BillTo3: «BillTo3»</label><br>
+                    <label id="BillTo4">BillTo4: «BillTo4»</label><br>
+                    <label id="BillTo5">BillTo5: «BillTo5»</label><br> 
+                    <label id="BillTo6">BillTo6: «BillTo6»</label><br>
+                    <label id="BillToEmail">BillToEmail: «BillToEmail»</label><br>                  
+                </td>
+                <td class="pack" id="packCustList2">
+                    <label id="ShipToCustNo">ShipToCustNo: «ShipToCustNo»</label><br>
+                    <label id="ShipToName">ShipToName: «ShipToName»</label><br>
+                    <label id="ShipToTitle">ShipToTitle: «ShipToTitle»</label><br>
+                    <label id="ShipToSuffix">ShipToSuffix: «ShipToSuffix»</label><br>
+                    <label id="ShipToFName">ShipToFName: «ShipToFName»</label><br>
+                    <label id="ShipToMI">ShipToMI: «ShipToMI»</label><br>
+                    <label id="ShipToLName">ShipToLName: «ShipToLName»</label><br>
+                    <label id="ShipToRef1">ShipToRef1: «ShipToRef1»</label><br>
+                    <label id="ShipToRef2"> ShipToRef2: «ShipToRef2»</label><br>
+                    <label id="ShipToStreet">ShipToStreet: «ShipToStreet»</label><br>
+                    <label id="ShipToStreet2">ShipToStreet2: «ShipToStreet2»</label><br>
+                    <label id="ShipToCity">ShipToCity: «ShipToCity»</label><br>
+                    <label id="ShipToState">ShipToState: «ShipToState»</label><br>
+                    <label id="ShipToZip">ShipToZip: «ShipToZip»</label><br>
+                    <label id="ShipToPhone">ShipToPhone: «ShipToPhone»</label><br>
+                    <label id="ShipToCountry">ShipToCountry: «ShipToCountry»</label><br>
+                    <label id="ShipToAddrType">ShipToAddrType: «ShipToAddrType»</label><br>
+                    <label id="ShipTo1">ShipTo1: «ShipTo1»</label><br>
+                    <label id="ShipTo2">ShipTo2: «ShipTo2»</label><br>
+                    <label id="ShipTo3">ShipTo3: «ShipTo3»</label><br>
+                    <label id="ShipTo4">ShipTo4: «ShipTo4»</label><br>
+                    <label id="ShipTo5">ShipTo5: «ShipTo5»</label><br>
+                    <label id="ShipTo6">ShipTo6: «ShipTo6»</label><br>
+                    <label id="ShipToEmail">ShipToEmail: «ShipToEmail»</label><br>
+                </td>
+                <td class="pack" id="packCustList3">
+                    <label id="BuyerCustNo">BuyerCustNo: «BuyerCustNo»</label><br>
+                    <label id="BuyerName">BuyerName: «BuyerName»</label><br>
+                    <label id="BuyerTitle">BuyerTitle: «BuyerTitle»</label><br>
+                    <label id="BuyerSuffix">BuyerSuffix: «BuyerSuffix»</label><br>
+                    <label id="BuyerFName">BuyerFName: «BuyerFName»</label><br>
+                    <label id="BuyerMI">BuyerMI: «BuyerMI»</label><br>
+                    <label id="BuyerLName">BuyerLName: «BuyerLName»</label><br>
+                    <label id="BuyerRef1">BuyerRef1: «BuyerRef1»</label><br>
+                    <label id="BuyerRef2">BuyerRef2: «BuyerRef2»</label><br>
+                    <label id="BuyerStreet">BuyerStreet: «BuyerStreet»</label><br>
+                    <label id="BuyerStreet2">BuyerStreet2: «BuyerStreet2»</label><br>
+                    <label id="BuyerCity">BuyerCity: «BuyerCity»</label><br>
+                    <label id="BuyerState">BuyerState: «BuyerState»</label><br>
+                    <label id="BuyerZip">BuyerZip: «BuyerZip»</label><br>
+                    <label id="BuyerPhone">BuyerPhone: «BuyerPhone»</label><br>
+                    <label id="BuyerCountry">BuyerCountry: «BuyerCountry»</label><br>
+                    <label id="BuyerCustNo">BuyerCustNo: «BuyerCustNo»</label><br>
+                    <label id="Buyer1">Buyer1: «Buyer1»</label><br>
+                    <label id="Buyer2">Buyer2: «Buyer2»</label><br>
+                    <label id="Buyer3">Buyer3: «Buyer3»</label><br>
+                    <label id="Buyer4">Buyer4: «Buyer4»</label><br>
+                    <label id="Buyer5">Buyer5: «Buyer5»</label><br>
+                    <label id="Buyer6">Buyer6: «Buyer6»</label><br>
+                    <label id="BuyerPhone">BuyerPhone: «BuyerPhone»</label><br>
+                    <label id="BuyerCountry">BuyerCountry: «BuyerCountry»</label><br>
+                    <label id="BuyerEmail">BuyerEmail: «BuyerEmail»</label><br>
+                </td>
+            </tr>
+            <tr><td colspan=3><b><center>FedEx Carrier</center></b><br></td></tr>
+            <tr>
+                <td class="pack" id="packCarrierFedExFieldList1">
+                    <label id="CarrierFedEx">Carrier: «Carrier»</label><br>
+                    <label id="FXRSVersionFedEx">FXRSVersion: «FXRSVersion»</label><br>
+                    <label id="AddrBarcodeFedEx">AddrBarcode: «AddrBarcode»</label><br>
+                    <label id="1DBarcodeFedEx">1DBarcode: «1DBarcode»</label><br>
+                    <label id="IMPBFedEx">IMPB: «IMPB»</label><br>
+                    <label id="UrsaFedEx">Ursa: «Ursa»</label><br>
+                    <label id="DeliveryDateFedEx">DeliveryDate: «DeliveryDate»</label><br>
+                    <label id="LocIDFedEx">LocID: «LocID»</label><br>
+                    <label id="RampIDFedEx">RampID: «RampID»</label><br>
+                    <label id="DeliveryDayFedEx">DeliveryDay: «DeliveryDay»</label><br>
+                    <label id="ServiceCodeFedEx">ServiceCode: «ServiceCode»</label><br>
+                    <label id="FormIDFedEx">FormID: «FormID»</label><br>
+                    <label id="HandleCodeFedEx">HandleCode: «HandleCode»</label><br>
+                </td>
+                <td class="pack" id="packCarrierFedExFieldList2">
+                    <label id="128BarcodeFedEx">128Barcode: «128Barcode»</label><br>
+                    <label id="96ReadableFedEx">96Readable: «96Readable»</label><br>
+                    <label id="FHDSvcCodeFedEx">FHDSvcCode: «FHDSvcCode»</label><br>
+                    <label id="OriginIDFedEx">OriginID: «OriginID»</label><br>
+                    <label id="CustomerNameFedEx">CustomerName: «CustomerName»</label><br>
+                    <label id="StateUSFedEx">StateUS: «StateUS»</label><br>
+                    <label id="WeightFedEx">Weight: «Weight»</label><br>
+                    <label id="DryIceFedEx">DryIce: «DryIce»</label><br>
+                    <label id="ShipDateFedEx">ShipDate: «ShipDate»</label><br>
+                    <label id="ShipToZipFedEx">ShipToZip: «ShipToZip»</label><br>
+                    <label id="TrackingNumberFedEx">TrackingNumber: «TrackingNumber»</label><br>
+                    <label id="PDF417FedEx">PDF417: «PDF417»</label><br>
+                </td>
+                <td class="pack" id="packCarrierFedExFieldList3">
+                    <label id="MeterNoFedEx">MeterNo: «MeterNo»</label><br>
+                    <label id="ShipToPhoneFedEx">ShipToPhone: «ShipToPhone»</label><br>
+                    <label id="ShipToPhoneFedEx2">ShipToPhone2: «ShipToPhone2»</label><br>
+                    <label id="ShipToPhoneFedEx3">ShipToPhone3: «ShipToPhone3»</label><br>
+                    <label id="PayTypeFedEx">PayType: «PayType»</label><br>
+                    <label id="CarrierSMFedEx">CarrierSM: «CarrierSM»</label><br>
+                    <label id="CLSFedEx">CLS: «CLS»</label><br>
+                    <label id="EndorsementFedEx">Endorsement: «Endorsement»</label><br>
+                    <label id="VersionCodeFedEx">VersionCode: «VersionCode»</label><br>
+                    <label id="ShipmentAliasFedEx">ShipmentAlias: «ShipmentAlias»</label><br>
+                    <label id="ShipToCompanyFedEx">ShipToCompany: «ShipToCompany»</label><br>
+                </td>
+            </tr>
+            <tr><td colspan=3><b><center>UPS Carrier</center></b><br></td></tr>
+            <tr>
+                <td class="pack" id="packCarrierUPSFieldList1">
+                    <label id="CarrierUPS">Carrier: «Carrier»</label><br>
+                    <label id="carrierSMUPS">carrierSM: «carrierSM»</label><br>
+                    <label id="shipMethodUPS">shipMethod: «shipMethod»</label><br>
+                    <label id="shipMethodDescUPS">shipMethodDesc: «shipMethodDesc»</label><br>
+                    <label id="OrderSMDescUPS">OrderSMDesc: «OrderSMDesc»</label><br>
+                    <label id="carrierSMUPS">carrierSM: «carrierSM»</label><br>
+                    <label id="URCUPS">URC: «URC»</label><br>
+                    <label id="URCVersionUPS">URCVersion: «URCVersion»</label><br>
+                    <label id="URCDateUPS">URCDate: «URCDate»</label><br>
+                    <label id="ShipDateUPS">ShipDate: «ShipDate»</label><br>
+                </td>
+                <td class="pack" id="packCarrierUPSFieldList2">
+                    <label id="UPSControlUPS">UPSControl: «UPSControl»</label><br>
+                    <label id="ShipToCityUPS">ShipToCity: «ShipToCity»</label><br>
+                    <label id="ShipToStateUPS">ShipToState: «ShipToState»</label><br>
+                    <label id="ShipToZipUPS">ShipToZip: «ShipToZip»</label><br>
+                    <label id="ShipToCountryISOUPS">ShipToCountryISO: «ShipToCountryISO»</label><br>
+                    <label id="ShipmentAliasUPS">ShipmentAlias: «ShipmentAlias»</label><br>
+                    <label id="SPSVCUPS">SPSVC: «SPSVC»</label><br>
+                    <label id="CZIPUPS">CZIP: «CZIP»</label><br>
+                    <label id="POAddressUPS">POAddress: «POAddress»</label><br>
+                    <label id="POCityUPS">POCity: «POCity»</label><br>
+                </td>
+                <td class="pack" id="packCarrierUPSFieldList3">
+                    <label id="FacilityTypeUPS">FacilityType: «FacilityType»</label><br>
+                    <label id="SurepostWeightUPS">SurepostWeight: «SurepostWeight»</label><br>
+                    <label id="TrackingNo2UPS">TrackingNo2: «TrackingNo2»</label><br>
+                    <label id="UPSControlUPS">UPSControl: «UPSControl»</label><br>
+                    <label id="OrderESDUPS">OrderESD: «OrderESD»</label><br>
+                    <label id="ShipmentAliasUPS">ShipmentAlias: «ShipmentAlias»</label><br>
+                    <label id="POStateUPS">POState: «POState»</label><br>
+                    <label id="POZipUPS">POZip: «POZip»</label><br>
+                    <label id="TrackingNumberUPS">TrackingNumber: «TrackingNumber»</label><br>
+                    <label id="WeightUPS">Weight: «Weight»</label><br>
+                </td>
+            </tr>
+
+            <tr><td colspan=3><b><center>USPS Carrier</center></b><br></td></tr>
+            <tr>
+                <td class="pack" id="packCarrierUSPSFieldList1">
+                    <label id="CarrierUSPS">Carrier: «Carrier»</label><br>
+                    <label id="TrackingNumberUSPS">TrackingNumber: «TrackingNumber»</label><br>
+                    <label id="ShipToZipUSPS">ShipToZip: «ShipToZip»</label><br>
+                </td>
+                <td class="pack" id="packCarrierUSPSFieldList2">
+                    <label id="WeightUSPS">Weight: «Weight»</label><br>
+                    <label id="CarrierSMUSPS">CarrierSM: «CarrierSM»</label><br>
+                    <label id="ConstructUSPS">Construct: «Construct»</label><br>
+                </td>
+                <td class="pack" id="packCarrierUSPSFieldList3">
+                    <label id="ShipDateUSPS">ShipDate: «ShipDate»</label><br>
+                    <label id="ShipmentAliasUSPS">ShipmentAlias: «ShipmentAlias»</label><br>
+                </td>
+            </tr>
+
+            <tr><td colspan=3><b><center>Purolator Carrier</center></b><br></td></tr>
+            <tr>
+                <td class="pack" id="packCarrierPurolatorFieldList1">
+                    <label id="CarrierPurolator">Carrier: «Carrier»</label><br>
+                    <label id="DeliveryDatePurolator">DeliveryDate: «DeliveryDate»</label><br>
+                    <label id="DestIATAPurolator">DestIATA: «DestIATA»</label><br>
+                    <label id="RoutePurolator">Route: «Route»</label><br>
+                </td>
+                <td class="pack" id="packCarrierPurolatorFieldList2">
+                    <label id="TransitDaysPurolator">TransitDays: «TransitDays»</label><br>
+                    <label id="OSNRPurolator">OSNR: «OSNR»</label><br>
+                    <label id="TrackingNumberPurolator">TrackingNumber: «TrackingNumber»</label><br>
+                    <label id="ShipToZipPurolator">ShipToZip: «ShipToZip»</label><br>
+                </td>
+                <td class="pack" id="packCarrierPurolatorFieldList3">
+                    <label id="WeightPurolator">Weight: «Weight»</label><br>
+                    <label id="PurlSMPurolator">PurlSM: «PurlSM»</label><br>
+                    <label id="ShipToPhonePurolator">ShipToPhone: «ShipToPhone»</label><br>
+                    <label id="ShipAliasPurolator">ShipAlias: «ShipAlias»</label><br>
+                </td>
+            </tr>
+
+        </table>
+    </vendornet>
+</body>
+</html>

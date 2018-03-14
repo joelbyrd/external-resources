@@ -1,0 +1,751 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="x-ua-compatible" content="IE=Edge" />
+	<!-- DEVELOPER NOTE: Do not change anything above this line. These lines, -as they are- force the
+	IE10 mode that is needed to render this document properly. Works the same for DXL, Gamestop, etc
+	It forces the pages into  Standards Mode instead of quirks but still enforces IE10 compatibility as needed. The above line
+	MUST come before any other item within the head; Furthermore the Doctype and html tags
+	need to be left unchanged. -->
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Packing Slip</title>
+	<!-- reset.css should come before everything, reset..resets all HTML elements to a common setting. Different browsers
+	have different default user-agent styles for each element of a page; this standardizes everything up front
+		do not use both std.css and reset.css -- They are about the same, though experience tells me reset.css is better -->
+	<link rel="stylesheet" type="text/css" href="/Printing/Packing/Shared/css/Standard-Reset_v1.0.0.css" charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="/Printing/Packing/Shared/css/Standard-Style_v1.0.1.css" charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="/Printing/Packing/Shared/css/carrier/carrierLabelsv1.4.8.css" charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="/Printing/Packing/css/Standard-Pack.css" charset="utf-8" />
+    <!-- polyfill io should come before ALL javascript-->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default-3.6,modernizr:es6string&flags=gated"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=modernizr:es6array,Element,Element.prototype.classList,Element.prototype.cloneNode,Element.prototype.replaceWith,Array.prototype.map,Array.prototype.reduce,es7&flags=always,gated"></script>
+    <!-- Modernizr tells you what HTML, CSS and JavaScript features the user’s browser has to offer -->
+    <script src="/Printing/Packing/Shared/js/modernizr.min.js"></script>
+	<script src="/Printing/Packing/Shared/js/Standard-Utils_v1.0.0.js" charset="utf-8"></script>
+	<script src="/Printing/Packing/Shared/js/carrier/carrier_stdv1.4.8.js" charset="utf-8"></script>
+	<script src="/Printing/Packing/Shared/js/packslipBase.js" charset="utf-8"></script>
+	<script src="/Printing/Packing/js/Standard-Pack.js" charset="utf-8"></script>
+	<script>
+		// these apply to every page
+		var title				=	"Pack Slip";
+		var itemsPerPage		=	5;
+		var itemsPerLastPage	=	5;
+		var fillBlankItems		=	true;	// if true, renders blank item lines to the item per page limit
+		// headerPages and itemHeaderPages:
+		//		"firstOnly": first page only; "every": every page; "everyWithItems": only on pages that also write items
+		var headerPages			=	"every";
+		var itemHeaderPages		=	"everyWithItems";
+	</script>
+</head>
+<body>
+<!-- templates are hidden but still here for us to pull the source code from -->
+<div id="templates" style="display: none;">
+	<div id="newPage" class="wrapper">
+	</div>
+	<div id="headerTemplate" class="grid" style="width: 100%; height: 3.5in;"> <!-- the rows of a grid need to be contained with a div marked with the 'grid' class; I set the height of this div just to simulate space-->
+		<div class="row"> <!-- row of th grid-->
+			<div class="col p-70 al">
+				<div style="width:160px; height:50px">image placeholder</div>
+				1903 S Congress Ave #460<br />Boynton Beach, FL 33426
+			</div> <!-- each cell of the grid is marked with a 'col' class and then pXX to denote its width -->
+			<div class="col p-30 ar">
+				Page {PageNo} of {MaxPage}<br />
+				Date: {Date}<br />
+				Time: {Time}<br />
+				OrderNo: {OrderNo}<br />
+				Ship Method: {ShipMethod}
+			</div>
+		</div>
+		<div class="shiv"></div>
+		<div class="row"> <!-- row of th grid-->
+			<div class="col p-50 al">
+				Bill To:<br />
+				{BillToAddress}
+			</div>
+			<div class="col p-50 al">
+				Ship To:<br />
+				{ShipToAddress}
+			</div>
+		</div>
+		<!-- use this to add some space -->
+		<div class="shiv"></div>
+	</div>
+	<div id="itemHeaderTemplate" class="grid">
+		<div class="row">
+			<div class="col itemHeading p-5">
+				LineNo
+			</div>
+			<div class="col itemHeading p-20">
+				SKU
+			</div>
+			<div class="col itemHeading p-60">
+				Description
+			</div>
+			<div class="col itemHeading p-5">
+				Qty
+			</div>
+			<div class="col itemHeading p-10">
+				Total Price
+			</div>
+		</div>
+	</div>
+	<div id="itemTemplate" class="grid">
+		<div class="row">
+			<div class="col item p-5">
+				{LineNo}
+			</div>
+			<div class="col item p-20">
+				{Sku}
+			</div>
+			<div class="col item p-60">
+				{VendorDesc}
+			</div>
+			<div class="col item p-5 ar">
+				{Quantity}
+			</div>
+			<div class="col item p-10 ar">
+				{ExtPrice}
+			</div>
+		</div>
+	</div>
+	<div id="itemGiftTemplate" class="grid">
+		<div class="row">
+			<div class="col item p-100 ac">
+				Here is your gift message: {VendorDesc}
+			</div>
+		</div>
+	</div>
+	<div id="returnTemplate" class="grid">
+		<div class="row">
+			<div class="shiv"></div>
+			<div class="col p-100 ac">
+				Thank you for your order. If you are not satisfied, please contact us at ...
+			</div>
+		</div>
+	</div>
+	<div id="carrierTemplateUPS" class="grid">
+		<!-- UPS carrier template here -->
+	</div>
+	<div id="carrierTemplateFedEx" class="grid">
+		<!-- FedEx carrier template here -->
+	</div>
+	<div id="carrierContainer" class="grid">	<!-- old carrier library render location -->
+		<div class="carrierShiv"></div>
+		<div class="carrierWrapper">{CarrierLabel}</div>
+	</div>
+</div>
+
+<vendornetconfig>
+	<code original="«TicketId»" replace="«TicketId»"><function name="HtmlAllQuotes" /></code>
+	<code original="«Description»" replace="«Description»"><function name="HtmlAllQuotes" /></code>
+	<code original="«VendorSKU»" replace="«VendorSKU»"><function name="HtmlAllQuotes" /></code>
+	<code original="«VendorDesc»" replace="«VendorDesc»"><function name="HtmlAllQuotes" /></code>
+	<code original="«VendorName»" replace="«VendorName»"><function name="HtmlAllQuotes" /></code>
+</vendornetconfig>
+<div id = "exportModal" class = "modal">
+	<!-- Modal content -->
+	<div id = "exportContent" class="modal-content" onclick="selectText('exportContent')"></div>
+</div>
+
+<div id="allPages"></div> <!-- pages render here -->
+
+<script class = "ExportData">
+// create the printDocument that holds a list of pick tickets / orders
+var printDocument = new PrintDocument(title, itemsPerPage, itemsPerLastPage, headerPages, itemHeaderPages, fillBlankItems);
+var order;		// used to set the current Pick Ticket or Order
+</script>
+<vendornet>
+<script class = "ExportData">
+order = printDocument.AddOrder(new Order("«OrderNo»"));
+order.SetHeader(new Header("«OrderNo»","«CoDivDept»","«SalesPerson»","«ShipMethod»"));
+order.SetAddress("buyer", new Address("«BuyerTitle»","«BuyerFName»","«BuyerMI»","«BuyerLName»","«BuyerSuffix»","«BuyerName»","«BuyerRef1»","«BuyerRef2»","«BuyerStreet»","«BuyerStreet2»","«BuyerCity»","«BuyerState»","«BuyerZip»","«BuyerPhone»"));
+order.SetAddress("billTo", new Address("«BillToTitle»","«BillToFName»","«BillToMI»","«BillToLName»","«BillToSuffix»","«BillToName»","«BillToRef1»","«BillToRef2»","«BillToStreet»","«BillToStreet2»","«BillToCity»","«BillToState»","«BillToZip»","«BillToPhone»"));
+order.SetAddress("shipTo", new Address("«ShipToTitle»","«ShipToFName»","«ShipToMI»","«ShipToLName»","«ShipToSuffix»","«ShipToName»","«ShipToRef1»","«ShipToRef2»","«ShipToStreet»","«ShipToStreet2»","«ShipToCity»","«ShipToState»","«ShipToZip»","«ShipToPhone»"));
+order.AddItem(new Item("«LineNo1»","«VendorDesc1»","«Description1»","«SKU1»","«WebStyle1»","«Quantity1»","«UnitPrice1»","«ExtPrice1»","«Tax1»",{czStripA:"«czStripA1»",czStripB:"«czStripB1»"}));
+order.AddItem(new Item("«LineNo2»","«VendorDesc2»","«Description2»","«SKU2»","«WebStyle2»","«Quantity2»","«UnitPrice2»","«ExtPrice2»","«Tax2»",{czStripA:"«czStripA2»",czStripB:"«czStripB2»"}));
+order.AddItem(new Item("«LineNo3»","«VendorDesc3»","«Description3»","«SKU3»","«WebStyle3»","«Quantity3»","«UnitPrice3»","«ExtPrice3»","«Tax3»",{czStripA:"«czStripA3»",czStripB:"«czStripB3»"}));
+order.AddItem(new Item("«LineNo4»","«VendorDesc4»","«Description4»","«SKU4»","«WebStyle4»","«Quantity4»","«UnitPrice4»","«ExtPrice4»","«Tax4»",{czStripA:"«czStripA4»",czStripB:"«czStripB4»"}));
+order.AddItem(new Item("«LineNo5»","«VendorDesc5»","«Description5»","«SKU5»","«WebStyle5»","«Quantity5»","«UnitPrice5»","«ExtPrice5»","«Tax5»",{czStripA:"«czStripA5»",czStripB:"«czStripB5»"}));
+order.AddItem(new Item("«LineNo6»","«VendorDesc6»","«Description6»","«SKU6»","«WebStyle6»","«Quantity6»","«UnitPrice6»","«ExtPrice6»","«Tax6»",{czStripA:"«czStripA6»",czStripB:"«czStripB6»"}));
+order.AddItem(new Item("«LineNo7»","«VendorDesc7»","«Description7»","«SKU7»","«WebStyle7»","«Quantity7»","«UnitPrice7»","«ExtPrice7»","«Tax7»",{czStripA:"«czStripA7»",czStripB:"«czStripB7»"}));
+order.AddItem(new Item("«LineNo8»","«VendorDesc8»","«Description8»","«SKU8»","«WebStyle8»","«Quantity8»","«UnitPrice8»","«ExtPrice8»","«Tax8»",{czStripA:"«czStripA8»",czStripB:"«czStripB8»"}));
+order.AddItem(new Item("«LineNo9»","«VendorDesc9»","«Description9»","«SKU9»","«WebStyle9»","«Quantity9»","«UnitPrice9»","«ExtPrice9»","«Tax9»",{czStripA:"«czStripA9»",czStripB:"«czStripB9»"}));
+order.AddItem(new Item("«LineNo10»","«VendorDesc10»","«Description10»","«SKU10»","«WebStyle10»","«Quantity10»","«UnitPrice10»","«ExtPrice10»","«Tax10»",{czStripA:"«czStripA10»",czStripB:"«czStripB10»"}));
+
+order.CarrierInfo = { //non packslip-map data and static data first, 
+    orientation:        "L", //"P" for Portrait, "R" for right landscape, "L" for left landscape
+	carrier:            "«Carrier»", //-
+    carrierSM:          "«CarrierSM»",
+    csPhone:            "800-888-8888", //unique per client, must be in format of xxx-xxx-xxxx or xxx-xxxx - Appears near Return Address on Fedex Labels
+    imgLocaton:         location.protocol + "//" + document.domain.toString(), 
+    assetPath:          "/printing/packing/shared/assets/",  // for pre-v10 /shared/assets OR omit
+	barcodeLocation: 	location.protocol + "//" + document.domain.toString() + "/images",
+	orderNo: 			"«OrderNo»",
+	retailerPhone:      "18004445555", //set per client, formatted via JS,  will appear near ship to if no ship to phones are available
+	returnToAddress:    ["«Vendor1»", "«Vendor2»", "«Vendor3»", "«Vendor4»", "«Vendor5»", "«Vendor6»"], //or define your own, Remove Commas between city and state
+	returnToCountry:    "US", //this is used by Fedex but may be used for others in the future. DO NOT INCLUDE if the country is already in returnToAddress
+	shipAlias: 			"«ShipmentAlias»", //for use on packslip/newgistics, not used in carrier
+	shipMethod: 		"«ShipMethod»",
+	shipMethodDesc: 	"«ShipMethodDesc»",
+	shipTo: 			["«ShipToFName» «ShipToLName»","«ShipToStreet»","«ShipToStreet2»","«ShipToRef1»","«ShipToRef2»","«ShipToCity» «ShipToState» «ShipToZip»"],
+	trackingNumber: 	"«TrackingNumber»",
+	weight: 			"«Weight»",
+	boxDimensions:		["«BoxLength»","«BoxHeight»","«BoxWidth»"],
+	boxId:              "«BoxId»",
+    shipToCountry:      "«ShipToCountry»",
+	fedexData: {
+		//missing: CustomerName, shipDate, Hindicator,
+		useNewLabels:	false,  // this should not be in quotes
+		barcode1D: 		"«1DBarcode»", //-
+		barcode96: 		"«128Barcode»", //-
+		customerName: 	"«CustomerName»",
+		//readable96: 	"«96Readable»", //- moved into the loadDataFedex function
+		addrBarcode: 	"«AddrBarcode»", //-
+		carrierSM: 		"«CarrierSM»", //-
+		CLS: 			"«CLS»", //
+		deliveryDate: 	"«DeliveryDate»", //-
+		deliveryDay: 	"«DeliveryDay»", //-
+		dryIce: 		"«DryIce»", //-
+		endorsement: 	"«Endorsement»", //smartpost //-
+		FHDSvcCode: 	"«FHDSvcCode»", //-
+		formID: 		"«FormID»", //-
+		fxrsVersion: 	"«FXRSVersion»",
+		handleCode: 	"«HandleCode»", //-
+		IMPB:  			"«IMPB»", //smartpost, require on all* //-
+		locID: 			"«LocID»", //-
+		meterNo: 		"«MeterNo»", //-
+		originID: 		"«OriginID»", //-
+		payType: 		"«PayType»", //-
+		pdf417: 		"«PDF417»", //required //-
+		productName: 	"«ProductName»", //-
+		rampID: 		"«RampID»", //-
+		serviceCode:    "«ServiceCode»", //-
+		smartPostLabel: "«TrackingNoLabelValue»",
+		smartPostLabelType: "«TrackingNoType»",
+		shipDate: 		"«ShipDate»", //-
+		shipToPhone:  	"«ShipToPhone»", //-
+		shipToPhone2:  	"«ShipToPhone2»", //-
+		shipToPhone3:  	"«ShipToPhone3»", //-
+		shipToCountry: 	"«ShipToCountry»", 
+		shipToZip:  	"«ShipToZip»", 
+		stateUS: 		"«StateUS»", //-
+		ursa30: 		"«Ursa»", //-
+		VersionCode: 	"«VersionCode»", //smartpost //-
+		weightUOM: 		"LBS" //default to lbs?
+		//now in JS:  TrackingFormatted
+	},//fedexObject
+	uspsData: {
+	    companyName: null, // Fill this in. Failure to do so will result in a label error
+		shipToZip: "«ShipToZip»",
+		carrierSM: "«CarrierSM»", 
+		construct: "«Construct»",
+		shipDate: "«ShipDate»",
+		shipFromZip: "«ShipFromZip»",  //shipfromzip will override shipFromArray zip  Used for setting usps Mail From 
+		shipFromArray: ["«VendorName»","«VendorStreet»","«VendorStreet2»","«VendorRef1»","«VendorRef2»","«VendorCity» «VendorState», «VendorZip»"],
+		//shipFromArray: ["«Vendor1»","«Vendor2»","«Vendor3»","«Vendor4»","«Vendor5»","«Vendor6»"], //Used for setting usps Mail From
+		useCubicPricing: "Y",	// Y/N to use cubic pricing if BoxDimensions are all valid
+		softPackIds: ["",""]		// ["SoftPack1","SoftPack2"]... update per client: used with cubic pricing; list of BoxIds that are soft packs (envelopes)
+	},//uspsData
+	upsData: {
+		bullDomain: document.domain.toString(), //to check local vs site merges
+		carrierSM: "«CarrierSM»",
+		orderSMDesc: "«OrderSMDesc»",
+        ref:    "", //override ref on UPS label
+        inv:    "", //override inv on UPS label
+		urc: "«URC»",
+		urcVersion: "«URCVersion»",
+		urcDate: 	"«URCDate»",
+		shipDate: "«ShipDate»",
+		shipToCity: "«ShipToCity»",
+		shipToState: "«ShipToState»",
+		shipToZip: "«ShipToZip»",
+		shipToCountry: "«ShipToCountryISO»",
+		isThirdParty: true //set per client
+	},//ups data
+	upssData: {
+	    bullDomain: location.protocol + "//" + document.domain.toString(), //to check local vs site merges
+	    carrier: "«Carrier»",
+	    currentDate: "«ShipDate»",
+	    orderEstDate: "«OrderESD»",
+	    trackingNumber: "«TrackingNumber»",
+	    trackformatting: "«TrackingFormatted»",
+	    shipToBarcode: "«ShipToBarcode»",
+	    orderSMDesc: "«OrderSMDesc»",
+	    serviceIcon: "«ServiceIcon»",
+	    trackingBarcode: "«TrackingBarcode»",
+	    urc: "«URC»",
+	    urcDate: "«URCDate»",
+	    urcVersion: "«URCVersion»",
+	    weight: "«Weight»",
+	    shipDate: "«ShipDate»",
+	    upssControl: "«UPSControl»",
+	    carrierSM: "«CarrierSM»",
+	    adultSignature: "«AdultSignatureText»",
+	    URCVersionDate: "«URCVersionDate»",
+	    shipAlias: "«ShipmentAlias»",
+	    currentCarrier: "«CurrentCarrier»",
+	    surePostTrackingNo: "«TrackingNo2»",
+	    surePostSvcInd: "«SPSVC»",
+	    surePostCosigneeZip: "«CZIP»",
+	    surePostPOAdress: "«POAddress»",
+	    surePostPOCity: "«POCity»",
+	    surePostPOState: "«POState»",
+	    surePostPOZip: "«POZip»",
+	    surePostFacilityType: "«FacilityType»",
+	    bullseye: "«Bullseye»",
+	    spWeight: "«SurepostWeight»",
+	    shipToZip: "«ShipToZip»",
+	    serviceLvlDesc: "temp data USPS",
+	    shipToCity: "«ShipToCity»",
+	    shipToState: "«ShipToState»",
+	    shipToCountry: "«ShipToCountryISO»",
+	    isThirdParty: false // when omitted, uses upsData.isThirdParty
+	},//upssData
+	canadaPostData: {
+        purlSM: "«PurlSM»",
+        deliveryDate: "«DeliveryDate»",
+        destIATA: "«DestIATA»",
+        osnr: "«OSNR»",
+        route: "«Route»",
+        returnAddress: ["CLIENT NAME","SOME ROAD","CITY STATE ZIP"],
+        serviceLevel: "«ServiceLevel»",
+        shipToPhone: "«ShipToPhone»",
+        shipToZip: "«ShipToZip»",
+        transitDays: "«TransitDays»"       
+	}, //purolator data
+	newgisticsData: {
+
+	}//newgistics data if needed
+}//carrier info object
+
+</script>
+</vendornet>
+
+<script>
+
+var objUSPS = { //non packslip-map data and static data first,
+	orientation: "L", //"P" for Portrait, "R" for right landscape, "L" for left landscape
+	carrier: "USPS", //-
+	//carrier: 			"UPSN",
+	csPhone: 			"800-888-8888", //unique per client, must be in format of xxx-xxx-xxxx or xxx-xxxx
+	imgLocaton: location.protocol + "//" + document.domain.toString(),
+	assetPath: "/printing/packing/shared/assets/",  // for pre-v10 /shared/assets OR omit
+	barcodeLocation: 	location.protocol + "//" + document.domain.toString() + "/images",
+	orderNo: 			"5000002118979",
+	retailerPhone: 		"1-800-444-5555", //set per client, formatted via JS
+	returnToAddress: 	[".com Returns","1 Collective Way, Suite A","Brookville, OH 45309","","",""], //or define your own
+	shipAlias: 			"524", //for use on packslip/newgistics, not used in carrier
+	shipMethod: 		"USPS PRIORITY",
+	shipMethodDesc: 	"USPS PRIORITY",
+	//shipTo: 			["«ShipTo1»","«ShipTo2»","«ShipTo3»","«ShipTo4»","«ShipTo5»","«ShipTo6»"],
+	shipTo:				["John Doe", "123 street", "", "", "Lincoln NE 68506",  ""],//"2223333",
+	trackingNumber: 	"9205590148236000004378",
+	weight: 			"3.5",
+	//boxDimensions:		["«BoxHeight»","«BoxLength»","«BoxWidth»"],
+	boxDimensions:		["5","4.24","6.26"],
+	//boxId:				"«BoxId»",
+	boxId: "SoftPack1",	//"NotSoftPack"
+    shipToCountry: "US",
+	fedexData: {
+		//missing: CustomerName, shipDate, Hindicator,
+		useNewLabels:	false,
+		barcode1D: 		"«1DBarcode»", //-
+		barcode96: 		"«128Barcode»", //-
+		customerName: 	"«CustomerName»",
+		//readable96: 	"«96Readable»", //- moved into the loadDataFedex function
+		addrBarcode: 	"«AddrBarcode»", //-
+		carrierSM: 		"055", //-
+		CLS: 			"«CLS»", //
+		deliveryDate: 	"«DeliveryDate»", //-
+		deliveryDay: 	"«DeliveryDay»", //-
+		dryIce: 		"«DryIce»", //-
+		endorsement: 	"«Endorsement»", //smartpost //-
+		FHDSvcCode: 	"«FHDSvcCode»", //-
+		formID: 		"«FormID»", //-
+		fxrsVersion: 	"«FXRSVersion»",
+		handleCode: 	"«HandleCode»", //-
+		IMPB:  			"«IMPB»", //smartpost, require on all* //-
+		locID: 			"«LocID»", //-
+		meterNo: 		"«MeterNo»", //-
+		originID: 		"«OriginID»", //-
+		payType: 		"«PayType»", //-
+		pdf417: 		"«PDF417»", //required //-
+		productName: 	"«ProductName»", //-
+		rampID: 		"«RampID»", //-
+		serviceCode:    "«ServiceCode»", //-
+		smartPostLabel: "«TrackingNoLabelValue»",
+		smartPostLabelType: "«TrackingNoType»",
+		shipDate: 		"05/05/2015", //-
+		shipToPhone:  	"2223333", //-
+		shipToPhone2:  	"«ShipToPhone2»", //-
+		shipToPhone3:  	"«ShipToPhone3»", //-
+		shipToCountry: 	"US",
+		shipToZip:  	"68506",
+		stateUS: 		"«StateUS»", //-
+		ursa30: 		"«Ursa»", //-
+		VersionCode: 	"«VersionCode»", //smartpost //-
+		weightUOM: 		"LBS" //default to lbs?
+		//now in JS:  TrackingFormatted
+	},//fedexObject
+	uspsData: {
+		companyName: "Payless Shoesource",//"GSI",
+		shipToZip: "68506",
+		carrierSM: "055",
+		construct: "C03",
+		shipDate: "05/05/2015",
+		shipFromZip: "66611",  //shipfromzip will override shipFromArray zip  Used for setting usps Mail From
+		shipFromArray: ["«Vendor1»","«Vendor2»","«Vendor3»","«Vendor4»","«Vendor5»","«Vendor6»"], //Used for setting usps Mail From
+		useCubicPricing: "Y",	// Y/N to use cubic pricing if BoxDimensions are all valid
+		softPackIds: ["SoftPack1","SoftPack2"]		// update per client: used with cubic pricing; list of BoxIds that are soft packs (envelopes)
+	},//uspsData
+	upsData: {
+		bullDomain: document.domain.toString(), //to check local vs site merges
+		carrierSM: "055",
+		orderSMDesc: "«OrderSMDesc»",
+		ref:    "", //override ref on UPS label
+		inv:    "", //override inv on UPS label
+		urc: "«URC»",
+		urcVersion: "«URCVersion»",
+		urcDate: 	"«URCDate»",
+		shipDate: "05/05/2015",
+		shipToCity: "Lincoln",
+		shipToState: "NE",
+		shipToZip: "68506",
+		shipToCountry: "«ShipToCountryISO»",
+		isThirdParty: true //set per client
+	},//ups data
+	upssData: {
+	    bullDomain: location.protocol + "//" + document.domain.toString(), //to check local vs site merges
+	    carrier: "USPS",
+	    currentDate: "05/05/2015",
+	    orderEstDate: "«OrderESD»",
+	    trackingNumber: "9205590148236000004378",
+	    trackformatting: "«TrackingFormatted»",
+	    shipToBarcode: "«ShipToBarcode»",
+	    orderSMDesc: "«OrderSMDesc»",
+	    serviceIcon: "«ServiceIcon»",
+	    trackingBarcode: "«TrackingBarcode»",
+	    urc: "«URC»",
+	    urcDate: "«URCDate»",
+	    urcVersion: "«URCVersion»",
+	    weight: "3.5",
+	    shipDate: "05/05/2015",
+	    upssControl: "«UPSControl»",
+	    carrierSM: "055",
+	    adultSignature: "«AdultSignatureText»",
+	    URCVersionDate: "«URCVersionDate»",
+	    shipAlias: "«ShipmentAlias»",
+	    currentCarrier: "«CurrentCarrier»",
+	    surePostTrackingNo: "«TrackingNo2»",
+	    surePostSvcInd: "«SPSVC»",
+	    surePostCosigneeZip: "«CZIP»",
+	    surePostPOAdress: "«POAddress»",
+	    surePostPOCity: "«POCity»",
+	    surePostPOState: "«POState»",
+	    surePostPOZip: "«POZip»",
+	    surePostFacilityType: "«FacilityType»",
+	    bullseye: "«Bullseye»",
+	    spWeight: "«SurepostWeight»",
+	    shipToZip: "68506",
+	    serviceLvlDesc: "temp data USPS",
+	    shipToCity: "«ShipToCity»",
+	    shipToState: "«ShipToState»",
+	    shipToCountry: "«ShipToCountryISO»",
+	    isThirdParty: true // should default to false for surepost
+	},//upssData
+	canadaPostData: {
+		purlSM: "«PurlSM»",
+		deliveryDate: "«DeliveryDate»",
+		destIATA: "«DestIATA»",
+		osnr: "«OSNR»",
+		route: "«Route»",
+		returnAddress: ["CLIENT NAME","SOME ROAD","CITY STATE ZIP"],
+		serviceLevel: "«ServiceLevel»",
+		shipToPhone: "2223333",
+		shipToZip: "68506",
+		transitDays: "«TransitDays»"
+	}, //purolator data
+	newgisticsData: {
+
+	}//newgistics data if needed
+}//carrier info object
+
+var objUPS = { //non packslip-map data and static data first,
+	orientation: "L", //"P" for Portrait, "R" for right landscape, "L" for left landscape
+	carrier: "UPSN", //-
+	//carrier: 			"UPSN",
+	csPhone: 			"800-888-8888", //unique per client, must be in format of xxx-xxx-xxxx or xxx-xxxx
+	imgLocaton: location.protocol + "//" + document.domain.toString(),
+	assetPath: "/printing/packing/shared/assets/",  // for pre-v10 /shared/assets OR omit
+	barcodeLocation: 	location.protocol + "//" + document.domain.toString() + "/images",
+	orderNo: 			"5000002706662",
+	retailerPhone: 		"1-800-444-5555", //set per client, formatted via JS
+	returnToAddress: 	[".com Returns","1 Collective Way, Suite A","Brookville, OH 45309","","",""], //or define your own
+	shipAlias: 			"798", //for use on packslip/newgistics, not used in carrier
+	shipMethod: 		"UPS 2 DAY AIR",
+	shipMethodDesc: 	"UPS 2 DAY AIR",
+	//shipTo: 			["«ShipTo1»","«ShipTo2»","«ShipTo3»","«ShipTo4»","«ShipTo5»","«ShipTo6»"],
+	shipTo:				["John Doe", "123 street", "", "", "Pearl MS 39208",  ""],//"2223333",
+	trackingNumber: 	"1Z8R746F0200001451",
+	weight: 			"2",
+	//boxDimensions:		["«BoxHeight»","«BoxLength»","«BoxWidth»"],
+	boxDimensions:		["5","4.24","6.26"],
+	//boxId:				"«BoxId»",
+	boxId:              "SoftPack1",	//"NotSoftPack"
+    shipToCountry:      "US",
+	fedexData: {
+		//missing: CustomerName, shipDate, Hindicator,
+		useNewLabels:	false, // not in quotes
+		barcode1D: 		"«1DBarcode»", //-
+		barcode96: 		"«128Barcode»", //-
+		customerName: 	"«CustomerName»",
+		//readable96: 	"«96Readable»", //- moved into the loadDataFedex function
+		addrBarcode: 	"«AddrBarcode»", //-
+		carrierSM: 		"02", //-
+		CLS: 			"«CLS»", //
+		deliveryDate: 	"«DeliveryDate»", //-
+		deliveryDay: 	"«DeliveryDay»", //-
+		dryIce: 		"«DryIce»", //-
+		endorsement: 	"«Endorsement»", //smartpost //-
+		FHDSvcCode: 	"«FHDSvcCode»", //-
+		formID: 		"«FormID»", //-
+		fxrsVersion: 	"«FXRSVersion»",
+		handleCode: 	"«HandleCode»", //-
+		IMPB:  			"«IMPB»", //smartpost, require on all* //-
+		locID: 			"«LocID»", //-
+		meterNo: 		"«MeterNo»", //-
+		originID: 		"«OriginID»", //-
+		payType: 		"«PayType»", //-
+		pdf417: 		"«PDF417»", //required //-
+		productName: 	"«ProductName»", //-
+		rampID: 		"«RampID»", //-
+		serviceCode: 	"«ServiceCode»", //-
+		smartPostLabel: "«TrackingNoLabelValue»",
+		smartPostLabelType: "«TrackingNoType»",
+		shipDate: 		"07/22/2015", //-
+		shipToPhone:  	"2223333", //-
+		shipToPhone2:  	"«ShipToPhone2»", //-
+		shipToPhone3:  	"«ShipToPhone3»", //-
+		shipToCountry: 	"US",
+		shipToZip:  	"39208",
+		stateUS: 		"«StateUS»", //-
+		ursa30: 		"«Ursa»", //-
+		VersionCode: 	"«VersionCode»", //smartpost //-
+		weightUOM: 		"LBS" //default to lbs?
+		//now in JS:  TrackingFormatted
+	},//fedexObject
+	uspsData: {
+		companyName: "Payless Shoesource",//"GSI",
+		shipToZip: "39208",
+		carrierSM: "02",
+		construct: "«Construct»",
+		shipDate: "07/22/2015",
+		shipFromZip: "66611",  //shipfromzip will override shipFromArray zip  Used for setting usps Mail From
+		shipFromArray: ["«Vendor1»","«Vendor2»","«Vendor3»","«Vendor4»","«Vendor5»","«Vendor6»"], //Used for setting usps Mail From
+		useCubicPricing: "Y",	// Y/N to use cubic pricing if BoxDimensions are all valid
+		softPackIds: ["SoftPack1","SoftPack2"]		// update per client: used with cubic pricing; list of BoxIds that are soft packs (envelopes)
+	},//uspsData
+	upsData: {
+		bullDomain: document.domain.toString(), //to check local vs site merges
+		carrierSM: "02",
+		orderSMDesc: "UPS 2 DAY AIR",
+		ref:    "", //override ref on UPS label
+		inv:    "", //override inv on UPS label
+		urc: " MS 392 9-02",
+		urcVersion: "63.5A",
+		urcDate: 	"2015-04-01",
+		shipDate: "07/22/2015",
+		shipToCity: "Pearl",
+		shipToState: "MS",
+		shipToZip: "39208",
+		shipToCountry: "840",
+		isThirdParty: true //set per client
+	},//ups data
+	upssData: {
+	    carrier: "UPSN",
+	    bullDomain: location.protocol + "//" + document.domain.toString(), //to check local vs site merges
+	    currentDate: "07/22/2015",
+	    orderEstDate: "«OrderESD»",
+	    trackingNumber: "1Z8R746F0200001451",
+	    trackformatting: "«TrackingFormatted»",
+	    shipToBarcode: "«ShipToBarcode»",
+	    orderSMDesc: "«OrderSMDesc»",
+	    serviceIcon: "«ServiceIcon»",
+	    trackingBarcode: "«TrackingBarcode»",
+	    urc: " MS 392 9-02",
+	    urcDate: "«URCDate»",
+	    urcVersion: "«URCVersion»",
+	    weight: "2",
+	    shipDate: "07/22/2015",
+	    upssControl: "«UPSControl»",
+	    carrierSM: "055",
+	    adultSignature: "«AdultSignatureText»",
+	    URCVersionDate: "«URCVersionDate»",
+	    shipAlias: "«ShipmentAlias»",
+	    currentCarrier: "«CurrentCarrier»",
+	    surePostTrackingNo: "«TrackingNo2»",
+	    surePostSvcInd: "«SPSVC»",
+	    surePostCosigneeZip: "«CZIP»",
+	    surePostPOAdress: "«POAddress»",
+	    surePostPOCity: "«POCity»",
+	    surePostPOState: "«POState»",
+	    surePostPOZip: "«POZip»",
+	    surePostFacilityType: "«FacilityType»",
+	    bullseye: "«Bullseye»",
+	    spWeight: "«SurepostWeight»",
+	    shipToZip: "39208",
+	    serviceLvlDesc: "temp data USPS",
+	    shipToCity: "«ShipToCity»",
+	    shipToState: "«ShipToState»",
+	    shipToCountry: "«ShipToCountryISO»",
+	    isThirdParty: true // should default to false for surepost
+	},//upssData
+	canadaPostData: {
+		purlSM: "«PurlSM»",
+		deliveryDate: "«DeliveryDate»",
+		destIATA: "«DestIATA»",
+		osnr: "«OSNR»",
+		route: "«Route»",
+		returnAddress: ["CLIENT NAME","SOME ROAD","CITY STATE ZIP"],
+		serviceLevel: "«ServiceLevel»",
+		shipToPhone: "2223333",
+		shipToZip: "39208",
+		transitDays: "«TransitDays»"
+	}, //purolator data
+	newgisticsData: {
+
+	}//newgistics data if needed
+}//carrier info object
+
+/*
+case 1:
+
+case 2:
+
+case 3:
+
+case 4:
+
+*/
+var testCase = 1;
+
+switch(testCase) {
+	case 1:
+		order = printDocument.AddOrder(new Order("416607366"));
+		order.SetHeader(new Header("416607366","02","Y105487856","Test SM 1"));
+		order.SetAddress("buyer", new Address("","«BuyerFName»","«BuyerMI»","«BuyerLName»","«BuyerSuffix»","«BuyerName»","«BuyerRef1»","«BuyerRef2»","«BuyerStreet»","«BuyerStreet2»","«BuyerCity»","«BuyerState»","«BuyerZip»","«BuyerPhone»"));
+		order.SetAddress("billTo", new Address("","Ivan","BT","Ivan","","","","","Jackson Way","","PEPPER PIKE","OH","44124-5687","262-363-4545"));
+		order.SetAddress("shipTo", new Address("","Ivan","ST","Ivan","","","","","Jackson Way","","PEPPER PIKE","OH","44124-5687","262-363-4545"));
+		order.AddItem(new Item("1","FS-TAP:MT TREE OF LIFE |BLUE/BLEU |ALL |TAPESTRIES","Description1","18146613","«WebStyle1»","1","$ 38.00","$ 38.00","3.44",{czStripA:"«czStripA1»",czStripB:"«czStripB1»"}));
+		order.AddItem(new Item("&nbsp;","Gift Wrap Desc: UOGIFTBOX","Description2","SKUNo","«WebStyle2»","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA2»",czStripB:"«czStripB2»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle3»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA3»",czStripB:"«czStripB3»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle4»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA4»",czStripB:"«czStripB4»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle5»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA5»",czStripB:"«czStripB5»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle6»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA6»",czStripB:"«czStripB6»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle7»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA7»",czStripB:"«czStripB7»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle8»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA8»",czStripB:"«czStripB8»"}));
+		order.AddItem(new Item("«LineNo9»","«SKU9»","«VendorDesc9»","«Description9»","«WebStyle9»","«Quantity9»","«UnitPrice9»","«ExtPrice9»","«Tax9»",{czStripA:"«czStripA9»",czStripB:"«czStripB9»"}));
+		order.AddItem(new Item("«LineNo10»","«SKU10»","«VendorDesc10»","«Description10»","«WebStyle10»","«Quantity10»","«UnitPrice10»","«ExtPrice10»","«Tax10»",{czStripA:"«czStripA10»",czStripB:"«czStripB10»"}));
+
+		break;
+
+	case 2:
+		order = printDocument.AddOrder(new Order("775885884"));
+		order.SetHeader(new Header("775885884","09","Y123456789","Test SM 2"));
+		order.SetAddress("buyer", new Address("","«BuyerFName»","«BuyerMI»","«BuyerLName»","«BuyerSuffix»","«BuyerName»","«BuyerRef1»","«BuyerRef2»","«BuyerStreet»","«BuyerStreet2»","«BuyerCity»","«BuyerState»","«BuyerZip»","«BuyerPhone»"));
+		order.SetAddress("billTo", new Address("","Ivan","","Ivan","","","","","Jackson Way","","POWELL","OH","43065","262-363-4545"));
+		order.SetAddress("shipTo", new Address("","Ivan","","Ivan","","","ATTN: Columbia Div","","","","TX","TX","77504","262-363-4545"));
+		order.AddItem(new Item("1","CHAIR: INDUSTRIAL AGE |ASSORT |ALL |FURNITURE","Description1","18564625","«WebStyle1»","5","$ 40.00","$ 200.00","",{czStripA:"«czStripA1»",czStripB:"«czStripB1»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle2»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA2»",czStripB:"«czStripB2»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle3»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA3»",czStripB:"«czStripB3»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle4»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA4»",czStripB:"«czStripB4»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle5»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA5»",czStripB:"«czStripB5»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle6»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA6»",czStripB:"«czStripB6»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle7»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA7»",czStripB:"«czStripB7»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle8»","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA8»",czStripB:"«czStripB8»"}));
+		order.AddItem(new Item("«LineNo9»","«SKU9»","«VendorDesc9»","«Description9»","«WebStyle9»","«Quantity9»","«UnitPrice9»","«ExtPrice9»","«Tax9»",{czStripA:"«czStripA9»",czStripB:"«czStripB9»"}));
+		order.AddItem(new Item("«LineNo10»","«SKU10»","«VendorDesc10»","«Description10»","«WebStyle10»","«Quantity10»","«UnitPrice10»","«ExtPrice10»","«Tax10»",{czStripA:"«czStripA10»",czStripB:"«czStripB10»"}));
+
+		break;
+
+	case 3:
+		order = printDocument.AddOrder(new Order("2053101CM"));
+		order.SetHeader(new Header("2053101CM","03","Y102187200","Test SM 3"));
+		order.SetAddress("buyer", new Address("","«BuyerFName»","«BuyerMI»","«BuyerLName»","«BuyerSuffix»","«BuyerName»","«BuyerRef1»","«BuyerRef2»","«BuyerStreet»","«BuyerStreet2»","«BuyerCity»","«BuyerState»","«BuyerZip»","«BuyerPhone»"));
+		order.SetAddress("billTo", new Address("","Ivan","","Ivan","","","","","Jackson Way","","PHILADELPHIA","PA","19139","262-363-4545"));
+		order.SetAddress("shipTo", new Address("","Ivan","","Ivan","","","","","Jackson Way","","PHILADELPHIA","PA","19139","262-363-4545"));
+		order.AddItem(new Item("1","FP SLOUCHY HAREM SHORT |MOSS/MOUSS |M |FP SHORTS","Description1","20416822","","1","$ 19.95","$ 19.95","",{czStripA:"«czStripA1»",czStripB:"«czStripB1»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA2»",czStripB:"«czStripB2»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA3»",czStripB:"«czStripB3»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA4»",czStripB:"«czStripB4»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA5»",czStripB:"«czStripB5»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA6»",czStripB:"«czStripB6»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA7»",czStripB:"«czStripB7»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA8»",czStripB:"«czStripB8»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA9»",czStripB:"«czStripB9»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;",{czStripA:"«czStripA10»",czStripB:"«czStripB10»"}));
+
+		break;
+
+	case 4:
+		order = printDocument.AddOrder(new Order("5000002706662"));
+		order.SetHeader(new Header("5000002706662","","","Test SM 4"));
+		order.SetAddress("buyer", new Address("","«BuyerFName»","«BuyerMI»","«BuyerLName»","«BuyerSuffix»","«BuyerName»","«BuyerRef1»","«BuyerRef2»","«BuyerStreet»","«BuyerStreet2»","«BuyerCity»","«BuyerState»","«BuyerZip»","«BuyerPhone»"));
+		order.SetAddress("billTo", new Address("","John","","Doe","","","","","123 street","","Pearl","MS","39208","2223333"));
+		order.SetAddress("shipTo", new Address("","John","","Doe","","","","","123 street","","Pearl","MS","39208","2223333"));
+		order.AddItem(new Item("30001","Women's Flora Flat","Description1","153314120","«WebStyle1»","1","$ 15.29","$ 15.29","«Tax1»",{czStripA:"«czStripA1»",czStripB:"«czStripB1»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle2»","&nbsp;","&nbsp;","&nbsp;","«Tax2»",{czStripA:"«czStripA2»",czStripB:"«czStripB2»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle3»","&nbsp;","&nbsp;","&nbsp;","«Tax3»",{czStripA:"«czStripA3»",czStripB:"«czStripB3»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle4»","&nbsp;","&nbsp;","&nbsp;","«Tax4»",{czStripA:"«czStripA4»",czStripB:"«czStripB4»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle5»","&nbsp;","&nbsp;","&nbsp;","«Tax5»",{czStripA:"«czStripA5»",czStripB:"«czStripB5»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle6»","&nbsp;","&nbsp;","&nbsp;","«Tax6»",{czStripA:"«czStripA6»",czStripB:"«czStripB6»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle7»","&nbsp;","&nbsp;","&nbsp;","«Tax7»",{czStripA:"«czStripA7»",czStripB:"«czStripB7»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle8»","&nbsp;","&nbsp;","&nbsp;","«Tax8»",{czStripA:"«czStripA8»",czStripB:"«czStripB8»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle9»","&nbsp;","&nbsp;","&nbsp;","«Tax9»",{czStripA:"«czStripA9»",czStripB:"«czStripB9»"}));
+		order.AddItem(new Item("&nbsp;","&nbsp;","&nbsp;","&nbsp;","«WebStyle10»","&nbsp;","&nbsp;","&nbsp;","«Tax10»",{czStripA:"«czStripA10»",czStripB:"«czStripB10»"}));
+
+		break;
+
+	default:
+		// load VN data
+}
+
+if (testCase > 0) {
+	//order.CarrierInfo = objUSPS;
+	order.CarrierInfo = objUPS;
+}
+</script>
+
+<script>
+	//order.ExportData();
+
+	(function() {
+		var target = document.getElementById("allPages");
+
+		// render each document in the list
+		for (var i = 0; i < printDocument.Orders.length; i++) {
+			if (printDocument.Orders[i].UniqueId != "") {
+				printDocument.Orders[i].SetMaxPage();
+				printDocument.Orders[i].RenderToDocument(target);
+			}
+		}
+	})();
+</script>
+
+<script>
+	Radial.Print = false;
+	Radial.Debug = true;
+
+	// then we register some startup functions... (chromeFix is added by default in utils.js)
+	// pass an actual funciton object
+	Radial.AddStartupMethod("AddPageBreaks", function () { addPageBreaks(".wrapper", false, "pagebreakafter") });
+
+	// OR pass the parameters
+	//Radial.AddStartupMethod("AddPageBreaks", addPageBreaks, ".wrapper", false, "pagebreakafter");
+
+	// OR use the default parameters
+	//Radial.AddStartupMethod("AddPageBreaks", addPageBreaks); // uses the default parameters
+</script>
+</body>
+</html>
