@@ -1,0 +1,102 @@
+/* some extra stuff for _this_ demo */
+.heading {
+    background-color: #BBBBBB;
+    padding-top: 1pt;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: bold;
+	padding: 2pt;
+	border: solid black 1pt;
+}
+
+.headerBox {
+	border: 1pt solid black;
+	font-weight: bold;
+	font-size: 14pt;
+	float: left;
+	padding: 2pt;
+	padding-left: 5pt;
+	padding-right: 5pt;
+	text-align: center;
+}
+
+.headerBox.fr {
+	float: right;
+}
+
+.headerDetails {
+	width: 100%;
+	height: 0.5in;
+	line-height: 1.3;
+}
+
+/* .table .row .col overrides to remove left/right borders from Standard-Style...css */
+.table .row .col.item {
+	vertical-align: middle;
+	line-height: 1.3;
+	border-left: none;
+}
+
+.table .row .col.item:last-of-type {
+    border-right: none;
+}
+
+.table .row .col.qtySlot {
+    vertical-align: top;
+	line-height: 1.1;
+	padding-top: 10px;
+}
+
+.signatures {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size:12pt;
+}
+
+.sigLine {
+	border-bottom:solid black 1pt;
+}
+
+.instructionHeading {
+	border-top:solid black 1pt;
+	border-left:solid black 1pt;
+	border-bottom:solid black 1pt;
+	background-color: #BBBBBB;
+	padding: 2pt;
+}
+
+.instructionHeading:last-of-type {
+    border-right: 1pt solid black;
+}
+
+.instruction {
+	border-left:solid black 1pt;
+	border-bottom:solid black 1pt;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.instruction:last-of-type {
+    border-right: 1pt solid black;
+}
+
+.instructionPadding {
+	padding-left:20px;
+}
+
+.qtyHeading {
+	background-color: #BBBBBB;
+	padding: 1pt;
+	overflow: hidden;
+	white-space: nowrap;
+	font-weight: bold;
+	border-right: solid black 1pt;
+	border-left: solid black 1pt;
+	position: static; /* fix for IE background-color hiding border */
+}
+
+.qty {
+	border-top:solid black 1pt;
+}

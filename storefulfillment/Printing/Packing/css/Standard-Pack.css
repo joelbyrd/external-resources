@@ -1,0 +1,52 @@
+﻿/* some extra stuff for _this_ demo */
+.heading {
+    background-color: #BBBBBB;
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 1pt;
+    padding-bottom: 1pt;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+/* "shivs" let us insert spacing when needed*/
+div.carrierShiv {
+    clear: both;
+    width: 100%;
+    height: 2in;
+}
+
+.itemHeading {
+	background-color: #BBBBBB;
+	color: black;
+	text-align: center;
+	padding-top: 1pt;
+	padding-bottom: 1pt;
+	vertical-align: middle;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	font-size: 8pt;
+	font-weight: bold;
+	border-top:solid black 1pt;
+	border-left:solid black 1pt;
+	border-bottom:solid black 1pt;
+}
+
+.itemHeading:last-of-type{
+	border-right:solid black 1pt;
+}
+
+.item {
+	border-left:solid black 1pt;
+	border-bottom:solid black 1pt;
+}
+
+.item:last-of-type{
+	border-right:solid black 1pt;
+}
