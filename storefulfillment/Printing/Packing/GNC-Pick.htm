@@ -14,6 +14,13 @@
 	have different default user-agent styles for each element of a page; this standardizes everything up front
 		do not use both std.css and reset.css -- They are about the same, though experience tells me reset.css is better -->
 	<style>
+		
+	html {
+		box-sizing: border-box;
+	}
+	*, *:before, *:after {
+		box-sizing: inherit;
+	}
 
 	html, body, div, span, applet, object, iframe,
 	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -57,12 +64,6 @@
 	table {
 		border-collapse: collapse;
 		border-spacing: 0;
-	}
-	/* MOST IMPORTANT!!!!!!!!! */
-	.wrapper *, .wrapper *:after, .wrapper *:before {
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
 	}
 
 	/* this gets added to the section where we will place the carrier labels, it revers that area to the old
