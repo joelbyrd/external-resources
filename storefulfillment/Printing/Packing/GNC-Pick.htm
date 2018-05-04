@@ -15,32 +15,33 @@
 			//baseUrl = "https://mcl-sntrain.gsipartners.com";
 		} else {
 			//baseUrl = "https://mcl-snprod.gsipartners.com";
-			baseUrl = "http://prio-snqamantest-internal.vndev.nonprd.gsi.local";
+			//baseUrl = "http://prio-snqamantest-internal.vndev.nonprd.gsi.local";
+			baseUrl = "https://github.com/joelbyrd/external-resources/blob/master/storefulfillment/Printing/Packing";
 		}
 		if (baseUrl) {
 			// trim slash we'll add it on next line, need no slash later              
 			baseUrl = baseUrl.replace(/[\/]+$/, "");
 			// base tag must end in slash; everything after last slash is ignored
-			//document.write("<base href='" + baseUrl + "/' />");
+			document.write("<base href='" + baseUrl + "/' />");
 		}
 	</script>
 
 	<!-- reset.css should come before everything, reset..resets all HTML elements to a common setting. Different browsers
 	have different default user-agent styles for each element of a page; this standardizes everything up front
 		do not use both std.css and reset.css -- They are about the same, though experience tells me reset.css is better -->
-	<link rel="stylesheet" type="text/css" href="Shared/css/Standard-Reset_v1.0.0.css" charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="Shared/css/Standard-Style_v1.0.1.css" charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="css/GNC-Pick.css" charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="/Shared/css/Standard-Reset_v1.0.0.css" charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="/Shared/css/Standard-Style_v1.0.1.css" charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="/css/GNC-Pick.css" charset="utf-8" />
 	<!-- polyfill io should come before ALL javascript-->
 	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default-3.6,modernizr:es6string&flags=gated"></script>
 	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=modernizr:es6array,Element,Element.prototype.classList,Element.prototype.cloneNode,Element.prototype.replaceWith,Array.prototype.map,Array.prototype.reduce,es7&flags=always,gated"></script>
 	<!-- Modernizr tells you what HTML, CSS and JavaScript features the user’s browser has to offer -->
-	<script src="Shared/js/modernizr.min.js"></script>
+	<script src="/Shared/js/modernizr.min.js"></script>
 	<!-- this file would really be in packslipbase -- or whatever new file we make, though the string.trim() method in it should come
 	after other includes because it trims nbsp's and anything in packslip base would overwrite it because they don't test for the function
 		already existing -->
-	<script src="Shared/js/Standard-Utils_v1.0.0.js" charset="utf-8"></script>
-	<script src="js/GNC-Pick.js" charset="utf-8"></script>
+	<script src="/Shared/js/Standard-Utils_v1.0.0.js" charset="utf-8"></script>
+	<script src="/js/GNC-Pick.js" charset="utf-8"></script>
 	<script>
 		// these apply to every page
 		var title				=	"Pick Ticket";
@@ -64,6 +65,7 @@
 	</script>
 </head>
 <body>
+	<p>yo, test paragraph here</p>
 <!-- templates are hidden but still here for us to pull the source code from -->
 <div id="templates" style="display: none;" data-html-templates>
 	<div id="newPage" class="wrapper" data-page-wrapper>
