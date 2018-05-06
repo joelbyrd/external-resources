@@ -29,19 +29,1444 @@
 	<!-- reset.css should come before everything, reset..resets all HTML elements to a common setting. Different browsers
 	have different default user-agent styles for each element of a page; this standardizes everything up front
 		do not use both std.css and reset.css -- They are about the same, though experience tells me reset.css is better -->
-	<link rel="stylesheet" type="text/css" href="/Shared/css/Standard-Reset_v1.0.0.css" charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="/Shared/css/Standard-Style_v1.0.1.css" charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="/css/GNC-Pick.css" charset="utf-8" />
+	<style>
+
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+	    margin: 0;
+	    padding: 0;
+	    border: 0;
+	    font-size: 100%;
+	    font: inherit;
+	    vertical-align: baseline;
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {
+	    display: block;
+	}
+	body {
+	    line-height: 1;
+	}
+	ol, ul {
+	    list-style: none;
+	}
+	blockquote, q {
+	    quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+	    content: '';
+	    content: none;
+	}
+	table {
+	    border-collapse: collapse;
+	    border-spacing: 0;
+	}
+
+	/* MOST IMPORTANT!!!!!!!!! */
+	.wrapper *, .wrapper *:after, .wrapper *:before {
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+
+	/* this gets added to the section where we will place the carrier labels, it revers that area to the old
+	    style content-box so that the carrier library renders properly until we rewrite it
+	*/
+	.carrierWrapper *, .carrierWrapper *:after, .carrierWrapper *:before {
+	    -webkit-box-sizing: content-box;
+	    -moz-box-sizing: content-box;
+	    box-sizing: content-box;
+	}
+
+	body {
+	    color: black;
+	    font-family: Arial,Helvetica,sans-serif;
+	    font-size: 8pt;
+	    line-height: 1;
+	    margin: 0;
+	    padding: 0;
+	}
+
+	.wrapper {
+	    display: block;
+	    overflow: hidden;
+	    width: 8in;
+	    height: 10in;
+	    background-color: white;
+	    margin: 0 auto;
+	    padding: 5pt;
+	    page-break-after: avoid; /* keep the contents together */
+	    -webkit-break-inside: avoid;
+	    break-inside: avoid;
+	}
+
+	.pagebreakafter {
+	    page-break-after: always; /* some IOS devices dont like page-break-before, so use after */
+	    -webkit-break-after: always;
+	    break-after: always;
+	}
+
+	.pagebreakbefore {
+	    page-break-before: always;
+	    -webkit-break-before: always;
+	    break-before: always;
+	}
+
+	/* alignment classes*/
+	.ac{text-align:center}.al{text-align:left}.ar{text-align:right}
+	.vam{vertical-align:middle}.val{vertical-align:left}.var{vertical-align:right}
+	.cl{clear:left}.cr{clear:right}.clear{clear:both}
+
+	/* grid system stuff */
+	.grid {
+	    clear: both;
+	    padding: 0;
+	    margin: 0;
+	    width: 100%;
+	}
+
+	.row:before,.row:after{content:"";display:table;clear:both}.row:after{clear:both}.row{zoom:1}
+
+	/* each cell gets a .col class; the last column in each row gets a padding-right: 0. We can adapt
+	    these classes (or make new ones) that have borders -- etc.. In the case of borders you only
+	    apply them to the left and bottom and then have the last-of-type add to the right and then let
+	    the containing div do the top. There's a bit of a trick to doing it right so you don't
+	    get double thick borders
+	*/
+	.col {
+	    padding-top: 1pt;
+	    padding-left: 1pt;
+	    border-collapse: collapse;
+	    float: left;
+	    padding-right: 5pt;
+	    margin: 0;
+	    position: relative;
+	    height: 100%;
+	    min-height: 1pt;
+	}
+
+	.col:last-of-type {
+	    padding-right: 0;
+	}
+
+	/* treat divs as a table by using a 'table' class wrapper
+		<div class = "table">
+			<div class = "row">
+				<div class = "col">
+	*/
+	.table {
+		display: table;
+		width: 100%
+	}
+
+	.table .row {
+		display: table-row;
+	}
+
+	.table .row .th {
+		border-top: solid black 1pt; /* top border for table */
+	}
+
+	.table .row .col {
+		display: table-cell;
+		float: none;
+		border-left: solid black 1pt;
+		border-bottom: solid black 1pt;
+	}
+
+	.table .row .col:last-of-type {
+	    border-right: solid black 1pt;
+	}
+
+	/* this is the meat and potatoes of sizing the grid */
+	.p-100{width:100%}.p-99{width:99%}.p-98{width:98%}.p-97{width:97%}.p-96{width:96%}.p-95{width:95%}.p-94{width:94%}.p-93{width:93%}.p-92{width:92%}.p-91{width:91%}.p-90{width:90%}.p-89{width:89%}.p-88{width:88%}.p-87{width:87%}.p-86{width:86%}.p-85{width:85%}.p-84{width:84%}.p-83{width:83%}.p-82{width:82%}.p-81{width:81%}.p-80{width:80%}.p-79{width:79%}.p-78{width:78%}.p-77{width:77%}.p-76{width:76%}.p-75{width:75%}.p-74{width:74%}.p-73{width:73%}.p-72{width:72%}.p-71{width:71%}.p-70{width:70%}.p-69{width:69%}.p-68{width:68%}.p-67{width:67%}.p-66{width:66%}.p-65{width:65%}.p-64{width:64%}.p-63{width:63%}.p-62{width:62%}.p-61{width:61%}.p-60{width:60%}.p-59{width:59%}.p-58{width:58%}.p-57{width:57%}.p-56{width:56%}.p-55{width:55%}.p-54{width:54%}.p-53{width:53%}.p-52{width:52%}.p-51{width:51%}.p-50{width:50%}.p-49{width:49%}.p-48{width:48%}.p-47{width:47%}.p-46{width:46%}.p-45{width:45%}.p-44{width:44%}.p-43{width:43%}.p-42{width:42%}.p-41{width:41%}.p-40{width:40%}.p-39{width:39%}.p-38{width:38%}.p-37{width:37%}.p-36{width:36%}.p-35{width:35%}.p-34{width:34%}.p-33{width:33%}.p-32{width:32%}.p-31{width:31%}.p-30{width:30%}.p-29{width:29%}.p-28{width:28%}.p-27{width:27%}.p-26{width:26%}.p-25{width:25%}.p-24{width:24%}.p-23{width:23%}.p-22{width:22%}.p-21{width:21%}.p-20{width:20%}.p-19{width:19%}.p-18{width:18%}.p-17{width:17%}.p-16{width:16%}.p-15{width:15%}.p-14{width:14%}.p-13{width:13%}.p-12{width:12%}.p-11{width:11%}.p-10{width:10%}.p-9{width:9%}.p-8{width:8%}.p-7{width:7%}.p-6{width:6%}.p-5{width:5%}.p-4{width:4%}.p-3{width:3%}.p-2{width:2%}.p-1{width:1%}
+
+	/* utility */
+	.fr{float:right}.fl{float:left}
+	.superbold { font-weight: 800;}
+	.bold {font-weight: bold; }
+	.noOverFlow {overflow: no-display;}
+
+	.bottomBorder { border-bottom: 1pt solid black;}
+
+	.fs-100pt{font-size:100pt}.fs-99pt{font-size:99pt}.fs-98pt{font-size:98pt}.fs-97pt{font-size:97pt}.fs-96pt{font-size:96pt}.fs-95pt{font-size:95pt}.fs-94pt{font-size:94pt}.fs-93pt{font-size:93pt}.fs-92pt{font-size:92pt}.fs-91pt{font-size:91pt}.fs-90pt{font-size:90pt}.fs-89pt{font-size:89pt}.fs-88pt{font-size:88pt}.fs-87pt{font-size:87pt}.fs-86pt{font-size:86pt}.fs-85pt{font-size:85pt}.fs-84pt{font-size:84pt}.fs-83pt{font-size:83pt}.fs-82pt{font-size:82pt}.fs-81pt{font-size:81pt}.fs-80pt{font-size:80pt}.fs-79pt{font-size:79pt}.fs-78pt{font-size:78pt}.fs-77pt{font-size:77pt}.fs-76pt{font-size:76pt}.fs-75pt{font-size:75pt}.fs-74pt{font-size:74pt}.fs-73pt{font-size:73pt}.fs-72pt{font-size:72pt}.fs-71pt{font-size:71pt}.fs-70pt{font-size:70pt}.fs-69pt{font-size:69pt}.fs-68pt{font-size:68pt}.fs-67pt{font-size:67pt}.fs-66pt{font-size:66pt}.fs-65pt{font-size:65pt}.fs-64pt{font-size:64pt}.fs-63pt{font-size:63pt}.fs-62pt{font-size:62pt}.fs-61pt{font-size:61pt}.fs-60pt{font-size:60pt}.fs-59pt{font-size:59pt}.fs-58pt{font-size:58pt}.fs-57pt{font-size:57pt}.fs-56pt{font-size:56pt}.fs-55pt{font-size:55pt}.fs-54pt{font-size:54pt}.fs-53pt{font-size:53pt}.fs-52pt{font-size:52pt}.fs-51pt{font-size:51pt}.fs-50pt{font-size:50pt}.fs-49pt{font-size:49pt}.fs-48pt{font-size:48pt}.fs-47pt{font-size:47pt}.fs-46pt{font-size:46pt}.fs-45pt{font-size:45pt}.fs-44pt{font-size:44pt}.fs-43pt{font-size:43pt}.fs-42pt{font-size:42pt}.fs-41pt{font-size:41pt}.fs-40pt{font-size:40pt}.fs-39pt{font-size:39pt}.fs-38pt{font-size:38pt}.fs-37pt{font-size:37pt}.fs-36pt{font-size:36pt}.fs-35pt{font-size:35pt}.fs-34pt{font-size:34pt}.fs-33pt{font-size:33pt}.fs-32pt{font-size:32pt}.fs-31pt{font-size:31pt}.fs-30pt{font-size:30pt}.fs-29pt{font-size:29pt}.fs-28pt{font-size:28pt}.fs-27pt{font-size:27pt}.fs-26pt{font-size:26pt}.fs-25pt{font-size:25pt}.fs-24pt{font-size:24pt}.fs-23pt{font-size:23pt}.fs-22pt{font-size:22pt}.fs-21pt{font-size:21pt}.fs-20pt{font-size:20pt}.fs-19pt{font-size:19pt}.fs-18pt{font-size:18pt}.fs-17pt{font-size:17pt}.fs-16pt{font-size:16pt}.fs-15pt{font-size:15pt}.fs-14pt{font-size:14pt}.fs-13pt{font-size:13pt}.fs-12pt{font-size:12pt}.fs-11pt{font-size:11pt}.fs-10pt{font-size:10pt}.fs-9pt{font-size:9pt}.fs-8pt{font-size:8pt}.fs-7pt{font-size:7pt}.fs-6pt{font-size:6pt}.fs-5pt{font-size:5pt}.fs-4pt{font-size:4pt}.fs-3pt{font-size:3pt}.fs-2pt{font-size:2pt}.fs-1pt{font-size:1pt}
+
+	/* "shivs" let us insert spacing when needed*/
+	div.shiv {
+	    clear: both;
+	    width: 100%;
+	    height: 25px;
+	}
+
+	div.halfshiv {
+	    clear: both;
+	    width: 100%;
+	    height: 12.5px;
+	}
+
+	@media screen {
+	    html {
+	        width: 8.5in;
+	    }
+
+	    .wrapper {
+	        background-color: white;
+	        box-shadow: 0px 0px 10px black;
+	        margin-top: 10pt;
+	    }
+	}
+
+	@page {
+	    size: auto;
+	    size: letter portrait;  /* some browsers don't understand this, so they'll stick to auto */
+	    margin: 0.25in;
+	}
+
+	@media print {
+	    .wrapper {
+	        overflow: hidden;
+	        width: 100%;
+	        height: 10.4in;
+	        border: none;
+	        margin: 0;
+	        padding: 0;
+	        box-shadow: none;
+	    }
+
+	    html { margin: 0 auto;}
+	    html, body {
+	        font-size: 8pt;
+	        font-family: arial, Helvetica, sans-serif;
+	        height: 10.4in;
+	    }
+
+	}
+
+	/* chrome fix */
+	@media only print and (-webkit-min-device-pixel-ratio:0) {
+
+	    html, body {
+	        height: auto;
+	    }
+
+	    div.wrapper {
+	        overflow: hidden;
+	        height: 10.3in;
+	    }
+
+	    div.wrapper.chromefix {
+	        height: 10.2in;
+	    }
+
+
+	    body {
+	        margin: 8pt;
+	    }
+	}
+
+	/* FireFox hacks */
+	@media print and (min--moz-device-pixel-ratio:0) {
+	     div.wrapper {
+	        overflow: hidden;
+	        height: 10.1in;
+	    }
+
+	    html, body {
+	        height: 10.1in;
+	    }
+
+	}
+
+	/* Export Modal */
+	.modal {
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    background-color: rgb(0,0,0); /* Fallback color */
+	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+
+	/* Modal Content/Box */
+	.modal-content {
+	    background-color: #fefefe;
+	    margin: 15% auto; /* 15% from the top and centered */
+	    padding: 20px;
+	    border: 1px solid #888;
+	    width: 80%; /* Could be more or less, depending on screen size */
+	}
+
+	/* some extra stuff for _this_ demo */
+	.heading {
+	    background-color: #BBBBBB;
+	    padding-top: 1pt;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    font-weight: bold;
+		padding: 2pt;
+		border: solid black 1pt;
+	}
+
+	.headerBox {
+		border: 1pt solid black;
+		font-weight: bold;
+		font-size: 14pt;
+		float: left;
+		padding: 2pt;
+		padding-left: 5pt;
+		padding-right: 5pt;
+		text-align: center;
+	}
+
+	.headerBox.fr {
+		float: right;
+	}
+
+	.headerDetails {
+		width: 100%;
+		height: 0.5in;
+		line-height: 1.3;
+	}
+
+	/* .table .row .col overrides to remove left/right borders from Standard-Style...css */
+	.table .row .col.item {
+		vertical-align: middle;
+		line-height: 1.3;
+		border-left: none;
+	}
+
+	.table .row .col.item:last-of-type {
+	    border-right: none;
+	}
+
+	.table .row .col.qtySlot {
+	    vertical-align: top;
+		line-height: 1.1;
+		padding-top: 10px;
+	}
+
+	.signatures {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		font-size:12pt;
+	}
+
+	.sigLine {
+		border-bottom:solid black 1pt;
+	}
+
+	.instructionHeading {
+		border-top:solid black 1pt;
+		border-left:solid black 1pt;
+		border-bottom:solid black 1pt;
+		background-color: #BBBBBB;
+		padding: 2pt;
+	}
+
+	.instructionHeading:last-of-type {
+	    border-right: 1pt solid black;
+	}
+
+	.instruction {
+		border-left:solid black 1pt;
+		border-bottom:solid black 1pt;
+		padding-top: 3px;
+		padding-bottom: 3px;
+		padding-left: 4px;
+		padding-right: 4px;
+	}
+
+	.instruction:last-of-type {
+	    border-right: 1pt solid black;
+	}
+
+	.instructionPadding {
+		padding-left:20px;
+	}
+
+	.qtyHeading {
+		background-color: #BBBBBB;
+		padding: 1pt;
+		overflow: hidden;
+		white-space: nowrap;
+		font-weight: bold;
+		border-right: solid black 1pt;
+		border-left: solid black 1pt;
+		position: static; /* fix for IE background-color hiding border */
+	}
+
+	.qty {
+		border-top:solid black 1pt;
+	}
+	</style>
+
 	<!-- polyfill io should come before ALL javascript-->
-	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default-3.6,modernizr:es6string&flags=gated"></script>
-	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=modernizr:es6array,Element,Element.prototype.classList,Element.prototype.cloneNode,Element.prototype.replaceWith,Array.prototype.map,Array.prototype.reduce,es7&flags=always,gated"></script>
+	<script>(function(undefined) {}).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});</script>
+	<script>
+	/* Disable minification (remove `.min` from URL path) for more info */
+
+	(function(undefined) {if (!('map' in Array.prototype)) {Array.prototype.map=function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");if("function"!=typeof t)throw new TypeError(t+" is not a function");for(var n=Object(this),i=arguments[1],r=n instanceof String?n.split(""):n,o=Math.max(Math.min(r.length,9007199254740991),0)||0,e=-1,a=[];++e<o;)e in r&&(a[e]=t.call(i,r[e],e,n));return a};}if (!('reduce' in Array.prototype)) {Array.prototype.reduce=function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");if("function"!=typeof t)throw new TypeError(t+" is not a function");var n,i=Object(this),r=i instanceof String?i.split(""):i,e=Math.max(Math.min(r.length,9007199254740991),0)||0,o=-1;if(1 in arguments)n=arguments[1];else{for(;++o<e&&!(o in r););if(o>=e)throw new TypeError("Reduce of empty array with no initial value");n=r[o]}for(;++o<e;)o in r&&(n=t(n,r[o],o,i));return n};}if (!("Document" in this)) {"undefined"==typeof WorkerGlobalScope&&"function"!=typeof importScripts&&(this.HTMLDocument?this.Document=this.HTMLDocument:(this.Document=this.HTMLDocument=document.constructor=new Function("return function Document() {}")(),this.Document.prototype=document));}if (!('Element' in this && 'HTMLElement' in this)) {!function(){function e(){return a--||clearTimeout(t),!(!document.body||document.body.prototype||!/(complete|interactive)/.test(document.readyState))&&(m(document,!0),t&&document.body.prototype&&clearTimeout(t),!!document.body.prototype)}if(window.Element&&!window.HTMLElement)return void(window.HTMLElement=window.Element);window.Element=window.HTMLElement=new Function("return function Element() {}")();var t,n=document.appendChild(document.createElement("body")),o=n.appendChild(document.createElement("iframe")),r=o.contentWindow.document,c=Element.prototype=r.appendChild(r.createElement("*")),d={},m=function(e,t){var n,o,r,c=e.childNodes||[],u=-1;if(1===e.nodeType&&e.constructor!==Element){e.constructor=Element;for(n in d)o=d[n],e[n]=o}for(;r=t&&c[++u];)m(r,t);return e},u=document.getElementsByTagName("*"),i=document.createElement,a=100;c.attachEvent("onpropertychange",function(e){for(var t,n=e.propertyName,o=!d.hasOwnProperty(n),r=c[n],m=d[n],i=-1;t=u[++i];)1===t.nodeType&&(o||t[n]===m)&&(t[n]=r);d[n]=r}),c.constructor=Element,c.hasAttribute||(c.hasAttribute=function(e){return null!==this.getAttribute(e)}),e()||(document.onreadystatechange=e,t=setInterval(e,25)),document.createElement=function(e){var t=i(String(e).toLowerCase());return m(t)},document.removeChild(n)}();}if (!(// In IE8, defineProperty could only act on DOM elements, so full support
+	// for the feature requires the ability to set a property on an arbitrary object
+	'defineProperty' in Object && (function() {
+		try {
+			var a = {};
+			Object.defineProperty(a, 'test', {value:42});
+			return true;
+		} catch(e) {
+			return false
+		}
+	}()))) {!function(e){var t=Object.prototype.hasOwnProperty("__defineGetter__"),r="A property cannot both have accessors and be writable or have a value";Object.defineProperty=function(n,o,i){if(e&&(n===window||n===document||n===Element.prototype||n instanceof Element))return e(n,o,i);if(null===n||!(n instanceof Object||"object"==typeof n))throw new TypeError("Object.defineProperty called on non-object");if(!(i instanceof Object))throw new TypeError("Property description must be an object");var c=String(o),a="value"in i||"writable"in i,f="get"in i&&typeof i.get,p="set"in i&&typeof i.set;if(f){if("function"!==f)throw new TypeError("Getter must be a function");if(!t)throw new TypeError("Getters & setters cannot be defined on this javascript engine");if(a)throw new TypeError(r);Object.__defineGetter__.call(n,c,i.get)}else n[c]=i.value;if(p){if("function"!==p)throw new TypeError("Setter must be a function");if(!t)throw new TypeError("Getters & setters cannot be defined on this javascript engine");if(a)throw new TypeError(r);Object.__defineSetter__.call(n,c,i.set)}return"value"in i&&(n[c]=i.value),n}}(Object.defineProperty);}var _DOMTokenList=function(){var n=!0,t=function(t,e,r,o){Object.defineProperty?Object.defineProperty(t,e,{configurable:!1===n||!!o,get:r}):t.__defineGetter__(e,r)};try{t({},"support")}catch(e){n=!1}return function(n,e){var r=this,o=[],i={},a=0,c=0,f=function(n){t(r,n,function(){return u(),o[n]},!1)},l=function(){if(a>=c)for(;c<a;++c)f(c)},u=function(){var t,r,c=arguments,f=/\s+/;if(c.length)for(r=0;r<c.length;++r)if(f.test(c[r]))throw t=new SyntaxError('String "'+c[r]+'" contains an invalid character'),t.code=5,t.name="InvalidCharacterError",t;for(o="object"==typeof n[e]?(""+n[e].baseVal).replace(/^\s+|\s+$/g,"").split(f):(""+n[e]).replace(/^\s+|\s+$/g,"").split(f),""===o[0]&&(o=[]),i={},r=0;r<o.length;++r)i[o[r]]=!0;a=o.length,l()};return u(),t(r,"length",function(){return u(),a}),r.toLocaleString=r.toString=function(){return u(),o.join(" ")},r.item=function(n){return u(),o[n]},r.contains=function(n){return u(),!!i[n]},r.add=function(){u.apply(r,t=arguments);for(var t,c,f=0,g=t.length;f<g;++f)c=t[f],i[c]||(o.push(c),i[c]=!0);a!==o.length&&(a=o.length>>>0,"object"==typeof n[e]?n[e].baseVal=o.join(" "):n[e]=o.join(" "),l())},r.remove=function(){u.apply(r,t=arguments);for(var t,c={},f=0,g=[];f<t.length;++f)c[t[f]]=!0,delete i[t[f]];for(f=0;f<o.length;++f)c[o[f]]||g.push(o[f]);o=g,a=g.length>>>0,"object"==typeof n[e]?n[e].baseVal=o.join(" "):n[e]=o.join(" "),l()},r.toggle=function(n,t){return u.apply(r,[n]),undefined!==t?t?(r.add(n),!0):(r.remove(n),!1):i[n]?(r.remove(n),!1):(r.add(n),!0)},r}}();if (!('DOMTokenList' in this && (function (x) {
+		return 'classList' in x ? !x.classList.toggle('x', false) && !x.className : true;
+	})(document.createElement('x')))) {!function(t){"DOMTokenList"in t&&t.DOMTokenList&&(!document.createElementNS||!document.createElementNS("http://www.w3.org/2000/svg","svg")||document.createElementNS("http://www.w3.org/2000/svg","svg").classList instanceof DOMTokenList)||(t.DOMTokenList=_DOMTokenList),function(){var t=document.createElement("span");"classList"in t&&(t.classList.toggle("x",!1),t.classList.contains("x")&&(t.classList.constructor.prototype.toggle=function(t){var s=arguments[1];if(s===undefined){var e=!this.contains(t);return this[e?"add":"remove"](t),e}return s=!!s,this[s?"add":"remove"](t),s}))}(),function(){var t=document.createElement("span");if("classList"in t&&(t.classList.add("a","b"),!t.classList.contains("b"))){var s=t.classList.constructor.prototype.add;t.classList.constructor.prototype.add=function(){for(var t=arguments,e=arguments.length,n=0;n<e;n++)s.call(this,t[n])}}}(),function(){var t=document.createElement("span");if("classList"in t&&(t.classList.add("a"),t.classList.add("b"),t.classList.remove("a","b"),t.classList.contains("b"))){var s=t.classList.constructor.prototype.remove;t.classList.constructor.prototype.remove=function(){for(var t=arguments,e=arguments.length,n=0;n<e;n++)s.call(this,t[n])}}}()}(this);}if (!('document' in this && "classList" in document.documentElement && 'Element' in this && 'classList' in Element.prototype && (function () {
+		var e = document.createElement('span');
+		e.classList.add('a', 'b');
+		return e.classList.contains('b');
+	}()))) {!function(e){var t=!0,r=function(e,r,n,i){Object.defineProperty?Object.defineProperty(e,r,{configurable:!1===t||!!i,get:n}):e.__defineGetter__(r,n)};try{r({},"support")}catch(i){t=!1}var n=function(e,i,l){r(e.prototype,i,function(){var e,c=this,s="__defineGetter__DEFINE_PROPERTY"+i;if(c[s])return e;if(c[s]=!0,!1===t){for(var o,a=n.mirror||document.createElement("div"),f=a.childNodes,d=f.length,m=0;m<d;++m)if(f[m]._R===c){o=f[m];break}o||(o=a.appendChild(document.createElement("div"))),e=DOMTokenList.call(o,c,l)}else e=new DOMTokenList(c,l);return r(c,i,function(){return e}),delete c[s],e},!0)};n(e.Element,"classList","className"),n(e.HTMLElement,"classList","className"),n(e.HTMLLinkElement,"relList","rel"),n(e.HTMLAnchorElement,"relList","rel"),n(e.HTMLAreaElement,"relList","rel")}(this);}if (!('document' in this && "cloneNode" in document.documentElement && (function() {
+		var div = document.createElement('div'), test = document.createElement('input');
+		test.type = "radio";
+		test.checked = true;
+		div.appendChild(test);
+		var result = test.cloneNode(false), result2;
+		try {
+			result2 = div.cloneNode();
+		} catch (e) {}
+		return !!result.checked && (!result2 || result2.childNodes.length === 0);
+	})())) {Element.prototype.cloneNode=function(e,t){return function(t){void 0===t&&(t=!1);var c=e.call(this,t);return"checked"in this&&(c.checked=this.checked),c}}(Element.prototype.cloneNode);}var _mutation=function(){function e(e){return"function"==typeof Node?e instanceof Node:e&&"object"==typeof e&&e.nodeName&&e.nodeType>=1&&e.nodeType<=12}return function(n){if(1===n.length)return e(n[0])?n[0]:document.createTextNode(n[0]+"");for(var t=document.createDocumentFragment(),o=0;o<n.length;o++)t.appendChild(e(n[o])?n[o]:document.createTextNode(n[o]+""));return t}}();if (!('Element' in this && 'replaceWith' in Element.prototype)) {Document.prototype.replaceWith=Element.prototype.replaceWith=function(){this.parentNode&&this.parentNode.replaceChild(_mutation(arguments),this)},"Text"in this&&(Text.prototype.replaceWith=Element.prototype.replaceWith);}if (!('includes' in Array.prototype)) {!function(){Object.defineProperty(Array.prototype,"includes",{configurable:!0,value:function(r){"use strict";var e=Object(this),t=parseInt(e.length)||0;if(0===t)return!1;var n,i=parseInt(arguments[1])||0;i>=0?n=i:(n=t+i)<0&&(n=0);for(var a;n<t;){if(a=e[n],r===a||r!==r&&a!==a)return!0;n++}return!1},writable:!0})}();}if (!('padEnd' in String.prototype)) {!function(){Object.defineProperty(String.prototype,"padEnd",{configurable:!0,enumerable:!1,value:function(t){if((t|=0)<=this.length)return String(this);for(var e=String(arguments[1]||" "),n=Math.ceil((t-this.length)/e.length);n--;)e+=e;return String(this)+e.substr(0,t-this.length)},writable:!0})}();}if (!('padStart' in String.prototype)) {!function(){Object.defineProperty(String.prototype,"padStart",{configurable:!0,enumerable:!1,value:function(t){if((t|=0)<=this.length)return String(this);for(var e=String(arguments[1]||" "),r=Math.ceil((t-this.length)/e.length);r--;)e+=e;return e.substr(0,t-this.length)+String(this)},writable:!0})}();}if (!('bind' in Function.prototype)) {Object.defineProperty(Function.prototype,"bind",{value:function(t){var n,o=Array,r=Object,e=r.prototype,i=o.prototype,c=function(){},p=e.toString,l="function"==typeof Symbol&&"symbol"==typeof Symbol.toStringTag,a=Function.prototype.toString,u=function(t){try{return a.call(t),!0}catch(n){return!1}};n=function(t){if("function"!=typeof t)return!1;if(l)return u(t);var n=p.call(t);return"[object Function]"===n||"[object GeneratorFunction]"===n};var y=i.slice,f=i.concat,b=i.push,h=Math.max,s=this;if(!n(s))throw new TypeError("Function.prototype.bind called on incompatible "+s);for(var g,d=y.call(arguments,1),m=function(){if(this instanceof g){var n=s.apply(this,f.call(d,y.call(arguments)));return r(n)===n?n:this}return s.apply(t,f.call(d,y.call(arguments)))},v=h(0,s.length-d.length),F=[],j=0;j<v;j++)b.call(F,"$"+j);return g=Function("binder","return function ("+F.join(",")+"){ return binder.apply(this, arguments); }")(m),s.prototype&&(c.prototype=s.prototype,g.prototype=new c,c.prototype=null),g}});}if (!('getOwnPropertyDescriptor' in Object && typeof Object.getOwnPropertyDescriptor === 'function' && (function() {
+	    try {
+	    	var object = {};
+	        object.test = 0;
+	        return Object.getOwnPropertyDescriptor(
+	            object,
+	            "test"
+	        ).value === 0;
+	    } catch (exception) {
+	        return false
+	    }
+	}()))) {!function(){function e(e){try{return e.sentinel=0,0===Object.getOwnPropertyDescriptor(e,"sentinel").value}catch(t){}}var t,r,o,n=Function.prototype.call,c=Object.prototype,i=n.bind(c.hasOwnProperty);if((o=i(c,"__defineGetter__"))&&(t=n.bind(c.__lookupGetter__),r=n.bind(c.__lookupSetter__)),Object.defineProperty){var p=e({});if(!("undefined"==typeof document||e(document.createElement("div")))||!p)var _=Object.getOwnPropertyDescriptor}if(!Object.getOwnPropertyDescriptor||_){Object.getOwnPropertyDescriptor=function(e,n){if("object"!=typeof e&&"function"!=typeof e||null===e)throw new TypeError("Object.getOwnPropertyDescriptor called on a non-object: "+e);if(_)try{return _.call(Object,e,n)}catch(l){}if(i(e,n)){var p={enumerable:!0,configurable:!0};if(o){var a=e.__proto__;e.__proto__=c;var f=t(e,n),u=r(e,n);if(e.__proto__=a,f||u)return f&&(p.get=f),u&&(p.set=u),p}return p.value=e[n],p.writable=!0,p}}}}();}if (!('keys' in Object && (function () {
+		// Safari 5.0 bug where Object.keys doesn't work with arguments
+		return (Object.keys(arguments)).length === 2;
+	}(1, 2)) && (function () {
+		try {
+			// In ES6 Object.keys works on all object except `null` and `undefined`.
+			Object.keys('');
+			return true;
+		} catch (e) {
+			return false;
+		}
+	}()))) {Object.keys=function(){"use strict";function t(t){var e=r.call(t),n="[object Arguments]"===e;return n||(n="[object Array]"!==e&&null!==t&&"object"==typeof t&&"number"==typeof t.length&&t.length>=0&&"[object Function]"===r.call(t.callee)),n}var e=Object.prototype.hasOwnProperty,r=Object.prototype.toString,n=Object.prototype.propertyIsEnumerable,o=!n.call({toString:null},"toString"),l=n.call(function(){},"prototype"),c=["toString","toLocaleString","valueOf","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","constructor"],i=function(t){var e=t.constructor;return e&&e.prototype===t},u={$console:!0,$external:!0,$frame:!0,$frameElement:!0,$frames:!0,$innerHeight:!0,$innerWidth:!0,$outerHeight:!0,$outerWidth:!0,$pageXOffset:!0,$pageYOffset:!0,$parent:!0,$scrollLeft:!0,$scrollTop:!0,$scrollX:!0,$scrollY:!0,$self:!0,$webkitIndexedDB:!0,$webkitStorageInfo:!0,$window:!0},a=function(){if("undefined"==typeof window)return!1;for(var t in window)try{if(!u["$"+t]&&e.call(window,t)&&null!==window[t]&&"object"==typeof window[t])try{i(window[t])}catch(r){return!0}}catch(r){return!0}return!1}(),f=function(t){if("undefined"==typeof window||!a)return i(t);try{return i(t)}catch(e){return!1}};return function(n){var i="[object Function]"===r.call(n),u=t(n),a="[object String]"===r.call(n),p=[];if(n===undefined||null===n)throw new TypeError("Cannot convert undefined or null to object");var s=l&&i;if(a&&n.length>0&&!e.call(n,0))for(var g=0;g<n.length;++g)p.push(String(g));if(u&&n.length>0)for(var w=0;w<n.length;++w)p.push(String(w));else for(var y in n)s&&"prototype"===y||!e.call(n,y)||p.push(String(y));if(o)for(var h=f(n),$=0;$<c.length;++$)h&&"constructor"===c[$]||!e.call(n,c[$])||p.push(c[$]);return p}}();}if (!('assign' in Object)) {!function(){function e(e){if(null===e||e===undefined)throw new TypeError("Cannot call method on "+e);return Object(e)}Object.defineProperty(Object,"assign",{enumerable:!1,configurable:!0,writable:!0,value:function(n,r){var t=e(n);if(1===arguments.length)return t;var l,o,a,i,u=Array.prototype.slice.call(arguments,1);for(l=0;l<u.length;l++){var c=u[l];for(c===undefined||null===c?a=[]:(i=e(c),a=Object.keys(i)),o=0;o<a.length;o++){var f=a[o],b=Object.getOwnPropertyDescriptor(i,f);if(b!==undefined&&b.enumerable){var d=i[f];t[f]=d}}}return t}})}();}if (!('defineProperties' in Object)) {Object.defineProperties=function(e,r){for(var n in r)r.hasOwnProperty(n)&&Object.defineProperty(e,n,r[n]);return e};}if (!('forEach' in Array.prototype)) {Array.prototype.forEach=function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");if("function"!=typeof t)throw new TypeError(t+" is not a function");for(var n=Object(this),i=arguments[1],o=n instanceof String?n.split(""):n,r=Math.max(Math.min(o.length,9007199254740991),0)||0,e=-1;++e<r;)e in o&&t.call(i,o[e],e,n)};}if (!('filter' in Array.prototype)) {Array.prototype.filter=function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");if("function"!=typeof t)throw new TypeError(t+" is not a function");for(var n,i=Object(this),r=arguments[1],o=i instanceof String?i.split(""):i,e=Math.max(Math.min(o.length,9007199254740991),0)||0,f=-1,h=[];++f<e;)n=o[f],f in o&&t.call(r,n,f,i)&&h.push(n);return h};}if (!('create' in Object)) {!function(){function t(t){return null==t||"object"!=typeof t&&"function"!=typeof t}Object.create=function(e,n){if(null!==e&&t(e))throw new TypeError("Object prototype may only be an Object or null");var o=new Function("e","function Object() {}Object.prototype=e;return new Object")(e);return o.constructor.prototype=e,1 in arguments&&Object.defineProperties(o,n),o}}();}if (!('getOwnPropertyNames' in Object)) {Object.getOwnPropertyNames=function(e){var r,n=[],t=["length","name","arguments","caller","prototype","observe","unobserve"];if(void 0===e||null===e)throw new TypeError("Cannot convert undefined or null to object");e=Object(e);for(r in e)Object.prototype.hasOwnProperty.call(e,r)&&n.push(r);for(var o=0,l=t.length;o<l;o++)t[o]in e&&n.push(t[o]);return n};}if (!('freeze' in Object)) {Object.freeze=function(e){return e};}if (!('Symbol' in this)) {!function(e,n,t){var r,o=0,u=""+Math.random(),a="__symbol:",c=a.length,l="__symbol@@"+u,i="defineProperty",f="defineProperties",v="getOwnPropertyNames",s="getOwnPropertyDescriptor",b="propertyIsEnumerable",y=e.prototype,h=y.hasOwnProperty,m=y[b],p=y.toString,w=Array.prototype.concat,g="object"==typeof window?e.getOwnPropertyNames(window):[],d=e[v],P=function(e){if("[object Window]"===p.call(e))try{return d(e)}catch(n){return w.call([],g)}return d(e)},S=e[s],O=e.create,j=e.keys,E=e.freeze||e,_=e[i],k=e[f],N=S(e,v),T=function(e,n,t){if(!h.call(e,l))try{_(e,l,{enumerable:!1,configurable:!1,writable:!1,value:{}})}catch(r){e[l]={}}e[l]["@@"+n]=t},z=function(e,n){var t=O(e);return P(n).forEach(function(e){M.call(n,e)&&G(t,e,n[e])}),t},A=function(e){var n=O(e);return n.enumerable=!1,n},D=function(){},F=function(e){return e!=l&&!h.call(x,e)},I=function(e){return e!=l&&h.call(x,e)},M=function(e){var n=""+e;return I(n)?h.call(this,n)&&this[l]["@@"+n]:m.call(this,e)},W=function(n){var t={enumerable:!1,configurable:!0,get:D,set:function(e){r(this,n,{enumerable:!1,configurable:!0,writable:!0,value:e}),T(this,n,!0)}};try{_(y,n,t)}catch(o){y[n]=t.value}return E(x[n]=_(e(n),"constructor",B))},q=function K(e){if(this instanceof K)throw new TypeError("Symbol is not a constructor");return W(a.concat(e||"",u,++o))},x=O(null),B={value:q},C=function(e){return x[e]},G=function(e,n,t){var o=""+n;return I(o)?(r(e,o,t.enumerable?A(t):t),T(e,o,!!t.enumerable)):_(e,n,t),e},H=function(e){return function(n){return h.call(e,l)&&h.call(e[l],"@@"+n)}},J=function(e){return P(e).filter(e===y?H(e):I).map(C)};N.value=G,_(e,i,N),N.value=J,_(e,"getOwnPropertySymbols",N),N.value=function(e){return P(e).filter(F)},_(e,v,N),N.value=function(e,n){var t=J(n);return t.length?j(n).concat(t).forEach(function(t){M.call(n,t)&&G(e,t,n[t])}):k(e,n),e},_(e,f,N),N.value=M,_(y,b,N),N.value=q,_(t,"Symbol",N),N.value=function(e){var n=a.concat(a,e,u);return n in y?x[n]:W(n)},_(q,"for",N),N.value=function(e){if(F(e))throw new TypeError(e+" is not a symbol");return h.call(x,e)?e.slice(2*c,-u.length):void 0},_(q,"keyFor",N),N.value=function(e,n){var t=S(e,n);return t&&I(n)&&(t.enumerable=M.call(e,n)),t},_(e,s,N),N.value=function(e,n){return 1===arguments.length||void 0===n?O(e):z(e,n)},_(e,"create",N),N.value=function(){var e=p.call(this);return"[object String]"===e&&I(this)?"[object Symbol]":e},_(y,"toString",N),r=function(e,n,t){var r=S(y,n);delete y[n],_(e,n,t),e!==y&&_(y,n,r)}}(Object,0,this);}if (!('Symbol' in this && 'iterator' in this.Symbol)) {Object.defineProperty(Symbol,"iterator",{value:Symbol("iterator")});}if (!('Symbol' in this && 'toStringTag' in this.Symbol)) {Object.defineProperty(Symbol,"toStringTag",{value:Symbol("toStringTag")});}var Iterator=function(){var e=function(){return this.length=0,this},t=function(e){if("function"!=typeof e)throw new TypeError(e+" is not a function");return e},_=function(e,n){if(!(this instanceof _))return new _(e,n);Object.defineProperties(this,{__list__:{writable:!0,value:e},__context__:{writable:!0,value:n},__nextIndex__:{writable:!0,value:0}}),n&&(t(n.on),n.on("_add",this._onAdd.bind(this)),n.on("_delete",this._onDelete.bind(this)),n.on("_clear",this._onClear.bind(this)))};return Object.defineProperties(_.prototype,Object.assign({constructor:{value:_,configurable:!0,enumerable:!1,writable:!0},_next:{value:function(){var e;if(this.__list__)return this.__redo__&&(e=this.__redo__.shift())!==undefined?e:this.__nextIndex__<this.__list__.length?this.__nextIndex__++:void this._unBind()},configurable:!0,enumerable:!1,writable:!0},next:{value:function(){return this._createResult(this._next())},configurable:!0,enumerable:!1,writable:!0},_createResult:{value:function(e){return e===undefined?{done:!0,value:undefined}:{done:!1,value:this._resolve(e)}},configurable:!0,enumerable:!1,writable:!0},_resolve:{value:function(e){return this.__list__[e]},configurable:!0,enumerable:!1,writable:!0},_unBind:{value:function(){this.__list__=null,delete this.__redo__,this.__context__&&(this.__context__.off("_add",this._onAdd.bind(this)),this.__context__.off("_delete",this._onDelete.bind(this)),this.__context__.off("_clear",this._onClear.bind(this)),this.__context__=null)},configurable:!0,enumerable:!1,writable:!0},toString:{value:function(){return"[object Iterator]"},configurable:!0,enumerable:!1,writable:!0}},{_onAdd:{value:function(e){if(!(e>=this.__nextIndex__)){if(++this.__nextIndex__,!this.__redo__)return void Object.defineProperty(this,"__redo__",{value:[e],configurable:!0,enumerable:!1,writable:!1});this.__redo__.forEach(function(t,_){t>=e&&(this.__redo__[_]=++t)},this),this.__redo__.push(e)}},configurable:!0,enumerable:!1,writable:!0},_onDelete:{value:function(e){var t;e>=this.__nextIndex__||(--this.__nextIndex__,this.__redo__&&(t=this.__redo__.indexOf(e),-1!==t&&this.__redo__.splice(t,1),this.__redo__.forEach(function(t,_){t>e&&(this.__redo__[_]=--t)},this)))},configurable:!0,enumerable:!1,writable:!0},_onClear:{value:function(){this.__redo__&&e.call(this.__redo__),this.__nextIndex__=0},configurable:!0,enumerable:!1,writable:!0}})),Object.defineProperty(_.prototype,Symbol.iterator,{value:function(){return this},configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(_.prototype,Symbol.toStringTag,{value:"Iterator",configurable:!1,enumerable:!1,writable:!0}),_}();if (!('getPrototypeOf' in Object)) {Object.getPrototypeOf=function(t){if(t!==Object(t))throw new TypeError("Object.getPrototypeOf called on non-object");var o=t.__proto__;return o||null===o?o:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?Object.prototype:null};}!function(){if(!Object.setPrototypeOf){var t,e,o=Object.getOwnPropertyNames,r=Object.getOwnPropertyDescriptor,n=Object.create,c=Object.defineProperty,_=Object.getPrototypeOf,f=Object.prototype,O=function(t,e){return o(e).forEach(function(o){c(t,o,r(e,o))}),t},p=function(t,e){return O(n(e),t)};try{t=r(f,"__proto__").set,t.call({},null),e=function(e,o){return t.call(e,o),e}}catch(u){t={__proto__:null},t instanceof Object?e=p:(t.__proto__=f,e=t instanceof Object?function(t,e){return t.__proto__=e,t}:function(t,e){return _(t)?(t.__proto__=e,t):p(t,e)})}Object.setPrototypeOf=e}}();if (!('includes' in String.prototype)) {String.prototype.includes=function(t,e){if("object"==typeof t&&t instanceof RegExp)throw new TypeError("First argument to String.prototype.includes must not be a regular expression");return-1!==this.indexOf(t,e)};}if (!('contains' in String.prototype)) {String.prototype.contains=String.prototype.includes;}var ArrayIterator=function(){var e=function(t,r){if(!(this instanceof e))return new e(t,r);Iterator.call(this,t),r=r?String.prototype.contains.call(r,"key+value")?"key+value":String.prototype.contains.call(r,"key")?"key":"value":"value",Object.defineProperty(this,"__kind__",{value:r,configurable:!1,enumerable:!1,writable:!1})};return Object.setPrototypeOf&&Object.setPrototypeOf(e,Iterator.prototype),e.prototype=Object.create(Iterator.prototype,{constructor:{value:e,configurable:!0,enumerable:!1,writable:!0},_resolve:{value:function(e){return"value"===this.__kind__?this.__list__[e]:"key+value"===this.__kind__?[e,this.__list__[e]]:e},configurable:!0,enumerable:!1,writable:!0},toString:{value:function(){return"[object Array Iterator]"},configurable:!0,enumerable:!1,writable:!0}}),e}();if (!('isArray' in Array)) {!function(r){Object.defineProperty(Array,"isArray",{configurable:!0,value:function(t){return"[object Array]"===r.call(t)},writable:!0})}(Object.prototype.toString);}if (!('isFinite' in Number)) {Number.isFinite=Number.isFinite||function(i){return"number"==typeof i&&isFinite(i)};}if (!('isNaN' in Number)) {Number.isNaN=Number.isNaN||function(N){return"number"==typeof N&&isNaN(N)};}if (!('from' in Array && (function () {
+		try {
+			Array.from({ length: -Infinity });
+
+			return true;
+		} catch (e) {
+			return false;
+		}
+	}()))) {!function(){"use strict";function t(t){var e=Number(t);return r(e)*Math.floor(Math.abs(Math.min(Math.max(e||0,0),9007199254740991)))}function r(t){return t>=0?1:-1}function e(t){return"string"==typeof t||"object"==typeof t&&(y?i(t):f.call(t)===l)}function n(t){if(!t)return!1;if("function"!=typeof t&&"object"!=typeof t)return!1;if(y)return s(t);if(b(t))return!1;var r=f.call(t);return r===g||r===d}var o,a,u=Object.prototype.hasOwnProperty,c=String.prototype.valueOf,i=function(t){try{return c.call(t),!0}catch(r){return!1}},f=Object.prototype.toString,l="[object String]",p="function"==typeof Symbol,y=p&&"toStringTag"in Symbol,v=Function.prototype.toString,h=/^\s*class /,b=function(t){try{var r=v.call(t),e=r.replace(/\/\/.*\n/g,""),n=e.replace(/\/\*[.\s\S]*\*\//g,""),o=n.replace(/\n/gm," ").replace(/ {2}/g," ");return h.test(o)}catch(a){return!1}},s=function(t){try{return!b(t)&&(v.call(t),!0)}catch(r){return!1}},g="[object Function]",d="[object GeneratorFunction]",S=Array.isArray,j=function(t){var r,e=!1,n=[];if(t&&"function"==typeof t.next)for(;!e;){if(r=t.next(),!u.call(r,"value")||!u.call(r,"done")){if(!0===r.done){e=!0;break}break}if(!0===r.done){e=!0;break}if(!1!==r.done)break;n.push(r.value)}return!!e&&n},m="function"==typeof Set,w="function"==typeof Map;if(p)o=Symbol.iterator;else{var F;try{F=Function("iterable","var arr = []; for (var value of iterable) arr.push(value); return arr;")}catch(q){}if(function(){try{var t=!1;return F({"@@iterator":function(){return{next:function(){return t=!0,{done:!0,value:undefined}}}}}),t}catch(q){return!1}}())o="@@iterator";else if("function"==typeof Set){var O=new Set;O.add(0);try{1===F(O).length&&(a=F)}catch(q){}}}var D;if(m){var M=Object.getOwnPropertyDescriptor(Set.prototype,"size").get;D=function(t){try{return M.call(t),!0}catch(q){return!1}}}var x;if(w){var A=Object.getOwnPropertyDescriptor(Map.prototype,"size").get;x=function(t){try{return A.call(t),!0}catch(q){return!1}}}var k=m&&Set.prototype.forEach,P=w&&Map.prototype.forEach,E=function(t){var r=[];return u.call(t,o)?t[o]():k&&D(t)?(k.call(t,function(t){r.push(t)}),{next:function(){return 0===r.length?{done:!0}:{value:r.splice(0,1)[0],done:!1}}}):P&&x(t)?(P.call(t,function(t,e){r.push([e,t])}),{next:function(){return 0===r.length?{done:!0}:{value:r.splice(0,1)[0],done:!1}}}):t},T=String.prototype.match,z=function(t){var r=j(E(t));if(!r)if(e(t))r=T.call(t,/[\uD800-\uDBFF][\uDC00-\uDFFF]?|[^\uD800-\uDFFF]|./g)||[];else if(a&&!S(t))try{r=a(t)}catch(q){}return r||t};Object.defineProperty(Array,"from",{configurable:!0,value:function(r){var e=this;if(null===r||void 0===r)throw new TypeError("`Array.from` requires an array-like object, not `null` or `undefined`");var o,a;if("undefined"!=typeof arguments[1]){if(o=arguments[1],!n(o))throw new TypeError("When provided, the second argument to `Array.from` must be a function");arguments.length>2&&(a=arguments[2])}for(var u,c,i=Object(z(r)),f=t(i.length),l=n(e)?Object(new e(f)):new Array(f),p=0;p<f;)u=i[p],c=o?void 0===a?o(u,p):o.apply(a,[u,p]):u,Object.defineProperty(l,p,{configurable:!0,enumerable:!0,value:c,writable:!0}),p+=1;return l.length=f,l},writable:!0})}();}if (!('of' in Array)) {!function(){"use strict";var r=function(){try{var r={},e=Object.defineProperty,n=e(r,r,r)&&e}catch(t){}return n}(),e=function(r){try{return!!new r}catch(e){return!1}},n=function(){for(var n,t=arguments,a=t.length,u=this,c=e(u)?new u(a):new Array(a),i=0;i<a;)n=t[i],r?r(c,i,{value:n,writable:!0,enumerable:!0,configurable:!0}):c[i]=n,i+=1;return c.length=a,c};r?r(Array,"of",{value:n,configurable:!0,writable:!0}):Array.of=n}();}if (!('Symbol' in this && 'iterator' in this.Symbol && !!Array.prototype[Symbol.iterator])) {Array.prototype[Symbol.iterator]=function(){return new ArrayIterator(this)};}if (!('Symbol' in this && 'iterator' in this.Symbol && !!Array.prototype.entries)) {Object.defineProperty(Array.prototype,"entries",{value:function(){return new ArrayIterator(this,"key+value")}});}if (!('fill' in Array.prototype)) {Object.defineProperty(Array.prototype,"fill",{configurable:!0,value:function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");var e=Object(this),n=Math.max(Math.min(e.length,9007199254740991),0)||0,r=1 in arguments?parseInt(Number(arguments[1]),10)||0:0;r=r<0?Math.max(n+r,0):Math.min(r,n);var a=2 in arguments&&arguments[2]!==undefined?parseInt(Number(arguments[2]),10)||0:n;for(a=a<0?Math.max(n+arguments[2],0):Math.min(a,n);r<a;)e[r]=t,++r;return e},writable:!0});}if (!('find' in Array.prototype)) {Object.defineProperty(Array.prototype,"find",{configurable:!0,value:function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");if("function"!=typeof t)throw new TypeError(t+" is not a function");for(var n,i=Object(this),e=arguments[1],r=i instanceof String?i.split(""):i,o=Math.max(Math.min(r.length,9007199254740991),0)||0,f=-1;++f<o;)if(f in r&&(n=r[f],t.call(e,n,f,i)))return n},writable:!0});}if (!('findIndex' in Array.prototype)) {Object.defineProperty(Array.prototype,"findIndex",{configurable:!0,value:function(t){if(this===undefined||null===this)throw new TypeError(this+" is not an object");if("function"!=typeof t)throw new TypeError(t+" is not a function");for(var n=Object(this),e=arguments[1],i=n instanceof String?n.split(""):n,r=Math.max(Math.min(i.length,9007199254740991),0)||0,o=-1;++o<r;)if(o in i&&t.call(e,i[o],o,n))return o;return-1},writable:!0});}if (!('Symbol' in this && 'iterator' in this.Symbol && !!Array.prototype.keys)) {Object.defineProperty(Array.prototype,"keys",{value:function(){return new ArrayIterator(this,"key")}});}if (!('Symbol' in this && 'iterator' in this.Symbol && !!Array.prototype[Symbol.iterator] && !!Array.prototype.values && (Array.prototype[Symbol.iterator] === Array.prototype.values))) {Object.defineProperty(Array.prototype,"values",{value:Array.prototype[Symbol.iterator],enumerable:!1,writable:!1});}}).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+	</script>
 	<!-- Modernizr tells you what HTML, CSS and JavaScript features the user’s browser has to offer -->
-	<script src="/Shared/js/modernizr.min.js"></script>
+	<script>
+	/*! modernizr 3.5.0 (Custom Build) | MIT *
+ * https://modernizr.com/download/?-adownload-animation-applicationcache-arrow-atobbtoa-blobconstructor-borderradius-boxshadow-boxsizing-canvas-canvastext-checked-classlist-contains-contenteditable-cookies-cors-csscalc-cssgrid_cssgridlegacy-cssinvalid-cssvalid-customevent-displaytable-ellipsis-es5array-es5date-es5syntax-es6array-es6collections-es6math-es6number-es6string-eventlistener-flexbox-flexwrap-fontface-hiddenscroll-ie8compat-input-inputtypes-intl-json-lastchild-localstorage-mediaqueries-mutationobserver-nthchild-olreversed-placeholder-progressbar_meter-promises-queryselector-requestanimationframe-search-svg-template-templatestrings-typedarrays-atrule-domprefixes-hasevent-mq-prefixes-printshiv-setclasses-testallprops-testprop-teststyles-cssclassprefix:mod_ !*/
+!function(window,document,undefined){function is(e,t){return typeof e===t}function testRunner(){var e,t,r,n,o,i,s;for(var a in tests)if(tests.hasOwnProperty(a)){if(e=[],t=tests[a],t.name&&(e.push(t.name.toLowerCase()),t.options&&t.options.aliases&&t.options.aliases.length))for(r=0;r<t.options.aliases.length;r++)e.push(t.options.aliases[r].toLowerCase());for(n=is(t.fn,"function")?t.fn():t.fn,o=0;o<e.length;o++)i=e[o],s=i.split("."),1===s.length?Modernizr[s[0]]=n:(!Modernizr[s[0]]||Modernizr[s[0]]instanceof Boolean||(Modernizr[s[0]]=new Boolean(Modernizr[s[0]])),Modernizr[s[0]][s[1]]=n),classes.push((n?"":"no-")+s.join("-"))}}function setClasses(e){var t=docElement.className,r=Modernizr._config.classPrefix||"";if(isSVG&&(t=t.baseVal),Modernizr._config.enableJSClass){var n=new RegExp("(^|\\s)"+r+"no-js(\\s|$)");t=t.replace(n,"$1"+r+"js$2")}Modernizr._config.enableClasses&&(t+=" "+r+e.join(" "+r),isSVG?docElement.className.baseVal=t:docElement.className=t)}function createElement(){return"function"!=typeof document.createElement?document.createElement(arguments[0]):isSVG?document.createElementNS.call(document,"http://www.w3.org/2000/svg",arguments[0]):document.createElement.apply(document,arguments)}function getBody(){var e=document.body;return e||(e=createElement(isSVG?"svg":"body"),e.fake=!0),e}function injectElementWithStyles(e,t,r,n){var o,i,s,a,d="modernizr",l=createElement("div"),c=getBody();if(parseInt(r,10))for(;r--;)s=createElement("div"),s.id=n?n[r]:d+(r+1),l.appendChild(s);return o=createElement("style"),o.type="text/css",o.id="s"+d,(c.fake?c:l).appendChild(o),c.appendChild(l),o.styleSheet?o.styleSheet.cssText=e:o.appendChild(document.createTextNode(e)),l.id=d,c.fake&&(c.style.background="",c.style.overflow="hidden",a=docElement.style.overflow,docElement.style.overflow="hidden",docElement.appendChild(c)),i=t(l,e),c.fake?(c.parentNode.removeChild(c),docElement.style.overflow=a,docElement.offsetHeight):l.parentNode.removeChild(l),!!i}function contains(e,t){return!!~(""+e).indexOf(t)}function cssToDOM(e){return e.replace(/([a-z])-([a-z])/g,function(e,t,r){return t+r.toUpperCase()}).replace(/^-/,"")}function fnBind(e,t){return function(){return e.apply(t,arguments)}}function testDOMProps(e,t,r){var n;for(var o in e)if(e[o]in t)return r===!1?e[o]:(n=t[e[o]],is(n,"function")?fnBind(n,r||t):n);return!1}function domToCSS(e){return e.replace(/([A-Z])/g,function(e,t){return"-"+t.toLowerCase()}).replace(/^ms-/,"-ms-")}function computedStyle(e,t,r){var n;if("getComputedStyle"in window){n=getComputedStyle.call(window,e,t);var o=window.console;if(null!==n)r&&(n=n.getPropertyValue(r));else if(o){var i=o.error?"error":"log";o[i].call(o,"getComputedStyle returning null, its possible modernizr test results are inaccurate")}}else n=!t&&e.currentStyle&&e.currentStyle[r];return n}function nativeTestProps(e,t){var r=e.length;if("CSS"in window&&"supports"in window.CSS){for(;r--;)if(window.CSS.supports(domToCSS(e[r]),t))return!0;return!1}if("CSSSupportsRule"in window){for(var n=[];r--;)n.push("("+domToCSS(e[r])+":"+t+")");return n=n.join(" or "),injectElementWithStyles("@supports ("+n+") { #modernizr { position: absolute; } }",function(e){return"absolute"==computedStyle(e,null,"position")})}return undefined}function testProps(e,t,r,n){function o(){s&&(delete mStyle.style,delete mStyle.modElem)}if(n=is(n,"undefined")?!1:n,!is(r,"undefined")){var i=nativeTestProps(e,r);if(!is(i,"undefined"))return i}for(var s,a,d,l,c,u=["modernizr","tspan","samp"];!mStyle.style&&u.length;)s=!0,mStyle.modElem=createElement(u.shift()),mStyle.style=mStyle.modElem.style;for(d=e.length,a=0;d>a;a++)if(l=e[a],c=mStyle.style[l],contains(l,"-")&&(l=cssToDOM(l)),mStyle.style[l]!==undefined){if(n||is(r,"undefined"))return o(),"pfx"==t?l:!0;try{mStyle.style[l]=r}catch(p){}if(mStyle.style[l]!=c)return o(),"pfx"==t?l:!0}return o(),!1}function testPropsAll(e,t,r,n,o){var i=e.charAt(0).toUpperCase()+e.slice(1),s=(e+" "+cssomPrefixes.join(i+" ")+i).split(" ");return is(t,"string")||is(t,"undefined")?testProps(s,t,n,o):(s=(e+" "+domPrefixes.join(i+" ")+i).split(" "),testDOMProps(s,t,r))}function testAllProps(e,t,r){return testPropsAll(e,undefined,undefined,t,r)}var classes=[],tests=[],ModernizrProto={_version:"3.5.0",_config:{classPrefix:"mod_",enableClasses:!0,enableJSClass:!0,usePrefixes:!0},_q:[],on:function(e,t){var r=this;setTimeout(function(){t(r[e])},0)},addTest:function(e,t,r){tests.push({name:e,fn:t,options:r})},addAsyncTest:function(e){tests.push({name:null,fn:e})}},Modernizr=function(){};Modernizr.prototype=ModernizrProto,Modernizr=new Modernizr,Modernizr.addTest("applicationcache","applicationCache"in window),Modernizr.addTest("blobconstructor",function(){try{return!!new Blob}catch(e){return!1}},{aliases:["blob-constructor"]}),Modernizr.addTest("cookies",function(){try{document.cookie="cookietest=1";var e=-1!=document.cookie.indexOf("cookietest=");return document.cookie="cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT",e}catch(t){return!1}}),Modernizr.addTest("cors","XMLHttpRequest"in window&&"withCredentials"in new XMLHttpRequest),Modernizr.addTest("customevent","CustomEvent"in window&&"function"==typeof window.CustomEvent),Modernizr.addTest("eventlistener","addEventListener"in window),Modernizr.addTest("ie8compat",!window.addEventListener&&!!document.documentMode&&7===document.documentMode),Modernizr.addTest("json","JSON"in window&&"parse"in JSON&&"stringify"in JSON),Modernizr.addTest("queryselector","querySelector"in document&&"querySelectorAll"in document),Modernizr.addTest("svg",!!document.createElementNS&&!!document.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect),Modernizr.addTest("templatestrings",function(){var supports;try{eval("``"),supports=!0}catch(e){}return!!supports}),Modernizr.addTest("typedarrays","ArrayBuffer"in window),Modernizr.addTest("mutationobserver",!!window.MutationObserver||!!window.WebKitMutationObserver),Modernizr.addTest("es5array",function(){return!!(Array.prototype&&Array.prototype.every&&Array.prototype.filter&&Array.prototype.forEach&&Array.prototype.indexOf&&Array.prototype.lastIndexOf&&Array.prototype.map&&Array.prototype.some&&Array.prototype.reduce&&Array.prototype.reduceRight&&Array.isArray)}),Modernizr.addTest("es5date",function(){var e="2013-04-12T06:06:37.307Z",t=!1;try{t=!!Date.parse(e)}catch(r){}return!!(Date.now&&Date.prototype&&Date.prototype.toISOString&&Date.prototype.toJSON&&t)}),Modernizr.addTest("es5syntax",function(){var value,obj,stringAccess,getter,setter,reservedWords,zeroWidthChars;try{return stringAccess=eval('"foobar"[3] === "b"'),getter=eval("({ get x(){ return 1 } }).x === 1"),eval("({ set x(v){ value = v; } }).x = 1"),setter=1===value,eval("obj = ({ if: 1 })"),reservedWords=1===obj["if"],zeroWidthChars=eval("_‌‍ = true"),stringAccess&&getter&&setter&&reservedWords&&zeroWidthChars}catch(ignore){return!1}}),Modernizr.addTest("es6array",!!(Array.prototype&&Array.prototype.copyWithin&&Array.prototype.fill&&Array.prototype.find&&Array.prototype.findIndex&&Array.prototype.keys&&Array.prototype.entries&&Array.prototype.values&&Array.from&&Array.of)),Modernizr.addTest("arrow",function(){try{eval("()=>{}")}catch(e){return!1}return!0}),Modernizr.addTest("es6collections",!!(window.Map&&window.Set&&window.WeakMap&&window.WeakSet)),Modernizr.addTest("es6math",!!(Math&&Math.clz32&&Math.cbrt&&Math.imul&&Math.sign&&Math.log10&&Math.log2&&Math.log1p&&Math.expm1&&Math.cosh&&Math.sinh&&Math.tanh&&Math.acosh&&Math.asinh&&Math.atanh&&Math.hypot&&Math.trunc&&Math.fround)),Modernizr.addTest("es6number",!!(Number.isFinite&&Number.isInteger&&Number.isSafeInteger&&Number.isNaN&&Number.parseInt&&Number.parseFloat&&Number.isInteger(Number.MAX_SAFE_INTEGER)&&Number.isInteger(Number.MIN_SAFE_INTEGER)&&Number.isFinite(Number.EPSILON))),Modernizr.addTest("promises",function(){return"Promise"in window&&"resolve"in window.Promise&&"reject"in window.Promise&&"all"in window.Promise&&"race"in window.Promise&&function(){var e;return new window.Promise(function(t){e=t}),"function"==typeof e}()}),Modernizr.addTest("es6string",!!(String.fromCodePoint&&String.raw&&String.prototype.codePointAt&&String.prototype.repeat&&String.prototype.startsWith&&String.prototype.endsWith&&String.prototype.includes)),Modernizr.addTest("localstorage",function(){var e="modernizr";try{return localStorage.setItem(e,e),localStorage.removeItem(e),!0}catch(t){return!1}}),Modernizr.addTest("atobbtoa","atob"in window&&"btoa"in window,{aliases:["atob-btoa"]});var prefixes=ModernizrProto._config.usePrefixes?" -webkit- -moz- -o- -ms- ".split(" "):["",""];ModernizrProto._prefixes=prefixes,Modernizr.addTest("contains",is(String.prototype.contains,"function"));var docElement=document.documentElement;Modernizr.addTest("classlist","classList"in docElement);var isSVG="svg"===docElement.nodeName.toLowerCase(),html5;isSVG||!function(e,t){function r(e,t){var r=e.createElement("p"),n=e.getElementsByTagName("head")[0]||e.documentElement;return r.innerHTML="x<style>"+t+"</style>",n.insertBefore(r.lastChild,n.firstChild)}function n(){var e=b.elements;return"string"==typeof e?e.split(" "):e}function o(e,t){var r=b.elements;"string"!=typeof r&&(r=r.join(" ")),"string"!=typeof e&&(e=e.join(" ")),b.elements=r+" "+e,l(t)}function i(e){var t=S[e[z]];return t||(t={},E++,e[z]=E,S[E]=t),t}function s(e,r,n){if(r||(r=t),y)return r.createElement(e);n||(n=i(r));var o;return o=n.cache[e]?n.cache[e].cloneNode():M.test(e)?(n.cache[e]=n.createElem(e)).cloneNode():n.createElem(e),!o.canHaveChildren||w.test(e)||o.tagUrn?o:n.frag.appendChild(o)}function a(e,r){if(e||(e=t),y)return e.createDocumentFragment();r=r||i(e);for(var o=r.frag.cloneNode(),s=0,a=n(),d=a.length;d>s;s++)o.createElement(a[s]);return o}function d(e,t){t.cache||(t.cache={},t.createElem=e.createElement,t.createFrag=e.createDocumentFragment,t.frag=t.createFrag()),e.createElement=function(r){return b.shivMethods?s(r,e,t):t.createElem(r)},e.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+n().join().replace(/[\w\-:]+/g,function(e){return t.createElem(e),t.frag.createElement(e),'c("'+e+'")'})+");return n}")(b,t.frag)}function l(e){e||(e=t);var n=i(e);return!b.shivCSS||h||n.hasCSS||(n.hasCSS=!!r(e,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),y||d(e,n),e}function c(e){for(var t,r=e.getElementsByTagName("*"),o=r.length,i=RegExp("^(?:"+n().join("|")+")$","i"),s=[];o--;)t=r[o],i.test(t.nodeName)&&s.push(t.applyElement(u(t)));return s}function u(e){for(var t,r=e.attributes,n=r.length,o=e.ownerDocument.createElement(T+":"+e.nodeName);n--;)t=r[n],t.specified&&o.setAttribute(t.nodeName,t.nodeValue);return o.style.cssText=e.style.cssText,o}function p(e){for(var t,r=e.split("{"),o=r.length,i=RegExp("(^|[\\s,>+~])("+n().join("|")+")(?=[[\\s,>+~#.:]|$)","gi"),s="$1"+T+"\\:$2";o--;)t=r[o]=r[o].split("}"),t[t.length-1]=t[t.length-1].replace(i,s),r[o]=t.join("}");return r.join("{")}function m(e){for(var t=e.length;t--;)e[t].removeNode()}function f(e){function t(){clearTimeout(s._removeSheetTimer),n&&n.removeNode(!0),n=null}var n,o,s=i(e),a=e.namespaces,d=e.parentWindow;return!P||e.printShived?e:("undefined"==typeof a[T]&&a.add(T),d.attachEvent("onbeforeprint",function(){t();for(var i,s,a,d=e.styleSheets,l=[],u=d.length,m=Array(u);u--;)m[u]=d[u];for(;a=m.pop();)if(!a.disabled&&x.test(a.media)){try{i=a.imports,s=i.length}catch(f){s=0}for(u=0;s>u;u++)m.push(i[u]);try{l.push(a.cssText)}catch(f){}}l=p(l.reverse().join("")),o=c(e),n=r(e,l)}),d.attachEvent("onafterprint",function(){m(o),clearTimeout(s._removeSheetTimer),s._removeSheetTimer=setTimeout(t,500)}),e.printShived=!0,e)}var h,y,v="3.7.3",g=e.html5||{},w=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,M=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,z="_html5shiv",E=0,S={};!function(){try{var e=t.createElement("a");e.innerHTML="<xyz></xyz>",h="hidden"in e,y=1==e.childNodes.length||function(){t.createElement("a");var e=t.createDocumentFragment();return"undefined"==typeof e.cloneNode||"undefined"==typeof e.createDocumentFragment||"undefined"==typeof e.createElement}()}catch(r){h=!0,y=!0}}();var b={elements:g.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video",version:v,shivCSS:g.shivCSS!==!1,supportsUnknownElements:y,shivMethods:g.shivMethods!==!1,type:"default",shivDocument:l,createElement:s,createDocumentFragment:a,addElements:o};e.html5=b,l(t);var x=/^$|\b(?:all|print)\b/,T="html5shiv",P=!y&&function(){var r=t.documentElement;return!("undefined"==typeof t.namespaces||"undefined"==typeof t.parentWindow||"undefined"==typeof r.applyElement||"undefined"==typeof r.removeNode||"undefined"==typeof e.attachEvent)}();b.type+=" print",b.shivPrint=f,f(t),"object"==typeof module&&module.exports&&(module.exports=b)}("undefined"!=typeof window?window:this,document);var omPrefixes="Moz O ms Webkit",domPrefixes=ModernizrProto._config.usePrefixes?omPrefixes.toLowerCase().split(" "):[];ModernizrProto._domPrefixes=domPrefixes;var cssomPrefixes=ModernizrProto._config.usePrefixes?omPrefixes.split(" "):[];ModernizrProto._cssomPrefixes=cssomPrefixes;var atRule=function(e){var t,r=prefixes.length,n=window.CSSRule;if("undefined"==typeof n)return undefined;if(!e)return!1;if(e=e.replace(/^@/,""),t=e.replace(/-/g,"_").toUpperCase()+"_RULE",t in n)return"@"+e;for(var o=0;r>o;o++){var i=prefixes[o],s=i.toUpperCase()+"_"+t;if(s in n)return"@-"+i.toLowerCase()+"-"+e}return!1};ModernizrProto.atRule=atRule;var hasEvent=function(){function e(e,r){var n;return e?(r&&"string"!=typeof r||(r=createElement(r||"div")),e="on"+e,n=e in r,!n&&t&&(r.setAttribute||(r=createElement("div")),r.setAttribute(e,""),n="function"==typeof r[e],r[e]!==undefined&&(r[e]=undefined),r.removeAttribute(e)),n):!1}var t=!("onblur"in document.documentElement);return e}();ModernizrProto.hasEvent=hasEvent,Modernizr.addTest("inputsearchevent",hasEvent("search")),Modernizr.addTest("canvas",function(){var e=createElement("canvas");return!(!e.getContext||!e.getContext("2d"))}),Modernizr.addTest("canvastext",function(){return Modernizr.canvas===!1?!1:"function"==typeof createElement("canvas").getContext("2d").fillText}),Modernizr.addTest("contenteditable",function(){if("contentEditable"in docElement){var e=createElement("div");return e.contentEditable=!0,"true"===e.contentEditable}}),Modernizr.addTest("olreversed","reversed"in createElement("ol")),Modernizr.addTest("webanimations","animate"in createElement("div")),Modernizr.addTest("adownload",!window.externalHost&&"download"in createElement("a")),Modernizr.addTest("csscalc",function(){var e="width:",t="calc(10px);",r=createElement("a");return r.style.cssText=e+prefixes.join(t+e),!!r.style.length}),Modernizr.addTest("progressbar",createElement("progress").max!==undefined),Modernizr.addTest("meter",createElement("meter").max!==undefined),Modernizr.addTest("template","content"in createElement("template")),Modernizr.addTest("placeholder","placeholder"in createElement("input")&&"placeholder"in createElement("textarea"));var inputElem=createElement("input"),inputattrs="autocomplete autofocus list placeholder max min multiple pattern required step".split(" "),attrs={};Modernizr.input=function(e){for(var t=0,r=e.length;r>t;t++)attrs[e[t]]=!!(e[t]in inputElem);return attrs.list&&(attrs.list=!(!createElement("datalist")||!window.HTMLDataListElement)),attrs}(inputattrs);var inputtypes="search tel url email datetime date month week time datetime-local number range color".split(" "),inputs={};Modernizr.inputtypes=function(e){for(var t,r,n,o=e.length,i="1)",s=0;o>s;s++)inputElem.setAttribute("type",t=e[s]),n="text"!==inputElem.type&&"style"in inputElem,n&&(inputElem.value=i,inputElem.style.cssText="position:absolute;visibility:hidden;",/^range$/.test(t)&&inputElem.style.WebkitAppearance!==undefined?(docElement.appendChild(inputElem),r=document.defaultView,n=r.getComputedStyle&&"textfield"!==r.getComputedStyle(inputElem,null).WebkitAppearance&&0!==inputElem.offsetHeight,docElement.removeChild(inputElem)):/^(search|tel)$/.test(t)||(n=/^(url|email)$/.test(t)?inputElem.checkValidity&&inputElem.checkValidity()===!1:inputElem.value!=i)),inputs[e[s]]=!!n;return inputs}(inputtypes);var mq=function(){var e=window.matchMedia||window.msMatchMedia;return e?function(t){var r=e(t);return r&&r.matches||!1}:function(e){var t=!1;return injectElementWithStyles("@media "+e+" { #modernizr { position: absolute; } }",function(e){t="absolute"==(window.getComputedStyle?window.getComputedStyle(e,null):e.currentStyle).position}),t}}();ModernizrProto.mq=mq,Modernizr.addTest("mediaqueries",mq("only all"));var testStyles=ModernizrProto.testStyles=injectElementWithStyles;Modernizr.addTest("hiddenscroll",function(){return testStyles("#modernizr {width:100px;height:100px;overflow:scroll}",function(e){return e.offsetWidth===e.clientWidth})}),Modernizr.addTest("checked",function(){return testStyles("#modernizr {position:absolute} #modernizr input {margin-left:10px} #modernizr :checked {margin-left:20px;display:block}",function(e){var t=createElement("input");return t.setAttribute("type","checkbox"),t.setAttribute("checked","checked"),e.appendChild(t),20===t.offsetLeft})}),testStyles("#modernizr{display: table; direction: ltr}#modernizr div{display: table-cell; padding: 10px}",function(e){var t,r=e.childNodes;t=r[0].offsetLeft<r[1].offsetLeft,Modernizr.addTest("displaytable",t,{aliases:["display-table"]})},2);var blacklist=function(){var e=navigator.userAgent,t=e.match(/w(eb)?osbrowser/gi),r=e.match(/windows phone/gi)&&e.match(/iemobile\/([0-9])+/gi)&&parseFloat(RegExp.$1)>=9;return t||r}();blacklist?Modernizr.addTest("fontface",!1):testStyles('@font-face {font-family:"font";src:url("https://")}',function(e,t){var r=document.getElementById("smodernizr"),n=r.sheet||r.styleSheet,o=n?n.cssRules&&n.cssRules[0]?n.cssRules[0].cssText:n.cssText||"":"",i=/src/i.test(o)&&0===o.indexOf(t.split(" ")[0]);Modernizr.addTest("fontface",i)}),Modernizr.addTest("cssinvalid",function(){return testStyles("#modernizr input{height:0;border:0;padding:0;margin:0;width:10px} #modernizr input:invalid{width:50px}",function(e){var t=createElement("input");return t.required=!0,e.appendChild(t),t.clientWidth>10})}),testStyles("#modernizr div {width:100px} #modernizr :last-child{width:200px;display:block}",function(e){Modernizr.addTest("lastchild",e.lastChild.offsetWidth>e.firstChild.offsetWidth)},2),testStyles("#modernizr div {width:1px} #modernizr div:nth-child(2n) {width:2px;}",function(e){for(var t=e.getElementsByTagName("div"),r=!0,n=0;5>n;n++)r=r&&t[n].offsetWidth===n%2+1;Modernizr.addTest("nthchild",r)},5),Modernizr.addTest("cssvalid",function(){return testStyles("#modernizr input{height:0;border:0;padding:0;margin:0;width:10px} #modernizr input:valid{width:50px}",function(e){var t=createElement("input");return e.appendChild(t),t.clientWidth>10})});var modElem={elem:createElement("modernizr")};Modernizr._q.push(function(){delete modElem.elem});var mStyle={style:modElem.elem.style};Modernizr._q.unshift(function(){delete mStyle.style});var testProp=ModernizrProto.testProp=function(e,t,r){return testProps([e],undefined,t,r)};ModernizrProto.testAllProps=testPropsAll,ModernizrProto.testAllProps=testAllProps,Modernizr.addTest("borderradius",testAllProps("borderRadius","0px",!0)),Modernizr.addTest("boxshadow",testAllProps("boxShadow","1px 1px",!0)),Modernizr.addTest("boxsizing",testAllProps("boxSizing","border-box",!0)&&(document.documentMode===undefined||document.documentMode>7)),Modernizr.addTest("cssgridlegacy",testAllProps("grid-columns","10px",!0)),Modernizr.addTest("cssgrid",testAllProps("grid-template-rows","none",!0)),Modernizr.addTest("ellipsis",testAllProps("textOverflow","ellipsis")),Modernizr.addTest("flexbox",testAllProps("flexBasis","1px",!0)),Modernizr.addTest("flexwrap",testAllProps("flexWrap","wrap",!0));var prefixed=ModernizrProto.prefixed=function(e,t,r){return 0===e.indexOf("@")?atRule(e):(-1!=e.indexOf("-")&&(e=cssToDOM(e)),t?testPropsAll(e,t,r):testPropsAll(e,"pfx"))};Modernizr.addTest("intl",!!prefixed("Intl",window)),Modernizr.addTest("requestanimationframe",!!prefixed("requestAnimationFrame",window),{aliases:["raf"]}),testRunner(),setClasses(classes),delete ModernizrProto.addTest,delete ModernizrProto.addAsyncTest;for(var i=0;i<Modernizr._q.length;i++)Modernizr._q[i]();window.Modernizr=Modernizr}(window,document);
+	</script>
 	<!-- this file would really be in packslipbase -- or whatever new file we make, though the string.trim() method in it should come
 	after other includes because it trims nbsp's and anything in packslip base would overwrite it because they don't test for the function
 		already existing -->
-	<script src="/Shared/js/Standard-Utils_v1.0.0.js" charset="utf-8"></script>
-	<script src="/js/GNC-Pick.js" charset="utf-8"></script>
+	<script charset="utf-8">
+	// define a document-wide options object
+Radial = {
+	Debug: false,
+	Print: true,
+	Startup: { Methods: [] },
+	AddStartupMethod: function (name, callBack/*, args*/) {
+		var args = [].slice.call(arguments, 2)
+		Radial.Startup.Methods.push({ Func: callBack, Name: name, Args: args });
+	}
+};
+
+/* registers a call back to be called when the document has finished loading;
+* this works for modern and old browsers by checking the window.addEventListener
+* property for existance and calling the correct methods
+*/
+Radial.OnStartup = function () {
+
+	var methods = Radial.Startup.Methods;
+
+	for (var i = 0; i < methods.length; ++i) {
+		var startup = methods[i];
+		try {
+			startup.Func.apply(null, startup.Args);
+		} catch (e) {
+			console.log("Could not execute Startup Method: " + startup.Name + ": " + e);
+		}
+	}
+
+	if (Radial.Print)
+		window.print();
+
+};
+
+// defines a 1x1 White Image; use as img.setAttribute("src", Radial.WhiteImageDataUri) or
+// if constructing img tag manually: var i = "<img src='" + Radial.WhiteImageDataUri + "' >";
+// or in an images onerror:  <img src="..." onerror="this.src=Radial.WhiteImageDataUri;" >
+Object.defineProperty(Radial, "WhiteImageDataUri", {
+        value: "data:image/gif;base64,R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==",
+        enumerable: true,
+        configurable: false,
+        writable: false
+});
+
+// defines a 1x1 Transparent Image; see above
+Object.defineProperty(Radial, "TransparentImageDataUri", {
+    value: "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",
+    enumerable: true,
+    configurable: false,
+    writable: false
+});
+
+
+// trim spaces and NBSP's
+String.prototype.trim = function () { return this.replace(/^(\s|&nbsp;)+|(\s|&nbsp;)+$/g, ""); };
+
+// replace ALL occurrences of a string, rather than just the first
+String.prototype.replaceAll = function (str1, str2, ignore) {
+	return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, "\\$&"), (ignore ? "gi" : "g")), (typeof (str2) == "string") ? str2.replace(/\$/g, "$$$$") : str2);
+};
+
+Date.prototype.NoFormat = function () {
+	return this.getFullYear().toString() +
+		(this.getMonth() + 1).toString().padStart(2,"0") +
+		this.getDay().toString().padStart(2,"0") +
+		this.getHours().toString().padStart(2,"0") +
+		this.getMinutes().toString().padStart(2,"0") +
+		this.getSeconds().toString().padStart(2,"0");
+}
+
+// trims spaces, NBSPs and anything deemed "whitespace"
+String.prototype.trimAll = function (nbspOnBlank) {
+	var temp = this.replace(/^([\s\uFEFF\xA0]|&nbsp;)+|([\s\uFEFF\xA0]|&nbsp;)+$/g, "");
+	if (nbspOnBlank && !temp) return "&nbsp;";
+	return temp;
+}
+
+// trims spaces, NBSP and anything deemed "whtiespace" and STRIPS out anything that still remains in a VendorNet print tag
+String.prototype.trimAndStrip = function (nbspOnBlank) {
+	var temp = this.replace(/^(&nbsp;|[\s\uFEFF\xA0])+|([\s\uFEFF\xA0]|&nbsp;)+$|«[^»«]*»/g, "");
+	if (nbspOnBlank && !temp) return "&nbsp;";
+	return temp;
+}
+
+String.prototype.toMoney = function () {
+	var len = arguments[0] || 2;						 // regex here removes anything preceding the first digit "$ 1.00" removes "$ "
+	var val = parseFloatIgnoreCommas(0 + this.replace(/^\D+((?=\d*\.?\d{0,2})?)/g, "$1"));
+	val = val.toFixed(len);						  // to 2 decimal places
+	val = val.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // add back in the commas every 3 digits
+	return (arguments[1] || "$") + val;
+};
+
+
+Number.prototype.toMoney = function() {
+	var len = arguments[0] || 2;
+	var val = this.toFixed(len);
+	val = val.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // add back in the commas every 3 digits
+	return (arguments[1] || "$") + val;
+}
+
+Function.prototype.fixMulti = function () {
+	return this.toString().match(/[^]*\/\*([^]*)\*\/\s*\}$/)[1].trim();
+}
+
+// strips commas (,) and returns float
+function parseFloatIgnoreCommas(number) {
+	if (typeof number === "string") {
+		var numberNoCommas = number.replace(/,/g, '');
+		return parseFloat(numberNoCommas);
+	} else if (typeof number === "number") {
+		return parseFloat(number);
+	}
+	return 0;
+}
+
+// strips commas (,) and dollar sign ($) and returns float
+function parseFloatIgnoreCommaDollars(number) {
+	var tmpNumber = "";
+	
+	tmpNumber = number || "";
+	tmpNumber = tmpNumber.trimAndStrip() || "0";
+	
+	if (typeof tmpNumber === "string") {
+		var numberNoCommas = tmpNumber.replace(/[$,]/g, '');
+		return parseFloat(numberNoCommas);
+	} else if (typeof tmpNumber === "number") {
+		return parseFloat(tmpNumber);
+	}
+	return 0;
+}
+
+function addPageBreaks(selector, before, breakClass) {
+
+	before = !!before;
+
+	var elements = document.querySelectorAll(selector || ".wrapper");
+  var visible = [].filter.call(elements, Element.IsVisible);
+
+
+	var start = 0, end = visible.length - 1;
+	if (before) {
+		start++;
+		breakClass = breakClass || "pagebreakbefore";
+	}
+	else {
+		end--;
+		breakClass = breakClass || "pagebreakafter";
+	}
+
+	for (var i = start; i <= end; ++i) { // don't add to the _last_ one
+		var thisEl = visible[i];
+		thisEl.classList.add(breakClass);	// classList requires polyfill.io for old browser support
+	}
+
+}
+
+// takes a given template, replaces all .col classes with &nbsp;, then repeats that result (builds blank lines) based on numBlankLines
+function renderBlank(templateEl,numBlankLines) { /* don't populate an element, return the data back */
+	//console.log("rendering " + numBlankLines + " blank line(s)");
+	if (typeof templateEl === "string")
+		templateEl = document.querySelectorAll(templateEl);
+
+	// create a copy of the node so the div contents can be replaced with &nbsp; without modifying the template
+	var templateCopy = templateEl.cloneNode(true);
+	templateCopy.removeAttribute("id")
+	
+	// replace all column (class="col") contents with &nbsp;
+	var cols = templateCopy.querySelectorAll(".col");
+	for (var i = 0; i < cols.length; i++) { cols[i].innerHTML = "&nbsp;"; }
+
+	// use the new blank template to build as many lines as needed
+	var template = "";
+	for (var i = 0; i < numBlankLines; i++) { template += templateCopy.innerHTML; }
+
+	return template;
+} //renderBlank
+
+
+
+// apply first page only chrome fix bug to the project
+// we could do this with CSS using first-child, last-child etc, but then we have to be careful
+// about how we place the divs into the document. Ex, if any divs came before the first wrapper (like the template
+// div, we'd have to change the css to be nth-child(2); this seems more efficient than constantly updating that stuff
+function addChromeFix(selector, chromeFix) {
+	var element = selector || ".wrapper";
+	if (typeof element === "string"){
+		// find first VISIBLE element
+		var els = document.querySelectorAll(element);
+    element = [].filter.call(els, Element.IsVisible)[0];
+	}
+
+	if (element) {
+		element.classList.add(chromeFix || "chromefix");
+	}
+}
+
+function redirectDocumentWrite(funcToCall /*, args*/) {
+	// save the existing document.write function
+	var save = document.write, buffer = "";
+	try {
+		// create a new one, that instead of writing to the page,
+		// puts all the text in our buffer
+		document.write = function(s) {
+			buffer += s;
+		};
+
+		// execute the function that should have been called, passing it whatever arguments
+		// we passed into _this_ function, minus the first argument (which is the function itself)
+		funcToCall.apply(null, [].slice.call(arguments, 1));
+
+		// return the text that would've been document.write'd
+		return buffer;
+	} catch (e) {
+		console.log("Error capturing document manipulation: " + e);
+	} finally {
+		//set it back to the original function
+		document.write = save;
+	}
+}
+
+(function() {
+	if (window.addEventListener)
+		window.addEventListener("load", Radial.OnStartup);
+	else
+		window.attachEvent("onload", Radial.OnStartup);
+
+	Radial.AddStartupMethod("ChromeFix", addChromeFix);
+})();
+
+function addStyle(siteURL,relLink) {
+		var styleElement = document.createElement("link");
+		styleElement.rel = "stylesheet";
+		styleElement.type = "text/css"
+		styleElement.charset = "utf-8";
+		styleElement.href = siteURL + relLink;
+		
+		document.getElementsByTagName('head')[0].appendChild(styleElement);
+}
+
+function addJs(siteURL,relLink) {
+		var jsElement = document.createElement("script");
+		jsElement.type = 'text/javascript';
+		jsElement.charset = "utf-8";
+		jsElement.src = siteURL + relLink;
+		
+		console.log("adding link for " + siteURL + relLink);
+		
+		document.getElementsByTagName('head')[0].appendChild(jsElement);
+}
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+// support for classList.add(...list), classList.remove(...list) and classList.toggle(val, force) for IE.  
+// Not required in IE11 on Windows 10 Machines only (not fixed in other IE11 versions)
+// without polyfill, only supports classList.add(val), classList.remove(val) and classList.toggle(val)
+// PolyFill.IO does not support IE10/IE11 for class list (but oddly does for 8 and 9)
+(function () {
+
+    if (typeof (window.DOMTokenList) === 'undefined')
+        return;
+
+    var originalRemove = DOMTokenList.prototype.remove,
+        originalAdd = DOMTokenList.prototype.add,
+        originalToggle = DOMTokenList.prototype.toggle;
+
+    DOMTokenList.prototype.remove = function () {
+        var that = this;
+        [].slice.call(arguments).forEach(function (x) {
+            originalRemove.call(that, x);
+        });
+    };
+
+    DOMTokenList.prototype.add = function () {
+        var that = this;
+        [].slice.call(arguments).forEach(function (x) {
+            originalAdd.call(that, x);
+        });
+    }
+
+    DOMTokenList.prototype.toggle = (function () {
+        var el = document.createElement("div");
+        el.classList.add("t");
+        var retAdd = el.classList.toggle("t", true),
+            retRem = el.classList.toggle("o", false);
+
+        var required = retAdd !== true ||
+            retRem !== false ||
+            !el.classList.contains("t") ||
+            el.classList.contains("o");
+
+        return !required ? originalToggle : function (val, force) {
+
+            // toggle accepts a single class an optional force 
+            // only call the original prototypes since we know we don't have
+            // multiples
+            if (force === true) {
+                originalAdd.call(this, val);
+            } else if (force === false) {
+                originalRemove.call(this, val);
+            } else {
+                return originalToggle.call(this, val);
+            }
+            return this.contains(val);
+        }
+    })();
+})();
+
+// for ExportData
+// highlight all text when the user clicks on it for eacy copy / paste
+function selectText(id) {
+	var sel, range;
+	var el = document.getElementById(id); //get element id
+	if (window.getSelection && document.createRange) { //Browser compatibility
+		sel = window.getSelection();
+		if (sel.toString() == '') { //no text selection
+			window.setTimeout(function () {
+				range = document.createRange(); //range object
+				range.selectNodeContents(el); //sets Range
+				sel.removeAllRanges(); //remove all ranges from selection
+				sel.addRange(range);//add Range to a Selection.
+			}, 1);
+		}
+	} else if (document.selection) { //older ie
+		sel = document.selection.createRange();
+		if (sel.text == '') { //no text selection
+			range = document.body.createTextRange();//Creates TextRange object
+			range.moveToElementText(el);//sets Range
+			range.select(); //make selection.
+		}
+	}
+}
+
+Object.defineProperty(Array.prototype, 'chunk', {
+    value: function (chunkSize) {
+        var R = [];
+        for (var i = 0; i < this.length; i += chunkSize)
+            R.push(this.slice(i, i + chunkSize));
+        return R;
+    }
+});
+
+Object.defineProperty(Element, "IsVisible", { value: function (t) { return !!t.offsetParent } });
+Object.defineProperty(Element.prototype, "Visible", { get: function () { return Element.IsVisible(this); } });
+
+function isValidBase64(str) {
+    try {
+        str = window.atob(str)
+        return true;
+    } catch (ee) {
+        return false;
+    }
+}
+
+function createImage(src, opts) {
+
+    opts = opts || {};
+
+    var imgSrc = Radial.WhiteImageDataUri;
+    if (typeof src === "string")
+        imgSrc = src;
+    else if (typeof src === "object") {
+        if (src.url )
+            imgSrc = src.url;
+        else if (src.data)
+            imgSrc = "data:image/png; base64," + src.data
+    }
+
+    var image = document.createElement('img');
+
+    var onError = function () {
+        image.src = Radial.WhiteImageDataUri;
+        if (opts.onError && typeof opts.onError === "function") opts.onError.call(image);
+    };
+    if (image.addEventListener)
+        image.addEventListener("error", onError);
+    else
+        image.attachEvent("onerror", onError);
+
+    image.src = imgSrc; 
+
+    if (opts.width) {
+        if (typeof opts.width === "string" && !isNumeric(opts.width))
+            image.style.width = opts.width;
+        else if (typeof opts.width === "number" || isNumeric(opts.width))
+            image.style.width = opts.width + "in";
+    }
+
+    if (opts.height) {
+        if (typeof opts.height === "string" && !isNumeric(opts.height))
+            image.style.height = opts.height;
+        else if (typeof opts.height === "number" || isNumeric(opts.height))
+            image.style.height = opts.height + "in";
+    }
+
+    if (opts.classes) {
+        var classes = opts.classes.split(" ").filter(function(c) { return !!c; });
+        classes.forEach(function(c) { image.classList.add(c); });
+    }
+
+    return image;
+}
+	</script>
+	<script charset="utf-8">
+	/**
+ * Creates a new PrintDocument Object
+ * @class
+ * @classdesc Represents the print document as a whole, containing a list of pick tickets or orders
+ */
+var PrintDocument = (function () {
+	function PrintDocument(title, itemsPerPage, itemsPerLastPage, headerPages, itemHeaderPages) {
+		document.title			=	title || "Pick Ticket";
+		this.ItemsPerPage		=	itemsPerPage || 8;
+		this.ItemsPerLastPage	=	itemsPerLastPage || 5;
+		this.DateTime			=	new Date();
+		this.DateDisplay		=	this.DateTime.toLocaleDateString("en-US", { year:'numeric', month:'2-digit', day: '2-digit'});
+		this.TimeDisplay		=	this.DateTime.toLocaleDateString("en-US", { year:'numeric', month:'2-digit', day: '2-digit'});
+
+		// HeaderPages and ItemHeaderPages:
+		//		first page only; "every": every page; "everyWithItems": only on pages that also write items
+		this.HeaderPages		=	headerPages || "every";
+		this.ItemHeaderPages	=	itemHeaderPages || "everyWithItems";
+
+		this.PickTickets		=	[];
+		this.AddPickTicket		=	addPickTicket;
+	}
+
+	function addPickTicket(pickTicket){
+		// add unique pick tickets only
+		var foundIndex = this.PickTickets.findIndex(function(i) { return i.UniqueId === pickTicket.UniqueId; });
+
+		if (foundIndex == -1) {
+			console.log("adding new pick ticket: " + pickTicket.UniqueId);
+			pickTicket.Document = this;
+			this.PickTickets.push(pickTicket);
+			return pickTicket;
+		}
+
+		console.log("appending to existing ticket: " + this.PickTickets[foundIndex].UniqueId);
+		return this.PickTickets[foundIndex];
+
+		/* non-polyfill version (does not use Array.findIndex)
+		for (var i = 0; i < this.PickTickets.length; i++) {
+			var oldPickTicket = this.PickTickets[i];
+
+			if (pickTicket.UniqueId == oldPickTicket.UniqueId) {
+				// this pick ticket already exists in the list of print documents
+				console.log("appending to existing ticket: " + oldPickTicket.UniqueId);
+				return oldPickTicket;
+			}
+		}
+
+		// new pick ticket
+		console.log("adding new pick ticket: " + pickTicket.UniqueId);
+
+		// copy these to the pick header
+		// maybe look for another way to do this without doubling up on these values (at print doc and also pick header levels) and without using a global?
+
+		this.PickTickets.push(pickTicket);
+		return pickTicket;
+		*/
+	}//addPickTicket
+
+	return PrintDocument;
+})();
+
+/**
+ * Creates a new PickTicket Object
+ * @class
+ * @classdesc Represents a pick ticket in the list of PrintDocument.PickTickets
+ */
+var PickTicket = (function () {
+	function PickTicket(uniqueId) {
+		// used to uniquely identify this in the list; PickBatch_Who_Picker for pick tickets and OrderNo (and ShipmentId?) for orders
+		this.UniqueId			=	(uniqueId || "").trimAndStrip();
+
+		this.NotRecap			=	true;
+		this.Header				=	"";
+		this.Items				=	[];
+
+		this.TicketType			=	checkTicketType;
+		this.SetHeader			=	setHeader;
+		this.AddItem			=	addItem;
+		this.SetMaxPage			=	setMaxPage;
+		this.SortItems			=	sortItems;
+		this.RenderInstructions	=	renderInstructions;
+		this.ExportData			=	exportData;
+		this.RenderToDocument	=	renderToDocument;
+	};
+
+	function exportData() {
+		console.log("Exporting");
+
+		// Get the modal to display export data
+		var modal = document.getElementById('exportModal');
+
+		var exportClasses = document.querySelectorAll(".ExportData");
+		var outputContent = document.getElementById("exportContent");
+		var exportText = "";
+		var tmpText = "";
+
+		var dateTimeNoFormat = ( printDocument.DateTime.getFullYear().toString() +
+								(printDocument.DateTime.getMonth() + 1).toString().padStart(2,"0") +
+								printDocument.DateTime.getDay().toString().padStart(2,"0") +
+								printDocument.DateTime.getHours().toString().padStart(2,"0") +
+								printDocument.DateTime.getMinutes().toString().padStart(2,"0") +
+								printDocument.DateTime.getSeconds().toString().padStart(2,"0") );
+
+		for(var i = 0; i < exportClasses.length; i++)
+		{
+		   tmpText = exportClasses.item(i).innerHTML
+		   tmpText = tmpText.replace(/pickTicket/g,"pickTicket" + dateTimeNoFormat);
+		   tmpText = tmpText.replace(/.*AddItem.*("",){12}"".*$/gm, "");
+		   tmpText = tmpText.trim();
+		   tmpText = tmpText.replace(/\n/g,"<br />");
+		   exportText += tmpText + "<br />";
+		}
+
+		outputContent.innerHTML = exportText + "&nbsp;";
+		modal.style.display = "block";
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+	}//exportData
+
+	// check for SFS or ISPU
+	function checkTicketType() {
+		var ticketName = this.Header.TicketName;
+
+		// ISPU: In Store Pick-Up
+		// BOPIS: Buy Online Pickup In Store
+		// YBINCGI: You Bought It, Now Come Get It		// joke
+		var ispuTicketNames = ["ISPU","BOPIS","YBINCGI"];
+
+		if (ispuTicketNames.some(function(ispuName){return ticketName.indexOf(ispuName) > -1;}))
+			return "ISPU";
+
+		return "SFS";
+	}//checkTicketType
+
+	function setHeader(header){
+		// set the header if there is no header already set
+		if ((this.Header == null || !(this.Header instanceof Header)) ){
+			this.Header = header;
+			//console.log("added pick header:" + JSON.stringify(header));
+		}
+	}//setHeader
+
+	function addItem(item) {
+		// add valid items only
+		if (!item || !item.IsValidItem()) return;
+
+		// set non-item properties 1x based on information found in the first item
+		if (this.Items.length == 0) // first item
+			this.NotRecap = (item.RtnStock + item.Picked + item.Allocated == 0);
+
+		item.PickTicket = this;
+		this.Items.push(item);
+		//console.log("added item:" + JSON.stringify(item));
+	}//addItem
+
+	function setMaxPage(){
+		var countOfItems = this.Items.length;
+
+		// check to see how many pages: divide number of items by items per page and round up (this is the Math.ceil result)
+		if (countOfItems > 0 )
+			this.Header.MaxPage = Math.ceil(countOfItems / printDocument.ItemsPerPage);
+		else
+			this.Header.MaxPage = -1;
+
+		//console.log("countOfItems:" + countOfItems + ";   ItemsPerPage:" + printDocument.ItemsPerPage + ";   m.ceil:" + Math.ceil(countOfItems / printDocument.ItemsPerPage) + ";   this.Header.MaxPage:" + this.Header.MaxPage);
+		// if the number items on the last page is greater than the items per last page limit, then increase this.Header.MaxPage by 1
+		//		checks the remainder (modulo) when dividing total item count by items per page
+		//		also checks when there is no remainder (=0) for when items per last page is less than items per page (common setup)
+		if (((countOfItems % printDocument.ItemsPerPage) > printDocument.ItemsPerLastPage) || ((countOfItems % printDocument.ItemsPerPage) == 0 && printDocument.ItemsPerPage > printDocument.ItemsPerLastPage))
+			this.Header.MaxPage++;
+		//console.log("remainder (modulo) ItemsPerPage:" + (countOfItems % printDocument.ItemsPerPage) + ";   ItemsPerLastPage:" + printDocument.ItemsPerLastPage + ";   this.Header.MaxPage:" + this.Header.MaxPage);
+	}//setMaxPage
+
+	function sortItems(){
+		this.Items.sort(function(a,b) {
+			// sort for numerics
+			if (isNumeric(a.SortValue) && isNumeric(b.SortValue)) return a.SortValue-b.SortValue;
+
+			// sort for non-numerics
+			if (a.SortValue<b.SortValue) return -1;
+			if (a.SortValue>b.SortValue) return 1;
+
+			return 0;
+		})
+	}//sortItems
+
+	function renderToDocument(target) {
+		var thisPage;
+
+		// page header
+		var headerTemplate = document.getElementById("headerTemplate");
+
+		// item table header
+		// nothing dynamically loaded / rendered
+		var itemHeaderTemplate = document.getElementById("itemHeaderTemplate").innerHTML;
+
+		// items
+		var itemTemplate = document.getElementById("itemTemplate");
+
+		var pageText = "";
+
+		// loop through the items
+		// create the header info on the first page and any new pages
+		// also write out completed pages as new ones are detected
+		for (var i = 0; i < this.Items.length; ++i) {
+			//console.log("this.Header.PageNo: " + this.Header.PageNo + "; item: " + i + "; ItemsPerPage: " + printDocument.ItemsPerPage + "; i % printDocument.ItemsPerPage: " + i % printDocument.ItemsPerPage);
+
+			var thisItem = this.Items[i];
+
+			if (i === 0 || i % printDocument.ItemsPerPage === 0) {
+				//console.log("new page");
+
+				// if this is not the first item, then write out the previous page
+				if (i != 0) {
+					thisPage.innerHTML = pageText;
+					target.appendChild(thisPage);
+					this.Header.PageNo++;
+				}
+
+				// considered a startNewPage(target) function here since this logic is in 2 places
+				//		but it would need to return 2 values: pageText and thisPage
+				//		and the "every" check is different
+				// start a new page
+				pageText = "";
+				thisPage = document.getElementById("newPage").cloneNode(true);
+				thisPage.id = "";
+
+				// if this is the first page, or if we write a header every page with items, then create a new header
+				if ((this.Header.PageNo == 1 && printDocument.HeaderPages == "firstOnly") || printDocument.HeaderPages.substring(0,5) == "every")
+					pageText += this.Header.Render(headerTemplate);
+
+				// if this is the first page, or if we write an item header every page with items, then create a new item header
+				if ((this.Header.PageNo == 1 && printDocument.HeaderPages == "firstOnly") || printDocument.ItemHeaderPages.substring(0,5) == "every")
+					pageText += itemHeaderTemplate;
+			}
+
+			// write the item
+			pageText += thisItem.Render(itemTemplate,this.TicketType());
+		} // done looping through all items
+
+		// if the last page has the max number of items per page,
+		// or if the last page has more items than are allowed on the last page,
+		// then we need to add anoter page for the last page information (store instructions / carrier label)
+		if (this.Items.length % printDocument.ItemsPerPage == 0 || this.Items.length % printDocument.ItemsPerPage > printDocument.ItemsPerLastPage ){
+			// write out the left-over items
+			thisPage.innerHTML = pageText;
+			target.appendChild(thisPage);
+			this.Header.PageNo++;
+
+			// last page info goes on a new page by itself
+			// start a new page
+			pageText = "";
+			thisPage = document.getElementById("newPage").cloneNode(true);
+			thisPage.id = "";
+
+			// if this is the first page, or if we write a header every page, then create a new header
+			if ((this.Header.PageNo == 1 && printDocument.HeaderPages == "firstOnly") || printDocument.HeaderPages == "every")
+				pageText += this.Header.Render(headerTemplate);
+
+			// if this is the first page, or if we write an item header every page, then create a new item header
+			if ((this.Header.PageNo == 1 && printDocument.HeaderPages == "firstOnly") || printDocument.ItemHeaderPages == "every")
+				pageText += itemHeaderTemplate;
+
+			pageText += this.RenderInstructions();
+			thisPage.innerHTML = pageText;
+			target.appendChild(thisPage);
+			this.Header.PageNo++;
+		} else {
+			// last page info fits on the last page with items
+			pageText += this.RenderInstructions();
+			thisPage.innerHTML = pageText;
+			target.appendChild(thisPage);
+		}
+	}//renderToDocument
+
+	function renderInstructions() {
+		//console.log("rendering instructions");
+
+		// instruction table header
+		var instructionsText = document.getElementById("instructionsHeaderTemplate").innerHTML;
+
+		// get the template for each instruction
+		var instructionsTemplate = document.getElementById("instructionsTemplate").innerHTML;
+
+		// get the correct instruction list; recap has priority over SFS / ISPU
+		var instructionsToGet;
+		instructionsToGet = this.NotRecap ? "instructionsList" + this.TicketType() : "recapInstructionsList" + this.TicketType();
+
+		// convert the instruction list to an array
+		var instructionList = document.getElementById(instructionsToGet).innerHTML;
+		var instructionListArray = instructionList.split("\n");
+		var numInstr;
+
+		var instructionRows = "";
+
+		// loop through the instructions and build the instruction rows
+		for (var i = 0; i < instructionListArray.length; ++i) {
+			var thisInstruction = instructionListArray[i];
+			var template = instructionsTemplate;
+
+			thisInstruction = thisInstruction.trim();
+			if (!thisInstruction) continue;
+			numInstr = thisInstruction.split("\t");
+
+			//console.log("{#}:" + numInstr[0] + "; {instruction}: " + numInstr[1]);
+
+			// replace all the values we define in our templates
+			template = template.replaceAll("{#}", numInstr[0]);
+			template = template.replaceAll("{instruction}", numInstr[1]);
+
+			instructionRows += template;
+		}
+
+		// apply the instruction rows to the template
+		instructionsText = instructionsText.replaceAll("{InstructionRows}", instructionRows);
+
+		return instructionsText;
+	}
+
+	return PickTicket;
+})();
+
+/**
+ * Creates a new Header Object
+ * @class
+ * @classdesc Represents the header information on a PickTicket
+ */
+var Header = (function() {
+	function Header(who,picker,printBatch,carrier,ticketId,ticketNo,section1,location1,VendorNo1,VendorName1,ticketName,pickType,customAttr) {
+		//class specific variables, these are all parameters for you to pass in.
+		this.Who			=	who;
+		this.Picker			=	picker;
+		this.PrintBatch		=	printBatch;
+		this.Carrier		=	carrier;
+		this.TicketId		=	ticketId;
+		this.TicketNo		=	ticketNo;
+		this.Section1		=	section1;
+		this.Location1		=	location1;
+		this.VendorNo1		=	VendorNo1;
+		this.VendorName1	=	VendorName1;
+		this.TicketName		=	ticketName;
+		this.PickType		=	pickType;
+		this.CustomAttr		=	customAttr;
+
+		this.PageNo			=	1;
+		this.MaxPage		=	0;
+
+		this.Render			=	render;
+	};
+
+	function render (templateEl) { /* don't populate an element, return the data back */
+		// copied from item - needs some other type of check?
+		//if (!templateEl || !this.IsValidItem()) return "";
+
+		if (typeof templateEl === "string")
+			templateEl = document.querySelectorAll(templateEl);
+
+		var template = templateEl.innerHTML;
+
+		var dateDisplay = printDocument.DateTime.toLocaleDateString("en-US", { year:'numeric', month:'2-digit', day: '2-digit'});
+		var timeDisplay = printDocument.DateTime.toLocaleTimeString("en-US", { hour12: false, hour:'2-digit', minute:'2-digit', second: '2-digit' });
+
+		// replace all the values we define in our templates
+		template = template.replaceAll("{VendorNo1}", this.VendorNo1);
+		template = template.replaceAll("{VendorName1}", this.VendorName1);
+		template = template.replaceAll("{PageNo}", this.PageNo);
+		template = template.replaceAll("{MaxPage}", this.MaxPage);
+		template = template.replaceAll("{PrintBatch}", this.PrintBatch);
+		template = template.replaceAll("{Date}", dateDisplay);
+		template = template.replaceAll("{Time}", timeDisplay);
+		template = template.replaceAll("{TicketName}", this.TicketName);
+		template = template.replaceAll("{TicketId}", this.TicketNo);
+
+		// note on images
+		// trying to load an image in the template like other values throws an error in the template itself: src={Image}
+		// and replacing the whole thing including the src (ex. {imgSrc} as "src=...") resulted in no image loading
+		var newImg = document.createElement("img");
+		newImg.src = "/images/Barcode.ashx?Code=" + this.PrintBatch + "&Type=128A&X=2.5&Y=0.4&round=1";	// printDocument.SiteURL
+		newImg.style.width = "2.5in";
+		newImg.style.height = "0.4in";
+		newImg.style.border = "none";
+		newImg.onerror = function() { this.style.visibility = "hidden";};//"this.style.visibility=\'hidden\';this.style.height=\'60px\';";
+		template = template.replaceAll("{BarcodeImg}", newImg.outerHTML);
+
+		return template;
+	}
+
+	return Header;
+
+})();
+/**
+ * Creates a new Item Object
+ * @class
+ * @classdesc Represents an Item on a PickTicket
+ */
+var Item = (function() {
+	function Item(itemId,sku,vsku,desc,vdesc,qty,upc,gtin,upcEnc,gtinEnc,encodeData, encodeDataEnc,
+					section,location,location2,location3,sellingPrice,bin,picked,allocated,rtnStock,
+					style,styleDesc,lvl1Sku,lvl2Sku,lvl3Sku,lvl4Sku,extCost,extPrice,catSKU,customAttr) {
+
+		var nbspOnBlank = true;
+
+		//class specific variables
+		this.ItemId			=	itemId.trimAndStrip(nbspOnBlank);
+		this.Sku			=	sku.trimAndStrip(nbspOnBlank);
+		this.VSku			=	vsku.trimAndStrip(nbspOnBlank);
+		this.Description	=	desc.trimAndStrip(nbspOnBlank);
+		this.VDesc			=	vdesc.trimAndStrip(nbspOnBlank);
+		this.Qty			=	qty.trimAndStrip(nbspOnBlank);
+		this.Upc			=	upc.trimAndStrip(nbspOnBlank);
+		this.Gtin			=	gtin.trimAndStrip(nbspOnBlank);
+		this.UpcEnc			=	upcEnc.trimAndStrip(nbspOnBlank);
+		this.GtinEnc		=	gtinEnc.trimAndStrip(nbspOnBlank);
+		this.EncodeData		=	encodeData.trimAndStrip(nbspOnBlank);
+		this.EncodeDataEnc	=	encodeDataEnc.trimAndStrip(nbspOnBlank);
+		this.Section		=	section.trimAndStrip(nbspOnBlank);
+		this.BaseLocation	=	location.trimAndStrip(nbspOnBlank);
+		this.ItmLocation2	=	location2.trimAndStrip(nbspOnBlank);
+		this.ItmLocation3	=	location3.trimAndStrip(nbspOnBlank);
+		this.SellingPrice	=	sellingPrice.trimAndStrip(nbspOnBlank);
+		this.Bin			=	bin.trimAndStrip(nbspOnBlank);  //will be slot passed in
+		this.Picked			=	picked.trimAndStrip(nbspOnBlank);
+		this.Allocated		=	allocated.trimAndStrip(nbspOnBlank);
+		this.RtnStock		=	rtnStock.trimAndStrip(nbspOnBlank);
+		this.Itmstyle		=	style.trimAndStrip(nbspOnBlank);
+		this.StyleDesc		=	styleDesc.trimAndStrip(nbspOnBlank);
+		this.Lvl1Sku		=	lvl1Sku.trimAndStrip(nbspOnBlank);
+		this.Lvl2Sku		=	lvl2Sku.trimAndStrip(nbspOnBlank);
+		this.Lvl3Sku		=	lvl3Sku.trimAndStrip(nbspOnBlank);
+		this.Lvl4Sku		=	lvl4Sku.trimAndStrip(nbspOnBlank);
+		this.CatSku			=	catSKU.trimAndStrip(nbspOnBlank);
+		this.CustomAttr	=	customAttr; //this should be a hash defined with attributes, then pull data with this.CustomAttr['attribute'] in functions
+
+		// set recap for slot information
+		this.NotRecap		=	(this.RtnStock + this.Picked + this.Allocated == 0);
+		// money values
+		this.ExtCost = parseFloatIgnoreCommaDollars(extCost);
+		this.ExtPrice = parseFloatIgnoreCommaDollars(extPrice);
+
+		//change this value to change the way the items are sorted
+		this.SortValue = this.Description
+		if (!isNumeric(this.SortValue)) this.SortValue = this.SortValue.replace(/\W/g, '');
+
+		this.IsValidItem	=	isValidItem;
+		this.Render			=	render;
+		this.RenderQuantity	=	renderQuantity;
+	};
+
+	//function IsValidItem() { return !!this.ItemId; }
+	function isValidItem() { return this.Description != "&nbsp;"; }
+
+	// render this ITEM to the target element. we can put logic in here to omit certain fields or gift logic or whatever we want
+	// we would have multiple render methods, one per class... Item, PickTicket, Header... maybe even a "page" class
+	// this would be very similar to how current pick tickets are except probably a little more granular rather than the one/two giant objects
+	function render (templateEl,ticketType) { /* don't populate an element, return the data back */
+		if (!templateEl || !this.IsValidItem()) return "";
+
+		if (typeof templateEl === "string")
+			templateEl = document.querySelectorAll(templateEl);
+
+		var template = templateEl.innerHTML;
+
+		// replace all the values we define in our templates
+		template = template.replaceAll("{Sku}", this.Sku);
+		template = template.replaceAll("{VSku}", this.VSku);
+		template = template.replaceAll("{Description}", this.Description);
+		template = template.replaceAll("{VDesc}", this.VDesc);
+		template = template.replaceAll("{Qty}", this.Qty);
+		template = template.replaceAll("{Upc}", this.Upc);
+		template = template.replaceAll("{Gtin}", this.Gtin);
+		template = template.replaceAll("{UpcEnc}", this.UpcEnc);
+		template = template.replaceAll("{GtinEnc}", this.GtinEnc);
+		template = template.replaceAll("{EncodeData}", this.EncodeData);
+		template = template.replaceAll("{EncodeDataEnc}", this.EncodeDataEnc);
+		template = template.replaceAll("{Section}", this.Section);
+		template = template.replaceAll("{BaseLocation}", this.BaseLocation);
+		template = template.replaceAll("{ItmLocation2}", this.ItmLocation2);
+		template = template.replaceAll("{ItmLocation3}", this.ItmLocation3);
+		template = template.replaceAll("{Bin}", this.Bin);
+		template = template.replaceAll("{Picked}", this.Picked);
+		template = template.replaceAll("{Allocated}", this.Allocated);
+		template = template.replaceAll("{RtnStock}", this.RtnStock);
+		template = template.replaceAll("{Itmstyle}", this.Itmstyle);
+		template = template.replaceAll("{StyleDesc}", this.StyleDesc);
+		template = template.replaceAll("{Lvl1Sku}", this.Lvl1Sku);
+		template = template.replaceAll("{Lvl2Sku}", this.Lvl2Sku);
+		template = template.replaceAll("{Lvl3Sku}", this.Lvl3Sku);
+		template = template.replaceAll("{Lvl4Sku}", this.Lvl4Sku);
+		template = template.replaceAll("{CatSku}", this.CatSku);
+
+		// note on images
+		// trying to load an image in the template like other values throws an error in the template itself: src={Image}
+		// and replacing the whole thing including the src (ex. {imgSrc} as "src=...") resulted in no image loading
+		// solution: create a new image element
+		var newImg = document.createElement("img");
+		newImg.src = this.CustomAttr.image || "";	// printDocument.SiteURL
+		newImg.style.width = "91px";
+		newImg.onerror = function() { this.style.visibility = "hidden"; this.style.height = "60px";};//"this.style.visibility=\'hidden\';this.style.height=\'60px\';";
+		template = template.replaceAll("{ItemImg}", newImg.outerHTML);
+
+		// money
+		template = template.replaceAll("{ExtCost}", this.ExtCost.toMoney());
+		template = template.replaceAll("{ExtPrice}", this.ExtPrice.toMoney());
+		template = template.replaceAll("{SellingPrice}", this.SellingPrice.toMoney());
+
+		// custom
+		template = template.replaceAll("{Brand}", this.CustomAttr.brand || "");
+		template = template.replaceAll("{Size}", this.CustomAttr.size || "");
+
+		var quantityTemplateToGet;
+		var quantityTemplate;
+		var quantityTemplateComplete;
+
+		if (this.Bin !== "0") {
+			// slots
+			// get the slot information
+			// items
+			quantityTemplateToGet = this.NotRecap ? "slotTemplate" : "recapSlotTemplate" + ticketType;
+			quantityTemplate = document.getElementById(quantityTemplateToGet);
+
+			// get this item's slot info
+			quantityTemplateComplete = this.RenderQuantity(quantityTemplate);
+		} else {
+			// not slots
+			// get the quantity information
+			// items
+			var quantityTemplateToGet = this.NotRecap ? "quantityTemplate" : "recapQuantityTemplate" + ticketType;
+			var quantityTemplate = document.getElementById(quantityTemplateToGet);
+
+			// get this item's quantity info
+			var quantityTemplateComplete = this.RenderQuantity(quantityTemplate);
+		}
+
+		template = template.replaceAll("{QuantityInfo}", quantityTemplateComplete);
+
+		return template;
+	}
+
+	// separate section within each line item
+	function renderQuantity (templateEl) { /* don't populate an element, return the data back */
+		if (!templateEl || !this.IsValidItem()) return "";
+
+		if (typeof templateEl === "string")
+			templateEl = document.querySelectorAll(templateEl);
+
+		var template = templateEl.innerHTML;
+
+		// calculate the error and return to stock amounts for recaps
+		var errorAmount = this.RtnStock - (parseInt(this.Picked) - parseInt( this.Allocated));
+		var returnToStockAmt = parseInt(this.Picked) - parseInt( this.Allocated);
+
+		if(errorAmount<0) errorAmount = 0;
+
+		// replace all the values we define in our templates
+		template = template.replaceAll("{Qty}", this.Qty);
+		template = template.replaceAll("{Bin}", this.Bin);
+		template = template.replaceAll("{Picked}", this.Picked);
+		template = template.replaceAll("{ErrorAmount}", errorAmount);
+		template = template.replaceAll("{ReturnToStockAmt}", returnToStockAmt);
+
+		return template;
+	}
+
+	return Item;
+
+})();
+	</script>
 	<script>
 		// these apply to every page
 		var title				=	"Pick Ticket";
@@ -65,7 +1490,7 @@
 	</script>
 </head>
 <body>
-	<p>yo, test paragraph here...</p>
+	<p>yo, test paragraph here. TEST 1.</p>
 <!-- templates are hidden but still here for us to pull the source code from -->
 <div id="templates" style="display: none;" data-html-templates>
 	<div id="newPage" class="wrapper" data-page-wrapper>
