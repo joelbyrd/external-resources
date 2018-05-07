@@ -24,6 +24,10 @@
 			// base tag must end in slash; everything after last slash is ignored
 			document.write("<base href='" + baseUrl + "/' />");
 		}
+
+		function log(str) {
+			$('#log').append(`<p>${str}</p>`);
+		}
 	</script>
 
 	<!-- reset.css should come before everything, reset..resets all HTML elements to a common setting. Different browsers
@@ -1491,6 +1495,7 @@ var Item = (function() {
 </head>
 <body>
 	<p>yo, test paragraph here. TEST 1.</p>
+	<div id="log"></div>
 <!-- templates are hidden but still here for us to pull the source code from -->
 <div id="templates" style="display: none;" data-html-templates>
 	<div id="newPage" class="wrapper" data-page-wrapper>
@@ -2054,6 +2059,9 @@ switch(testCase) {
 
 	(function() {
 		var target = document.getElementById("allPages");
+		log(`target.length: ${target.length}`);
+		log(`printDocument.PickTickets.length: ${printDocument.PickTickets.length}`);
+
 
 		// render each document in the list
 		for (var i = 0; i < printDocument.PickTickets.length; i++) {
