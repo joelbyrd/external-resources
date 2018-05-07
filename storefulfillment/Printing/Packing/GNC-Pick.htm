@@ -27,7 +27,7 @@
 		}
 
 		function log(str) {
-			document.getElementById('log').innterHTML += `<p>${str}</p>`;
+			document.getElementById('log').innerHTML += `    | ${str}`;
 		}
 	</script>
 
@@ -1495,8 +1495,7 @@ var Item = (function() {
 	</script>
 </head>
 <body>
-	<p>yo, test paragraph here. TEST 1.</p>
-	<div id="log"></div>
+	<pre id="log"></pre>
 <!-- templates are hidden but still here for us to pull the source code from -->
 <div id="templates" style="display: none;" data-html-templates>
 	<div id="newPage" class="wrapper" data-page-wrapper>
@@ -2060,7 +2059,7 @@ switch(testCase) {
 
 	(function() {
 		var target = document.getElementById("allPages");
-		log(`target.length: ${target.length}`);
+		log(`target !== null: ${target !== null}`);
 		log(`printDocument.PickTickets.length: ${printDocument.PickTickets.length}`);
 
 
