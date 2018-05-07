@@ -27,7 +27,7 @@
 		}
 
 		function log(str) {
-			document.getElementById('log').innerHTML += `<p>${str}</p>`;
+			document.getElementById('log').innerHTML += `<p>${str} (${(new Date()).getTime()})</p>`;
 		}
 	</script>
 
@@ -2059,11 +2059,12 @@ switch(testCase) {
 
 	(function() {
 		var target = document.getElementById("allPages");
-		log(`target !== null: ${target !== null}`);
-		log(`printDocument.PickTickets.length: ${printDocument.PickTickets.length}`);
-
+		//log(`target !== null: ${target !== null}`);
+		//log(`printDocument.PickTickets.length: ${printDocument.PickTickets.length}`);
+		log('test');
 
 		// render each document in the list
+		/*
 		for (var i = 0; i < printDocument.PickTickets.length; i++) {
 			if (printDocument.PickTickets[i].UniqueId != "__") {
 
@@ -2072,6 +2073,7 @@ switch(testCase) {
 				printDocument.PickTickets[i].RenderToDocument(target);
 			}
 		}
+		*/
 	})();
 </script>
 
