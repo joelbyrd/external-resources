@@ -1472,33 +1472,12 @@ var Item = (function() {
 
 })();
 	</script>
-	<script>
-		// these apply to every page
-		var title				=	"Pick Ticket";
-		var itemsPerPage		=	7;
-		var itemsPerLastPage	=	4;
-		// headerPages and itemHeaderPages:
-		//		"firstOnly": first page only; "every": every page; "everyWithItems": only on pages that also write items
-		var headerPages			=	"every";
-		var itemHeaderPages		=	"everyWithItems";
-
-		var siteURL = "https://ProductionAccount.gsipartners.com";
-
-		//if a test site: word test or dev in the url, or there is a port in the URL
-		if (location.port || location.hostname.toUpperCase().indexOf("TEST") > -1 || location.hostname.toUpperCase().indexOf("DEV") > -1 ||
-			location.hostname == "127.0.0.1" || location.hostname == "localhost") {
-			//load from the individual test sites
-			siteURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
-		}
-
-		siteURL += "/";
-	</script>
 </head>
 <body>
 	<div id="log"></div>
 
 <script>
-	log('test 3');
+	log('test 4');
 </script>
 
 </body>
