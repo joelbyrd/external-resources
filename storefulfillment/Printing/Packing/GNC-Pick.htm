@@ -2,25 +2,30 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>Test</title>
 
 	<script>
 		myNum = window.myNum || 0;
-
 		myNum++;
+		
 		function log(str) {
 			document.getElementById('log').innerHTML += `<p>${str} (${window.myNum} - ${(new Date()).getTime()})</p>`;
 		}
+		
+		function afterLoad() {
+			myNum++;
+		}
 	</script>
 </head>
-<body>
+<body onload="afterLoad();">
 
 	<div id="log"></div>
 
 	<script>
-		log('test 9');
+		log('test 10');
 	</script>
 
 </body>
