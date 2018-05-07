@@ -8,11 +8,11 @@
 	<title>Test</title>
 
 	<script>
-		myNum = myNum || 1;
+		myNum = window.myNum || 0;
 
 		myNum++;
 		function log(str) {
-			document.getElementById('log').innerHTML += `<p>${str} (${myNum - (new Date()).getTime()})</p>`;
+			document.getElementById('log').innerHTML += `<p>${str} (${window.myNum} - ${(new Date()).getTime()})</p>`;
 		}
 	</script>
 </head>
@@ -21,7 +21,7 @@
 	<div id="log"></div>
 
 	<script>
-		log('test 8');
+		log('test 7');
 	</script>
 
 </body>
