@@ -27,7 +27,7 @@
 		}
 
 		function log(str) {
-			document.getElementById('log').innerHTML += `    | ${str}`;
+			document.getElementById('log').innerHTML += `<p>${str}</p>`;
 		}
 	</script>
 
@@ -1495,7 +1495,7 @@ var Item = (function() {
 	</script>
 </head>
 <body>
-	<pre id="log"></pre>
+	<div id="log"></div>
 <!-- templates are hidden but still here for us to pull the source code from -->
 <div id="templates" style="display: none;" data-html-templates>
 	<div id="newPage" class="wrapper" data-page-wrapper>
