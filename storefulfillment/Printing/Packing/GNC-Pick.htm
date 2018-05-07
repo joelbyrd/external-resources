@@ -1282,7 +1282,7 @@ var Header = (function() {
 		// trying to load an image in the template like other values throws an error in the template itself: src={Image}
 		// and replacing the whole thing including the src (ex. {imgSrc} as "src=...") resulted in no image loading
 		var newImg = document.createElement("img");
-		newImg.src = "/images/Barcode.ashx?Code=" + this.PrintBatch + "&Type=128A&X=2.5&Y=0.4&round=1";	// printDocument.SiteURL
+		newImg.src = `https://barcode.tec-it.com/barcode.ashx?data=${this.PrintBatch}&code=Code128&dpi=96&dataseparator=`;
 		newImg.style.width = "2.5in";
 		newImg.style.height = "0.4in";
 		newImg.style.border = "none";
