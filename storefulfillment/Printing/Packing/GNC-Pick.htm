@@ -4,31 +4,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<title>Test</title>
-
-	<script>
-		myNum = window.myNum || 0;
-		myNum++;
-		
-		function log(str) {
-			document.getElementById('log').innerHTML += `<p>${str} (${window.myNum} - ${(new Date()).getTime()})</p>`;
-		}
-		
-		function afterLoad() {
-			myNum++;
-			log('afterLoad test');
-		}
-	</script>
 </head>
-<body onload="afterLoad();">
-
+<body>
 	<div id="log"></div>
 	<p>some text</p>
 
 	<script>
-		log('test 12');
+		document.getElementById('log').innerHTML += `<p>Testing</p>`;
 	</script>
-
 </body>
 </html>
