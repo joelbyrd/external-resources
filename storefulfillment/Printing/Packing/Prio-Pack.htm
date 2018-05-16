@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="x-ua-compatible" content="IE=Edge" />
+    <!-- DEVELOPER NOTE: Do not change anything above this line. These lines, -as they are- force the
+    IE10 mode that is needed to render this document properly. Works the same for DXL, Gamestop, etc
+    It forces the pages into  Standards Mode instead of quirks but still enforces IE10 compatibility as needed. The above line
+    MUST come before any other item within the head; Furthermore the Doctype and html tags
+    need to be left unchanged. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no" />
+    <script>
+        var baseUrl = "[PRINT_DOC_BASE_URL]";
+        if (baseUrl.charAt(0) == '[') {
+            baseUrl = location.protocol + '//' + location.hostname;
+        }
+        if (baseUrl) {
+            baseUrl = baseUrl.replace(/[\/]+$/, ""); // trim slash we'll add it on next line, need no slash later
+            document.write("<base href='" + baseUrl + "/' />"); // base tag must end in slash; everything after last slash is ignored
+        }
+    </script>
+    <title>Packing Slip</title>
+    <!-- reset.css should come before everything, reset..resets all HTML elements to a common setting. Different browsers
+    have different default user-agent styles for each element of a page; this standardizes everything up front
+        do not use both std.css and reset.css -- They are about the same, though experience tells me reset.css is better -->
+    <link rel="stylesheet" type="text/css" href="/Printing/Packing/Shared/css/Standard-Reset_v1.0.0.css" charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/Printing/Packing/Shared/css/Standard-Style_v1.0.1.css" charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/Printing/Packing/Shared/css/carrier/carrierLabelsv1.5.0.css" charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/Printing/Packing/css/Prio-Pack.css" charset="utf-8" />
+</head>
+<body>
+
+    <div id="allPages"><div class="wrapper chromefix pagebreakbefore">
+            <!-- the rows of a grid need to be contained with a div marked with the 'grid' class; I set the height of this div just to simulate space-->
+            <div class="row">
+                <!-- row of th grid-->
+                <div class="col p-25 al">
+                    <div style="width:160px; height:50px"><img src="/printing/packing/Prio-logo.png" style="height:.5in;"></div>
+                </div>
+                <div class="col p-35 al">
+                    Oldham Broadway Business Park<br>Unit 26, Broadgate<br>Chadderton, OL9 9XA
+                </div>
+                <div class="col p-30 al">
+                    Shipping Order ID: 10TESTSFS011<br>
+                    <b style="font-weight: bold" ;="">For Customer Service:</b><br>
+                    prio.com<br>
+                    1-800-SHOPPRIO
+                </div>
+                <div class="col p-10 al">
+                    Pg. 1 of 1
+                </div>
+            </div>
+            <div class="shiv"></div>
+            <div class="shiv"></div>
+            <div class="row">
+                <!-- row of th grid-->
+                <div class="col p-20 al">
+                    <div>Customer Name:</div>
+                    <div>
+                        Company Name:  <br>
+                    </div>
+                    <div>
+                        Ship To Address:<br><br><br>
+                    </div>
+                    <div>
+                        Customer Phone:
+                    </div>
+                </div>
+                <div class="col p-30 al">
+                    <div style="height: 50px;">
+                        Jane Customer<br> <br>123 Main St<br>Orlando, FL 32819
+                    </div>
+                    <div style="height: 50px;">
+                         <br>
+                    </div>
+                </div>
+                <div class="col p-20 al">
+                    Order No:<br>
+                    Ship Method:<br>
+                    Order Date:<br>
+                </div>
+                <div class="col p-30 al">
+                    10TESTSFS011<br>
+                    UPS NEXT DAY SAVER<br>
+                    11/21/2017<br>
+                </div>
+            </div>
+            <!-- use this to add some space -->
+            <div class="shiv"></div>
+            <div class="shiv"></div>
+        
+            <div class="row">
+                <div class="col itemHeading p-15">
+                    Order Line #
+                </div>
+                <div class="col itemHeading p-20">
+                    Item #
+                </div>
+                <div class="col itemHeading p-50">
+                    Description
+                </div>
+                <div class="col itemHeading p-15">
+                    Shipped Qty
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col item p-15 ac">
+                    1
+                </div>
+                <div class="col item p-20 ac">
+                    TESTSKU01
+                </div>
+                <div class="col item p-50 ac">
+                    BALL
+                </div>
+                <div class="col item p-15 ac">
+                    1
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col item p-15 ac">&nbsp;</div>
+                <div class="col item p-20 ac">&nbsp;</div>
+                <div class="col item p-50 ac">&nbsp;</div>
+                <div class="col item p-15 ac">&nbsp;</div>
+            </div>
+        
+            <div class="row">
+                <div class="col item p-15 ac">&nbsp;</div>
+                <div class="col item p-20 ac">&nbsp;</div>
+                <div class="col item p-50 ac">&nbsp;</div>
+                <div class="col item p-15 ac">&nbsp;</div>
+            </div>
+        
+            <div class="row">
+                <div class="col item p-15 ac">&nbsp;</div>
+                <div class="col item p-20 ac">&nbsp;</div>
+                <div class="col item p-50 ac">&nbsp;</div>
+                <div class="col item p-15 ac">&nbsp;</div>
+            </div>
+        
+            <div class="row">
+                <div class="col item p-15 ac">&nbsp;</div>
+                <div class="col item p-20 ac">&nbsp;</div>
+                <div class="col item p-50 ac">&nbsp;</div>
+                <div class="col item p-15 ac">&nbsp;</div>
+            </div>
+        
+            <div class="row">
+                <div class="shiv"></div>
+                <div class="col p-100 al">
+                    Thank you for your order. If you are not satisfied, please contact us at ...
+                </div>
+            </div>
+        
+            <!-- old carrier library render location -->
+            <div class="carrierShiv"></div>
+            <div class="carrierWrapper"><div class="landscapeRight"><div class="inner ups"> 	<div class="row1">		<div class="left"><b>PRIO.COM</b><br>935 1ST AVE<br>PILLAR 216<br>KING OF PRUSSIA, PA 19406<br>		</div>		<div class="right"><span class="weight">2 LBS </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="o1">1 OF 1</span> 		</div>	</div>	<div class="row2">		<div class="label">			<b>SHIP TO:</b><br>		</div>		<div class="address">JANE CUSTOMER<br>123 MAIN ST<br><span class="lastbold">ORLANDO FL 32819</span><br>		</div>	</div>	<div class="row3">		<div class="bullseye">				<img src="https://prious-sndemo-internal.gsipartners.com/images/bullseye.ashx?PostalCode=32819&amp;TrackingNo=1Z1234561300000037&amp;Pickup=2018-05-15&amp;Weight=2&amp;City=Orlando&amp;State=FL&amp;Country=840" alt="Bullseye">		</div>		<div class="urc-wrapper">			<div class="urc"> FL 328 9-06</div>			<div class="barcode">				<img src="https://prious-sndemo-internal.gsipartners.com/images/barcode.ashx?Code=42032819&amp;Type=128Auto&amp;ml=19" class="" alt="URC">			</div>		</div>	</div>	<div class="row4">		<div class="tracking-wrapper">			<span>UPS NEXT DAY AIR SAVER</span><br>			TRACKING#: 1Z 123 456 13 0000 0037		</div>		<div class="icon">1P		</div>	</div>	<div class="row5">       <div class="track">		    <img src="https://prious-sndemo-internal.gsipartners.com/images/barcode.ashx?Code=1Z1234561300000037&amp;Type=1Z&amp;ml=19" alt="Tracking Barcode">	    </div>   </div>	<div class="row6">		<div class="billing">BILLING: 3RD PARTY</div>		<div class="urc-date">99.5A 04/2018</div>     <div class="ref"> REF: # 10TESTSFS011 Ship Date: 05/15/2018</div>	</div>	 </div></div></div>
+        </div><div class="wrapper">
+            <div class="rotate90">
+                <div class="newgisticswrapper">
+                    <div style="float:right;height:6.5in;width:0.75in;margin:0;padding:0;">
+                        <!-- top row wrapper -->
+                        <div style="width:0.75in;height:5.4in;float:right;" class="ierot">
+                            <!-- top row, left side -->
+                            <div style="height:1.25in;width:0.55in;overflow:hidden;font-size:6pt;float:left;white-space:nowrap;">
+                                Jane Customer<br> <br>123 Main St<br>Orlando, FL 32819
+                            </div>
+                            <img src="/images/barcode.ashx?Code=725009457751515101000Y108093434V&amp;Type=128Auto&amp;X=3&amp;Y=0.5&amp;rotate=true&amp;round=1" style="width:0.5in;height:3in;float:left;margin:0;margin-top:0.05in;" alt="Invalid: missing SL barcode - 725009457751515101000Y108093434V">
+                            <div style="float:left;margin-top:0.5in;font-size:8pt;">
+                                725009457751515101000Y108093434V
+                            </div>
+                        </div>
+                        <div style="width:0.8in;height:1in;float:right;text-align:center;margin:0px;overflow:hidden;" class="ierot">
+                            <!-- top row, right side -->
+                            <div style="height:1in;border:solid black 3px;padding:.02in;line-height:1;font-size:6pt;margin-left: 4%;">
+                                NO POSTAGE<br>
+                                NECESSARY IF <br>
+                                MAILED IN THE <br>
+                                UNITED STATES
+                            </div>
+                            <div style="height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;margin-left: 4%;">&nbsp;</div>
+                            <div style="height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;margin-left: 4%;">&nbsp;</div>
+                            <div style="height:1in;width:.04in;border-left:solid black 5px;overflow:hidden;margin-left: 4%;">&nbsp;</div>
+                        </div>
+                    </div><!-- end top row -->
+                    <div style="float:right;height:6.5in;width:1.35in;margin-right:0.0in;">
+                        <!-- bottom row wrapper -->
+                        <div style="width:1.4in;height:4.5in;float:right;border-left:6px solid black;border-right:6px solid black;margin-right:-0.1in;" class="ierot">
+                            <!-- bottom row, left side -->
+                            <div style="float:left;margin-top:0.1in;font-size:12pt;height:4.26in;text-align:center;padding-right: 2px;">USPS PARCEL RTN SVC</div>
+                            <img src="/images/barcode.ashx?Code=420569019202390101923408060805&amp;Type=128C&amp;X=4.25&amp;Y=0.8&amp;rotate=true&amp;rounding=2" style="width:0.75in;height:4.25in;float:left;margin:0.1in;margin-top:0.05in;" alt="Invalid: missing RET barcode - 420569019202390101923408060805">
+                            <div style="float:left;margin-top:0.1in;font-size:10pt;height:4.25in;text-align:center;">
+                                420569019202390101923408060805
+                            </div>
+                        </div>
+                        <div style="width:1.35in;height:1.75in;float:right;text-align:center;margin:0px;overflow:hidden;margin-top:0.05in;" class="ierot">
+                            <!-- bottom row, right side -->
+                            <div style="height:1.75in;border:solid black 3px;padding:.02in;line-height:1;font-size:9pt;font-weight:bold;">
+                                PARCEL SELECT RTN SVC<br><!-- too close and font size too small -->
+                                <span style="font-weight:normal;font-size:6pt;white-space:nowrap;font-family:Arial,sans-serif;">NEWGISTICS, INC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERMIT NO. 77000</span>
+                            </div>
+                            <div style="height:1.45in;padding:.02in;line-height:1;font-size:9pt;font-weight:bold;text-align:left;margin-top:0.1in;margin-right:0.05in;">
+                                SMARTLABEL RTN<br>
+                                PARCEL RTN SVC<br><!-- too small -->
+                            </div>
+                            <div style="height:1.45in;padding:.02in;line-height:.2;font-size:0.16in;font-weight:bold;text-align:left;margin-top:0.1in;margin-right:0.05in;">
+                                56901
+                            </div>
+                            <div style="font-size:17pt;border:solid black 4pt;height:0.6in;margin-top:0.5in;margin-right:0.05in;text-align:center;padding:.02in;;">
+                                <div>
+                                    V51
+                                </div><!-- too small 2/16in -->
+                            </div>
+                        </div>
+                    </div><!-- end bottom row -->
+                </div>
+            </div><!-- end smart label -->
+        </div></div>
+
+</body>
+</html>
