@@ -1,0 +1,121 @@
+/* some extra stuff for _this_ demo */
+/* chrome fix to properly load the hardcoded label after the dynamic shipping label */
+@media print and (-webkit-min-device-pixel-ratio:0) {
+    .rotate90 {
+        position: fixed !important;
+    }
+}
+
+/*media print to bypass the issue with blank pages in loading up at first page as we are forced to use page break before due to IOS bug*/
+@media print {
+
+    .pagebreakbefore:first-child {
+        display: inline !important;
+        page-break-before: avoid !important;
+    }
+
+    .pagebreakbefore {
+        page-break-before: always !important;
+    }
+}
+
+@media only print and (min-device-width : 768px) and (max-device-width : 1024px) {
+    div.carriershiv {
+        height: 1in !important;
+    }
+
+    div.wrapper.chromefix {
+        height: 10in !important;
+        page-break-inside: avoid;
+        overflow: hidden !important;
+        width: 7.35in !important;
+    }
+
+    div.wrapper:not(.chromefix) {
+        width: 8in !important;
+        height: 4in !important;
+        padding-bottom: 0;
+        margin: 0 auto !important;
+        overflow: hidden !important;
+        page-break-inside: avoid;
+    }
+}
+
+.heading {
+    background-color: #BBBBBB;
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 1pt;
+    padding-bottom: 1pt;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+/* "shivs" let us insert spacing when needed*/
+div.carrierShiv {
+    clear: both;
+    width: 100%;
+    height: 2in;
+}
+
+.itemHeading {
+    color: black;
+    text-align: center;
+    padding-top: 1pt;
+    padding-bottom: 1pt;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 8pt;
+    font-weight: bold;
+    border-top: solid black 1pt;
+    border-left: solid black 1pt;
+    border-bottom: solid black 1pt;
+}
+
+    .itemHeading:last-of-type {
+        border-right: solid black 1pt;
+    }
+
+.item {
+    border-left: solid black 1pt;
+    border-bottom: solid black 1pt;
+}
+
+    .item:last-of-type {
+        border-right: solid black 1pt;
+    }
+
+.newgisticswrapper {
+    clear: both;
+    width: 2.18in;
+    height: 6.5in;
+    margin-top: 0.1in;
+    float: left;
+    overflow: hidden;
+    font-family: Arial,sans-serif;
+    font-size: 7pt;
+    white-space: nowrap; /*border:1px solid red;*/
+}
+
+.ierot {
+    writing-mode: tb-rl;
+}
+
+.rotate90 {
+    -ms-transform: rotate(-90deg);
+    -ms-transform-origin: 0% 0%;
+    -webkit-transform: rotate(-90deg);
+    -webkit-transform-origin: 0% 0%;
+    transform: rotate(-90deg);
+    transform-origin: 0% 0%;
+    width: 2.5in;
+    height: 8in;
+    margin-top: 2.5in;
+}
