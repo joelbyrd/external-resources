@@ -1,0 +1,5 @@
+.datatable-scrollable .slds-scrollable_y {
+    max-height: 200px;
+    height: auto !important;
+    overflow-y: scroll !important;
+}
