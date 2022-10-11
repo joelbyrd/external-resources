@@ -1,0 +1,188 @@
+[
+  {
+    "accessType": "",
+    "apiProducts": [],
+    "appFamily": "default",
+    "appId": "d8547648-858d-4a59-a3c0-0b700056f93a",
+    "attributes": [
+      {
+        "name": "AllowedServices",
+        "value": "~ALL~"
+      },
+      {
+        "name": "AllowedStores",
+        "value": "~MV0000002151~"
+      },
+      {
+        "name": "Version",
+        "value": "v1.0"
+      },
+      {
+        "name": "DisplayName",
+        "value": "MV0000002151 Schema Validation"
+      },
+      {
+        "name": "Notes",
+        "value": "MV0000002151 This is a mapping for the Provisioning Integration Center"
+      }
+    ],
+    "callbackUrl": "",
+    "createdAt": 1522164223521,
+    "createdBy": "opdk@radial.com",
+    "credentials": [
+      {
+        "apiProducts": [
+          {
+            "apiproduct": "Tax-Core",
+            "status": "approved"
+          },
+          {
+            "apiproduct": "Payments-Core",
+            "status": "approved"
+          },
+          {
+            "apiproduct": "Risk-Core",
+            "status": "approved"
+          }
+        ],
+        "attributes": [],
+        "consumerKey": "P0Z3Q0nn4LXAkCV4j2tFq4R6BBX9G2V8",
+        "consumerSecret": "rKXO3Ew672VcgiEj",
+        "expiresAt": -1,
+        "issuedAt": 1522164223759,
+        "scopes": [],
+        "status": "approved"
+      }
+    ],
+    "developerId": "6RlGPxGERpNAqV85",
+    "lastModifiedAt": 1522164223521,
+    "lastModifiedBy": "opdk@radial.com",
+    "name": "MV0000002151",
+    "scopes": [],
+    "status": "approved"
+  },
+  {
+    "accessType": "",
+    "apiProducts": [],
+    "appFamily": "default",
+    "appId": "f1eb2b1d-0324-4293-9d61-b0fa8f533b3b",
+    "attributes": [
+      {
+        "name": "AllowedServices",
+        "value": "~ALL~"
+      },
+      {
+        "name": "AllowedStores",
+        "value": "~PM0000002002~"
+      },
+      {
+        "name": "Version",
+        "value": "v1.0"
+      },
+      {
+        "name": "DisplayName",
+        "value": "PM0000002002 Schema Validation"
+      },
+      {
+        "name": "Notes",
+        "value": "PM0000002002 This is a mapping for the Provisioning Integration Center"
+      }
+    ],
+    "callbackUrl": "",
+    "createdAt": 1522164293475,
+    "createdBy": "opdk@radial.com",
+    "credentials": [
+      {
+        "apiProducts": [
+          {
+            "apiproduct": "Tax-Core",
+            "status": "approved"
+          },
+          {
+            "apiproduct": "Payments-Core",
+            "status": "approved"
+          },
+          {
+            "apiproduct": "Risk-Core",
+            "status": "approved"
+          }
+        ],
+        "attributes": [],
+        "consumerKey": "c0yukr0DAGUqwlcesRW7UzPCKFkd1cbG",
+        "consumerSecret": "V91q1IKs4nLjhuY3",
+        "expiresAt": -1,
+        "issuedAt": 1522164293740,
+        "scopes": [],
+        "status": "approved"
+      }
+    ],
+    "developerId": "6RlGPxGERpNAqV85",
+    "lastModifiedAt": 1522164293475,
+    "lastModifiedBy": "opdk@radial.com",
+    "name": "PM0000002002",
+    "scopes": [],
+    "status": "approved"
+  },
+  {
+    "accessType": "",
+    "apiProducts": [],
+    "appFamily": "default",
+    "appId": "92b00349-2e77-4b0a-808b-f245bce06d33",
+    "attributes": [
+      {
+        "name": "AllowedServices",
+        "value": "~ALL~"
+      },
+      {
+        "name": "AllowedStores",
+        "value": "~AB0000151061~"
+      },
+      {
+        "name": "Version",
+        "value": "v1.0"
+      },
+      {
+        "name": "DisplayName",
+        "value": "AB0000151061 Schema Validation"
+      },
+      {
+        "name": "Notes",
+        "value": "AB0000151061 This is a mapping for the Provisioning Integration Center"
+      }
+    ],
+    "callbackUrl": "",
+    "createdAt": 1522162583618,
+    "createdBy": "opdk@radial.com",
+    "credentials": [
+      {
+        "apiProducts": [
+          {
+            "apiproduct": "Tax-Core",
+            "status": "approved"
+          },
+          {
+            "apiproduct": "Payments-Core",
+            "status": "approved"
+          },
+          {
+            "apiproduct": "Risk-Core",
+            "status": "approved"
+          }
+        ],
+        "attributes": [],
+        "consumerKey": "JzLtVMXwS69tRyPWz0PuscdRoTfqTwfk",
+        "consumerSecret": "nDh3HqQ0Ol4HzzvB",
+        "expiresAt": -1,
+        "issuedAt": 1522162583810,
+        "scopes": [],
+        "status": "approved"
+      }
+    ],
+    "developerId": "6RlGPxGERpNAqV85",
+    "lastModifiedAt": 1522162583618,
+    "lastModifiedBy": "opdk@radial.com",
+    "name": "AB0000151061",
+    "scopes": [],
+    "status": "approved"
+  },
+]
