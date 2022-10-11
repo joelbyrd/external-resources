@@ -1,4 +1,6 @@
-export const JSON_OLD = [
+window.jsonObjects = {};
+
+window.jsonObjects.JSON_OLD = [
 	{
 		accessType: "",
 		apiProducts: [],
@@ -190,7 +192,7 @@ export const JSON_OLD = [
 	}
 ];
 
-export const JSON_NEW = [
+window.jsonObjects.JSON_NEW = [
 	{
 		appId: "3256c465-d5cc-4ad3-a2df-bad1f1f0a682",
 		attributes: [
